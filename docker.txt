@@ -1,0 +1,353 @@
+18th June Session 49
+
+Linux admin -- intermediate level
+Project -- Manual installation
+Shell Scripting
+Ansible
+Terraform
+Jenkins Terraform Ansible Shell --- Sonar, Nexus, SAST, DAST, Vulnerability scan --- Dev Secops
+unit testing and functional testing.
+
+Containerisation
+--------------
+Independent Houses Vs Apartment
+
+Independent House
+-----------
+Advantage: Privacy/security,more space
+
+dis advantage
+------
+Expensive, maintenance(electriccity,water,internet,gas), construction time is more(6months to 1year)
+
+
+Flat in Apartment
+----
+Advantage ---less maintenance(power,water), less cost, construction time is less.
+Swimming pool, garden, play area ...
+
+Disadvantage -- less privacy,
+
+
+Nest away PG, A room inside flat will be given for rent.
+------------------------
+PG
+
+Advantage::: no maintenance(power,water..) fastest way to occupy/vacate, no agreements, cost is less
+Disadvantage: Very less privacy/security
+
+2Members family -Flat
+8 Mem family -- Independent House
+
+
+Applications: Frontend, Backend and Database.
+
+
+Monolethic Services
+------------------------------------------------
+Enterprise applications
+-------------
+Frotend and Backend are together. --- Jboss, Weblogic, Websphere
+
+A Small change in any component should go for full release cycle.
+.ear---- Enterprise archive files(small change but more efforts)
+
+Angular JS, React JS(Frontend technologies) - Nginx install
+
+Java, .NET, Python(Backend technologies) - Tomcat
+.war --- Web archive files
+
+API Calls --- GET, POST, PUT, DELETE
+
+
+Microservices
+--------------------------
+User, cart, catalogue, Shipping, Payment etc..,
+
+
+Independent House --- Physical server(one OS) == Enterprise applications
+1 physical server host only one application.
+
+Virtualisation === Monolithic applications
+--------------
+A big Server can be logically divided into multiple server.
+Hypervisor -- It can host multiple guest servers.
+
+Booting time -- less time
+Cost - less
+15 servers -- 1RHEl, 1Windows, 1Ubuntu....
+
+RAM, HD allocate to VMs
+2GB RAM, 100GB HD --- 0.5GB RAM, 1GB HD
+
+Security -- VMs are isolated from one to another.
+A Clear isolation is there between servers, but it should be configured properly.
+
+
+Microservices == Containersation
+-----------------------
+You install containersation in VM, Container dont block the resources..
+
+Containers can get the resources dynamically. They dont block resources.
+
+Resource utilisation is very high
+Booting time is very less -- May be in secs
+
+Portability..
+AMI--- take OS, Create VM, install application runtime(Java, NodeJs, python, .Net)
+configuration(creation of users, folders, permissions etc.,) download code, run the service
+
+take AMI out of this
+
+Docker Image == Bare minimum OS + App run time + system packages and dependencies + App code = Image
+
+Bare minimum OS == no unnecessary packages -- no cat command also.
+
+Container..
+
+AMI -- Static files
+EC2 instance -- if you run AMI, it can create instance -- Running version of AMI is called instance.
+
+
+Docker Image -- Static file
+Docker Container -- running instance of image is called container.
+
+Install Docker -- It will create a group called Docker.
+
+Users who are in docker group or root user can only run docker commands.
+
+usermod -aG docker <user-name>  ==== To add for secondary group
+
+docker images -- list down the images
+docker pull nginx
+group id, artifacr id and version
+
+Docker -- username, image name and version
+
+joindevops/catalogue:1.0.0
+
+rameshdevops/catalogue:1.0.0
+
+nginx:latest
+nginx:1.13
+nginx:alpine
+
+
+nginx -- Bare minimum OS (Ubuntu/Centos/debian/rhel)+nginx
+
+nginx:perl
+
+nginx:alpine -- Alpine is OS which is max 10MB
+docker create <image>:tag -- this will create container
+
+docker ps - it will show running contents
+docker ps -a = all containers with any status.
+docker start <CID>== container will start running
+
+docker run == docker pull + docker create + docker Run
+
+docker rmi `docker images -a -q`
+docker rm `docker ps -a -q`
+
+How can you access docker container from internet?
+Answer:::: By enabling the port we need to open host port that can redirect traffic to container.
+
+Docker run -d -p <host-port>:<container-port> nginx
+
+--------------------------------------------
+19th June Session 50
+
+How will you get the access of the running container?
+Ans: docker exec -it <container ID> bash
+
+it::interactive terminal
+
+docker exec -it 447f63303109 bash
+------------
+docker inspect container-id/image-id
+docker logs (docker logs -f imageID/containerID)
+
+Docker file === It is the declarative way of creating custom images.
+
+Shell == Keep all the commands in a file and run it..
+
+Dockerfile == Keep all the instructions in a file i.e., Docker file and build the image.
+
+Docker Image = Base OS + App run time + System packages and application dependencies and application code.
+
+docker build -t url/username/image-name:tag .----- will check for dockerfile.
+
+How do you build docker image?
+Ans: We will build docker build -t from:1.0 .
+
+FROM
+-------
+From should be the first instruction to represent base OS
+From image-name:tag
+
+docker build -t from:1.0 .
+
+RUN
+---------
+We will use RUN instruction to install packages and configure them.
+RUN instruction will execute at the time of image creation.
+
+docker build -t run:1.0 .
+
+CMD
+----------------
+This instruction will run at the time of container creation.
+
+systmectl start backend --> then only you can access backend application.
+
+Whatever the instruction you give in image to run as container, should run for infinite time.
+CMD ["executable","param1","param2"]
+
+systemctl will not work in containers and images.
+
+docker run -it ---> create container and login inside...
+(To goto running container)docker exec -it
+
+docker build -t cmd:1.0 .
+
+CMD 
+
+RUN vs CMD
+-------------------
+RUN --> Executes at build time means image creation time i.e., docker build
+CMD --> Only executes at time of container creation i.e., docker run
+
+
+LABEL
+------------
+1000 white covers, label the covers
+
+EXPOSE
+---------
+Expose instruction will let the users know what are the ports used by image or container.
+
+No functionality its just for information purpose.
+
+How can you push the image to docker-hub
+-------------------
+url/username/image-name:tag
+
+you can push images to docker hub, nexus, ECR, jfrog, etc..,
+
+url=docker.io
+
+sudheer459/expose:1.0  for docker hub
+
+docker push sudheer459/expose:1.0
+docker login
+
+sudheer/label:1.2
+
+docker tag sudheer/label:1.2 label.nexus.sudheer459.com/sudheer/label:1.2
+
+
+ENV
+------
+FROM
+ENV trainer="sudheer" \
+	course="DevOps" \
+	duration="100hr"
+
+COPY vs ADD
+------------
+COPY and ADD both are to copy the files from workspace to docker image, but ADD have 2 extra advantages.
+
+1. It can directly download the content from internet into the image. 
+2. It can directly untart the files into the image.
+
+--------------------------
+20th June Session 51
+
+ENTRYPOINT
+
+CMD instruction can be overriden
+
+same instruction trying to override with entrypoint is not working
+
+ping -c5 google.com ping -c5 yahoo.com
+
+you cant override ENRTYPOINT, if you try to do it will go append
+
+CMD vs ENTRYPOINT
+-----------------------
+You can mix CMD and entrypoint for better results.
+
+pin -c5
+
+CMD is used to supply default arguments to ENTRYPOINT, we can always override default args from runtime.
+
+USER
+---------
+What are the best practices of docker?
+Ans: You should not let docker/container to run with root access
+------
+
+WORKDIR --- iF you want to goto one directory and do operations then we use WORKDIR
+
+ARG
+------
+1.ARG can be first instruction only one case.It can be used to supply the version for FROM instruction.
+2. You can have args in Dockerfile, you can supply the values through command line --build-args
+3. You can always have defaultvalues to arg and override if required
+
+ARG can be used in execptional case you can keep it before from instruction to supply the arg to the instruction.
+
+How do you know the OS of the system?
+Ans: cat etc/*release
+
+ENV vs ARG
+----------------------
+1. ENV variables cab be accessed both at the time build or image and containers.
+2. ARG instruction can only be accessed at the time of build or image
+
+How can i access arg inside container?
+Ans is No
+
+http://sudheer459.online default port no 80
+default file in index.html ---> nginx welcome page
+ 
+ONBUILD
+---------------------
+THis is useful as a trigger, if someone is trying to use your image. You can force them to keep 
+somefiles in their workspace or some configuration.
+
+
+MYSQL:8
+--------
+MySQL developers would have choosen some OS, ubuntu , debian, centos, rhel,etc..,
+
+When any project is creating...Database is created first. We should load default data.
+
+--------------------
+21st June Session 52
+
+Docker home
+/var/lib/docker
+
+CIS hardening the server..... Center for internet security
+
+
+Docker0: Docker default network(Docker0 is not userful to create n/w between the computers)
+
+Using Default docker network, you cannot communicate between containers.
+
+Docker uses bridge network....
+172.18.0.1
+
+
+backend:: IPAddress": "172.18.0.3",
+mysql:: IPAddress": "172.18.0.2",
+
+Hostport 8080
+
+NGINX home directory is cd /etc/nginx/
+
+#COPYFROM nginx
+# RUN rm -rf /usr/share/nginx/html/index.html
+# RUN rm -rf /etc/nginx/nginx.conf
+# RUN rm -rf /etc/nginx/conf.d/default.conf
