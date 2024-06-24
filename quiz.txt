@@ -1,0 +1,312 @@
+wget..command line tool is commonly used for downloading files in linux
+touch..used to create an empty file
+22..port is normally required to be open for secure remote interactive shell access to linux systems
+:q!...when using vi or vim to edit a file, how do u exit without saving
+ssh-keygen...utility is used to create public and private key pairs for SSH authentication
+chmod.. to change permissions of file using lnux 
+head.... Display the first few lines of a file in linux
+ssh... Protocol is commonly used for secure remote access to servers
+systemctl.... used to manage services in linux
+ifconfig.. is used to view network configuration in linux
+rm-r...to remove a directory and its content in linux
+man ...used to display the manual for a specific command in linux
+useradd..to add a new user in Centos
+chown...to chnage the ownership of a file/folder
+cat/etc/*release...how can you find OS distro of a linux server
+/etc/sudoers... file contains the sudo configuration in linux
+------------------
+1.TO reload the configuration of a running service without stopping it, which systemctl command is used?
+systemctlreloadservice_name
+
+2. If u create a hardlink to a file and then delete the original file, what happens to the hard link?
+The hardlink is uneffected
+
+3. which type of link requires additional storage space for its metadata?
+softlinks
+
+4. In DNS what does the term TTL stands for?
+Time to live
+
+5. Which record type in DNS maps a domain name to an IP address?
+A
+
+6. How do u create a symbolic link in linux?
+ln-S
+
+7. What service does AWS Route53 provide?
+DNS
+
+8. How does a reverse proxy server route incoming requests?
+By routing requests to appropriate backend servers.
+
+9.What does the ln command do in linux?
+Create hardlinks between files.
+
+10. what does a CNAME record in DNS stand for?
+Canonical name
+
+11. What does a CNAME record map a domain name to?
+Another Domain
+
+12. What does a CNAME record allow you to do?
+Redirect one domain to another
+
+13. How do you rename a file in linux?
+MV
+
+14. How do u display the disk space usage of a filr or directory in linux?
+DU -H
+
+15. What does the command  df-h do in linux?
+Display disck usage statistics in human readable format
+
+16. How do u view the contents of a file in reverse order in linux?
+tac
+-------------------------
+1. How do u specify a custom SSH key file when connecting to a server?
+ssh-i custom_key
+
+2. Which special variable represents the exit status of the last executed command?
+$? for exit status
+
+3. Special variable	$$ represents?
+PID of the script
+
+4.How can you append the output of a command to an existing file in the shell?
+command>>file
+
+5. Which loop construct is used for iterating over a range of numbers in Bash?
+for loop
+
+6. What is the purpose of the && operator in a shell script command line?
+and condition
+
+7.What is proper variable declaration in shell?
+A=10
+
+8. How do you execute command and take output inside the shell?
+result=$(command)
+
+9. Which redirection represents success output?
+1>>$LOGFILE
+
+10. How do you pass command line arguments to a shell script?
+scrpt-name arg1arg2...argn
+
+11. Does Shell script idempotent in nature?
+No... We need to take manually
+
+12. How do u read input from the user in shell scripting?
+read
+
+13. Which special variable in shell scripting stores the process ID of the las background command?
+$!
+
+14. Which special variable in shell scripting represents the name of the shell or shell script?
+$0
+
+15. Which code represents the red color
+31
+---------------------------
+1. What is idempotency in the context of shell scipting?
+To execute a script multiple times without changing the system state
+
+2. How do you call another sheel script from within a shell script?
+Source
+
+3. What is the purpose of the set command in shell scripting?
+sets scripts parameters and options
+
+4. How to you schedule a task to run periodically using crontab?
+crontab-e
+
+5. what command is used to check disk usage in shell script?
+df
+
+6. How to send an email from a linux server in a shell script?
+mail
+
+7. what does idempotency ensure in shell scripting?
+Consistent system state after script execution
+
+c`8. How do you set a parameter in a shell script?
+export
+
+9. What is the purpose of error handling in shell scripting?
+Handling an unexpected events gracefully
+
+10. How do you pass command line arguments to a shell script?
+scrpt-name arg1arg2.argn
+
+11. which command is used to download web-pages?
+wget
+
+12. Which will list the hidden files along with other folders and files?
+ls -a
+------------------
+1. How does ansible communicate with remote servers?
+SSH
+
+2. What is an Ansible playbook?
+A list of taks to be executed on remote servers
+
+3. What is an ansible role?
+A predefined set of tasks,files,variables etc., reuse
+
+4. what is an ansible inventory file used for?
+Specify hosts and groups
+
+5. How do you include a variable file in an ansible playbook?
+vars_file:my_vars.yml
+
+6. what is the purpose of vault in ansible?
+Encrypt the confidential information.
+
+7. How do you specify a condition for a task in an ansible playbook?
+when:condition
+
+8. How do you use ansible to remove a user from remote hosts?
+user:name:my_user state:absent
+
+9. How do you use ansible to enable a service on remote hosts?
+service:name=my_service enabled_yes
+
+10. What does it mean for an ansible playbook to be idempotent?
+It achieves same desired state whether executed once or multiple times
+
+11. What time if configuration management architecture is often associated with ansible?
+Push-based
+
+12. What is the purpose of the ignore_errors attribute in ansible?
+It ignores errors in task and continues playbook execution.
+
+13. In a linux environment, how do you schedule a task to run regularly at a specific time usinf cron?
+Edit the users crontab file with crontab-e
+-------------------------------------
+
+1. How will you find the total disk space used by a specific user in Linux/unix environment?
+df-h/home/username
+
+2. How can you identify the process that is listening on a specific port in a unix/linux environment?
+netstat-lntplgrepport_number r lsof-l port_number
+
+3. Which language does terraform use for its configuration files?
+HCL
+
+4. What command is used to initialize a terraform working directory?
+terraform init
+
+5. What command is used to create and provision infrastructure according to the terraform configuration?
+terraform apply
+
+6. What is a terraform module and how does it contribute to modularization in terraform?
+A collection of terraform resources grouped together
+
+7. How do you store state in remote with AWS?
+S3 with DynamoDB
+
+8.How can you pass variables to a terraform module?
+Using command-line flags and within the module configuration
+
+9.What is the name of terraform state file?
+terraform.tfstate
+
+10. What is the file extension of terraform configuration files?
+terraform.tf
+
+11. Which feature can hold expressions and functions?
+locals
+
+12. In which directory plugins are downloaded?
+.terraform
+
+13. Which one can query the data from provider?
+data source
+-----------------------------
+1. How can you switch between environments in terraform?
+Using terraform workspace select
+
+2. Which command applies the variables defined in a .tfvars file?
+terraform plan-var-file=variables.tfvars and terraform apply-var-file=variables.tfvars
+
+3. What is the server side error?
+5XX
+
+and client side is 4XX
+
+4. why use separate repositories for different terraform configurations?
+To isolate environments and manage code independently.
+
+5. Which provisioner runs a local script on the machine where terraform in executed?
+local-execute
+
+6. What is the purpose of the remote-exec provisioner in terraform?
+to execute commands on a remote resources
+
+7. Which attribute is mandatory when defining an EC2 instance in terraform?
+AMI
+
+8. What is the default CIDR block for a newly created VPC?
+10.0.0.0/16
+
+9. What is dynamic block?
+A block that should be iterated
+
+10. What is an internet gateway in AWS?
+A resource allow VPC communication with the internet
+
+11. What should a basic VPC module include?
+VPC, subnets, route tables and internet gateway
+
+12. When developers updates it how to get updates?
+terraform init-upgrade
+----------------------------------
+1. What does git rebase do?
+Apply commits on top of another branch
+
+2.What command would you use to undo a specific commit without losing subsequent work?
+Git revert
+
+3. What is the main advantage of feature branching?
+Isolate development of new features
+
+5. What is the purpose of a release branch in Git flow?
+Prepare code for production
+
+6.What is the primary purpose of a code review?
+Ensure code quality
+
+7. What is an artifact in a jenkins pipeline?
+Build output
+
+8. What is the purpose of a jenkins CICD job?
+Automate testing and deployment
+
+9. What is Nexus used for in a CI/CD Pipeline?
+Artifact repository
+
+10. What is the main purpose of a pull request in Git?
+Request code review and merge
+
+11. What is the syntax for writing a jenkins pipeline?
+Groovy
+
+12. How can you configure a job to run at a specific time in jenkins?
+Using cron syntax in "Build triggers"
+
+13. What is the purpose of a SonarQube?
+Define code quality criteria
+
+14. What is the best way to secure jenkins?
+Use Role-based Access Control(RBAC)
+
+15. Which Jenkins directory is essential to back up for configuration and job data?
+/var/lib/jenkins
+
+16.What is a common issue with long-running jenkins jobs?
+Resource exhaustion
+---------------------------------------
+
+
+
+
