@@ -1,0 +1,276 @@
+26th June Session 55
+
+1. Build the image
+2. Run the image
+
+Problems(in docker)
+---------------
+1 pg --- 10 rooms
+
+If power cut, water cut
+
+10PGs -- 1pg water cut
+He will shift persons to other PG temporary..
+
+
+1 Host --- 3 containers if host crash..
+
+
+Scalability
+----------------
+Normal servers with route53
+Traffic increases, multiple servers and keep load balanccers and update R53 as LB URL.
+If container crash, docker is not able to replace automatically. --> not reliable --> self healing
+No proper volume management.
+NO strong network connectivity.
+No auto scaling 
+No secrets and config management
+
+3 Hosts -- 1 pod is  host-1 another pod is in host-2
+
+
+////////////Benefits of using kubernetes and docker///
+Scalability, High avaibility, portability, security, ease of use, reduce costs, improve agility, increase innovation
+------------------------------------
+
+Docker Architecture?
+client = docker command
+
+docker daemon = docker engine.... systemctl start docker..
+
+daemon/server responds to client
+
+docker run nginx --> checks image available in local r not, if not available pull it and keep it in local.
+Run a container and send output to client.
+
+Docker Architecture::How your system is getting request, how is it processing inside and 
+how you r sending request back to the client.
+
+
+Docker Architecture consists of docker client which is docker command line tool and
+docker engine is nothing but docker host and the local registry and central registry.
+Whenever you run a command in docker host it will connect to the daemon, it will check for the image local 
+if it is not available it will pull from the central repository and keep it in local create a container of it and send 
+a response to the client.
+
+Docker = suit = image build + image pull through its hub + running the image as containers.
+Docker is providing run time environmnent to run docker images.
+
+Kubernates is a container orchestrator....
+
+If you want to run 100 pg, we will take help of manager.. he needs some software.. 
+
+
+Amazon master under this we have ec2s(nodes).
+Request come to master.
+Master will decide where to go
+
+Nodes should run containers.
+containers run time environment.
+
+Here VS code will develop docker files and push to github.
+
+kubectl - to connect kubernetes
+
+docker run we have to give inputs --- image, ports, versions, volumes, name, environment variables.
+
+
+
+eksctl --> create and manage EKS cluster
+kubectl --> to manage containers in kubernetes cluster
+
+
+kubectl get nodes --> display nodes in k8 cluster
+
+command eksctl create cluster --config-file=<filename>
+
+K8 resources
+---------
+Namespace --> Isolated project where you can create resources related to your project.
+
+Basic syntax
+
+kind:
+apiVersion:
+metadata:
+
+spec:
+
+
+kubectl apply -f <filename.yaml>
+kubectl delete -f <filename.yaml>
+
+pod is smallest deployable(runnable) unit in kubernetes
+
+
+
+pod(EKS) vs container(Docker)
+------------
+Pod contains multiple containers. Container inside pod share same n/w and storage.
+
+-----------------
+
+27th June Session 56
+
+1.Image Building
+	Develop in VS Code
+	Push to github
+	pull in workstation
+	build images
+	push to docker hub
+	
+2. Login to workstation	
+	Install docker, kubectl and eksctl
+	Either aws configure or attach the role
+	eks.yaml
+	Now create cluster through eksctl command
+	kubectl get nodes
+
+3. Develop K8 YAML files
+	Push to github
+	Pull in workstation
+	Apply using kubectl command
+	
+	
+labels vs annotations
+
+1 cpu = 1000m or 1024m
+
+
+resources:
+	  # soft limits
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m
+	
+If there is a code change, should i go for build r not? 
+Ans: yes build
+
+Code and configuration
+
+What is configuration?
+DB urls, DB usernames, passwords, api endpoint, other system urls.
+
+Keep the key inside code, but value should be out of the code.
+
+If changes, change the value and restart the application.
+
+How can you access pod outside?
+Ans: Services
+
+Pods are ephemeral, IP address is temporary, but you can attach this to the service.
+
+Service: 
+	Acts as here loadbalancer
+	service mesh
+	
+Cluster IP < Node Port < Load Balancer
+
+1.Cluster IP
+2. Node Port
+3. Load Balancer
+
+Labels are acted as selectors
+Internet::: Other than kubernetes cluster everthing is called internet..
+
+Nodeport --->
+Internet--- external
+Intranet --- internal(inside)
+-------------------
+28th June Session 57
+
+Sets
+---------
+1. Replicaset -- Create replicas of pod.
+2. Deployment
+3. Daemonset
+4. Statefulset
+
+
+Pod is a subset of replica.
+
+Pod = replicaset-name-<some-random-string>
+
+Deployment: Removing old code, releasing new version of code, changes the application version.
+
+Stop the server
+remove old code
+Download new code
+Restart the server.
+
+Deployment
+--------------
+Replicaset = deployment-name-<random-string>
+
+pod = RS-<random-string>
+
+
+nginx-68fcf7b7bf-b9qmf
+
+nginx-8494fb8c88-5cbgf 
+
+
+
+Deployment >> Replicaset >> Pod >> containers
+
+
+https://github.com/ahmetb/kubectx
+
+sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
+sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
+
+
+For security reasons we cant claim port no 80 for nginx, we can claim port no 8080
+
+////For best practice if we seperate configuration code from application code we can reduce steps(new builds, new deploys)////
+I dont want to rebuild the image bcz configuration is not part of the code and not best practice also
+
+We can keep nginx configuration in a configmap
+---------------------------
+1st July Session 58
+
+Volumes in Kubernates
+------------------
+1. External HD
+	SSD, Pendrive, etc.,
+	
+2. Google/microsoft drive
+
+EBS/EFS
+-------------
+1. HD should be as near as possible to the computer.
+2. Google drive, can be anywhere in the world. Network is used for file sharing. NFS(network file sharing)
+
+Static and Dynamic provisioning
+
+Static
+------------
+EBS
+
+Mumbai-- Region
+
+North Mumbai --AZ-1a
+South Mumbai --AZ-1b
+
+1. I need to create EBS volume
+2. You need to install drivers. I have to install EBS related drivers in EKS cluster.
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.32"
+3. Your nodes should have access to connect with EBS volumes. Attach EBSCSI policy to the EC2 instance role.
+
+wrappers..
+
+You can represent EBS volume inside kubernetes with a resource called Persistant Volume. This is equivalent to EBS storage.
+
+
+PVC
+----
+Persistant volume claim. Pods should claim i want the volume. Pods can claim through resource called PVC.
+
+1. If you PV is not available
+---------
+check drivers installed r not
+check your EC2 have the role and permissions
+

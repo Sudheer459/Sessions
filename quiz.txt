@@ -307,6 +307,51 @@ Use Role-based Access Control(RBAC)
 Resource exhaustion
 ---------------------------------------
 
+1. Which instruction runs at container creation time?
+CMD
+
+2. Which docker feature allows creating your own custom images?
+Dockerfile
+
+3. What is the key advantage of docker containers over traditional VMs?
+Better resource utilization
+
+4. What can be the instructino before FROM in Dcokerfile?
+ARG
+
+5. Which command lists all running docker containers?
+docker ps
+
+6. How do you remove a stopped container?
+docker rm<containerID>
+
+7. What is the purpose of the ENTRYPOINT instruction on a Dockerfile?
+To define the command that runs as the main process
+
+8. What does --no-cache option do in the docker build command?
+It forces docker to rebuild the image without using cache
+
+9. What happens if you push an image without specifying a tag?
+The image is tagged as latest
+
+10. What is docker compose priparily user for?
+Defining and running multi-container docker applications
+
+11. Which command is used to stop all running contaienrs at once?
+docker stop$(docker ps -q)
+
+12. Which command removes all stopped containers and unused images?
+docker system prune
+
+13. How do you view the logs of a running docker container?
+docker logs<container ID>
+
+14. What is the function of the EXPOSE instruction in a Dockerfile?
+Inform Docker that container listens on the specified network ports.
+-------------------------------------------- 
+
+
+
 
 
 
