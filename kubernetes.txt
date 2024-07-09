@@ -556,4 +556,83 @@ A Pod is over utilized r less utilized how to decide? Based on resource definiti
 
 1. Metric server(kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml)
 2. Resource definition inside Pod.
+3. HPA should be attached to deployment
 
+-------------------------
+9th July Session 62
+
+Taints and tolerations
+Affinity and anti affinity
+Ingress controller
+
+Selectors
+----
+Master -- nodes
+Scheduler --> Decide which node your pod should run
+
+Node selector -- based on node labels you can decide which node your pod should run
+
+1...us-east-1a
+2...us-east-1b
+3...us-east-1c
+
+EBS volume is in 1a AZ. Using node selectors you can execute pod in node-1
+
+taint == paint
+If you apply some paint on 10rs note we cant exchange it. But you can exchange at RBI r banks.
+
+If i paint k8 nodes, scheduler by default will not schedule pods in that node..
+
+kubectl taint nodes node1 key1=value1:NoSchedule
+
+NoSchedule ==  no new pods, existing pods will run
+
+kubectl taint nodes node1 key1=value1:NoExecute
+
+NoExecute == no new pods, existing pods will be evicted
+
+PreferNoSchedule = try not to schedule, but cannot gaurantee.
+
+Expense project have seperate node group with their custom configuration, so expense nodes are tainted by default.
+Only pods related to expense will have tolerations.
+
+Imagepullpolicy
+-------------
+Image is available in docker hub 
+
+nodes will pull the image ---> image is present in the node
+
+You change the image and push to hub..
+
+imagepullpolicy --
+
+ifNotPresent --> means pull the image, if it is laready not pulled inside the node.
+Always ---> Pull it even it is present r not
+
+Affinity
+-----------
+affinity = like
+
+1. Scheduler --- Scheduler schedules the pod
+2. Execution --- Pod should run
+
+PreferredDuringSchedulingIgnoredDuringExecution--- soft
+requiredDuringSchedulingIgnoredDuringExecution--- hard
+
+
+requiredDuringSchedulingIgnoredDuringExecution --> Pod will not run even you set affinity. We need to apply tolerations.
+So in this case until you apply toleration pod will be in pending state.
+
+We have tainted a particular node, how can you run pod in that particular node?
+We need to apply tolerations.
+
+PreferredDuringSchedulingIgnoredDuringExecution --> Scheduler tries the asked node, but it cannot schedule because of tainted node.
+Since it is only preferred it can schedule on to different node.
+
+
+Pod affinity
+-----------------
+1 pod loves another pod
+
+pod-1 is in node-1
+pod-2 tries to be in node-1
