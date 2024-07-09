@@ -272,5 +272,288 @@ Persistant volume claim. Pods should claim i want the volume. Pods can claim thr
 1. If you PV is not available
 ---------
 check drivers installed r not
-check your EC2 have the role and permissions
+check your EC2 have tje role and permissions
+
+If instances are created in 1A, 1B, 1C and Volume is in 1C. in this case we have to use node selectors.
+
+nodeSelector:
+    topology.kubernetes.io/zone: us-east-1c
+	
+and this is called as static provisioning
+
+1. Admins
+2. Users
+
+As a Application devops engineer, i will get access to expense namespace
+
+1. Users send email to storage team for creation of volume. AWS Storage team will create volume and give you ID.
+2. Users send email to K8s admin to create PV for them the ID.
+3. Users can claim using PVC.
+
+Dynamic Provisioning
+-------------
+1. You need to install drivers. I have to install EBS related drivers in EKS cluster.
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.32"
+2. Your nodes should have access to connect with EBS volumes. Attach EBSCSI policy to the EC2 instance role.
+3. Someone on behalf of you should create volume and equivalent PV automatically. THis is called Dynamic provisioning that
+one is storage class
+
+
+So admins create storage class for every project as best practice.
+
+Static---------
+Kid -- Mother -- Fater --- MOney
+Pod -- PVC -- PV --- Storage/Volume
+
+
+Dynamic
+------------
+Kid -- Mother -- E-wallet -- Money
+Pod -- PVVC -- Storage class -- Storage
+
+
+EFS -- 
+--------
+EBS vs EFS
+
+1. EBS is like hard disk, volume and instance should be in same AZ-1a
+2. EFS is through NFS protocol, it can be anywhere
+3. EBS volume is static, it can increase on its own.
+4. EFS is completely dynamic in storage, it can automatically expand memory.
+5. Which is suitable for DB applications like MYSQL
+--------------------------------------
+3th July Session 58
+
+Cluster creation with eksctl
+namespaces
+Pods (multicontainer, environment,labels,resources,annotations)
+configmap
+secrets
+Services
+	ClusterIP
+	nodeport
+	Loadbalancer
+Sets
+	Replicaset
+	Deployment
+expense using deployment
+	How to use configmap as volume
+Staic provisioning
+	EBS
+Dynamic Provisioning
+	EBS
+EBS vs EFS
+
+EBS
+----------
+1. Create Volume
+2. Install EBSCSI drivers
+3. EC2 should have role to access EBS
+4. Create PV equivalent to EBS Volume --> admin, CLuster level
+5. Create PVC --> namespace level user can do this
+6. Use PVC in pod
+
+
+Dynamic
+------------
+SC --> admin level, this creates volume and PV automatically.
+PVC, mention SC name
+
+
+EFS
+------------
+1. Create EFS volume
+2. Allow EC2 instances on NFS protocol in EFS SG
+3. install EFS driveresx`
+
+kubectl kustomize \
+    "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-2.0" > private-ecr-driver.yaml
+
+Apply the manifest..
+kubectl apply -f private-ecr-driver.yaml
+
+
+4. Check IAM access to the instances
+AmazonEFSCSIDriverPolicy
+
+
+LB --> Node on particular port--> Nodes should allow traffic from LB --> nodeport --> cluster IP --> pod
+
+EFS Dynamic
+---------
+1. Installing drivers
+
+kubectl kustomize \
+    "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-2.0" > public-ecr-driver.yaml
+
+Apply the manifest..
+kubectl apply -f private-ecr-driver.yaml
+
+2. Check EC2 instance role have access or not
+3. Check EFS Volume.
+4. Check EFS SG allowing EC2 SG
+5. Create SC
+
+MySQL
+-----------
+EBS
+
+1. Install EBS CSI drivers
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.32"
+2. Check ebs csi permissions to node
+AmazonEBSCSIDriverPolicy
+
+3. create expense storage class, namespace
+
+Inform application team that SC and namespace created. Drivers installed permissions given to nodes..
+
+StatefulSet -->>> Used for stateful applications i.e., which should have some storage.
+Deployment --> Used for stateless applications i.e., usually frontend and backend
+
+Pods are created with -0, -1 in statefulset, because statefulset should keep the pod identity.
+Pods in deployment are created at a time, but pods in statefulset will be created in orderly manner.
+
+Stateful set must have headless service. 
+
+A service which will not have cluster IP is called Headless
+
+While dealing database cluster, one node should be aware of other nodes.
+
+-------------------------------
+4th July Session 60
+
+PV -- Representing physical storage
+PVC --Claiming the storage
+SC -- Automatic creation of volume and PV based on the claim from PVC
+
+Deployment vs Statefulset
+--------------------
+1. Stateful application like DB
+2. PV and PVC are mandatory for statefulset.
+3. Orderly provisioning of pods happens.
+4. Pods keep their identity like name
+5. We must create headless service.
+6. Every pod should have its own storage. So PV and PVC
+
+
+1. Install EBS drivers
+2. Check EC2 role permissions
+3. Create storage class
+4. Create statefulset
+
+'''''''''''''''''''' Statefulset
+If deployment, nslookup of service gives, service IP address
+If statefulset,nslookup of headless service gives us IP address of all pods.
+''''''''''''''''''''
+Headless service is for Cluster features
+Normal service is for to connect external users.
+
+
+HELM
+------------
+1. Building image
+2. Running image
+
+Only few values frequently change in manifest files.
+
+1. Kubernetes package manager
+2. templatise manifest files
+
+HELM install commands...
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+......
+
+1. Chart.yaml
+
+Install helm chart
+
+helm install <preferred-name>. --> . represents Chart.yaml in current directory
+
+helm uninstall nginx
+help history nginx
+helm rollback nginx
+helm list
+helm upgrade nginx
+helm status nginx
+
+-----------------------
+5th July Session 61
+
+RBAC(Role Based access control)
+--------------
+expense
+
+trainee - read access
+Sr engineer -- deployments access
+TL -- namespace admin access
+Manager -- cluster admin(all access)
+
+Authentication and Authorization
+
+
+Role
+RoleBinding -- user ni roleki bind cheyadam
+ClusterRole
+ClusterRoleBinding
+
+AWS IAM -- RBAC for AWS IAM
+EKS --PaaS, AWS EKS can use IAM as authentication provider. SSO
+
+1. TL will send an email to create namespace, provide access to different employees and their permissions
+Now admin will perform few actions
+Harish(trainee) & Suresh(Devops engineer)
+
+Creation of user.
+
+Users should access only expense project cluster.
+
+Role and Permissions
+
+Resources -- Nouns
+Verbs -- action 
+
+Creation of EC2 - Verb 
+1. What resources i should have access?
+
+Data Center -- Noun 
+Enter in to data center - Verb 
+Creation of server in datacenter -- Verb, Create access
+Update  existing server in datacenter -- Verb, update access 
+Delete existing server in data center -- Verb, delete access
+
+
+
+Admin will email project team that namespace and access is given.
+
+
+1. Harish has access to EKS describe cluster r not
+2. Get aws-auth configmap
+3. User Harish authenticated
+4. Check role and rolebindings
+
+
+HPA(Horizontal Pod Autoscaling)
+---------------------
+Horizontal scaling
+Create  one more server when traffic is increased
+Create  one more server when traffic is increased
+Create  one more server when traffic is increased
+Remove one server when traffic is decreased
+
+
+Vertical Scaling --- Common resources increasing, less privacy, building may not withstand
+Increase RAM and HD and number of CPU cores
+Increase RAM and HD and number of CPU cores
+Increase RAM and HD and number of CPU cores
+
+Autoscaling and autoscaling policy and metric CPU Utilization
+
+24hrs --8hrs(metric)
+
+A Pod is over utilized r less utilized how to decide? Based on resource definition
+
+1. Metric server(kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml)
+2. Resource definition inside Pod.
 
