@@ -349,9 +349,42 @@ docker logs<container ID>
 14. What is the function of the EXPOSE instruction in a Dockerfile?
 Inform Docker that container listens on the specified network ports.
 -------------------------------------------- 
+1. Why might Docker not be ideal for stateful applications?
+Persistent storage issues
 
+2. Which command initializes a new EKS cluster using eksctl?
+eksctl create cluster
 
+3. What Kubernetes resources is used to group pods for networking purposes?
+Service
 
+4. How do you limit CPU usgae for a pod in Kubernetes?
+Set resource limit 
 
+5. What is a primary key use of kubernetes namespaces?
+Isolate environments
 
+6. Which command lists all namespaces in a kubernetes cluster?
+Kubectl get namespaces
 
+7.How do you check the events of a pod?
+kubectl describe pod
+
+8. What happens if a pod exceeds its CPU limit?
+Throttled
+
+9. What is a use case for kubernetes labels?
+Organize resource
+
+10. How do you expose a kubernetes service to public?
+Loadbalancer
+
+11. How can you access a ClusterIP service from outside the cluster using ALB?
+Create an ingress
+
+12. How do you rollback a Deployment to a previous version?
+kubectl rollout undo
+
+13. What is static provisioning in Kubernetes?
+Manually creating persistent volumes
+-----------------------------
