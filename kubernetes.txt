@@ -636,3 +636,163 @@ Pod affinity
 
 pod-1 is in node-1
 pod-2 tries to be in node-1
+
+Pod affinity and pod anti affinity
+----------------
+
+Application --> cache --> DB
+Web store application should have 2 replicas
+1 pod 1 cache
+2nd pod and 2nd cache
+
+1st cache pod
+----------
+2 replicas are requiredDuringSchedulingIgnoredDuringExecution
+1st replica --> node -1
+2nd replica --> node-2
+
+
+2nd app pod
+-------
+2 replicas are requiredDuringSchedulingIgnoredDuringExecution
+1st replica ---- node -1
+2nd replica --- node -2
+
+1st pod --- goes to any node, but as per affinity it should goto where redis is running
+2nd pod --> goes to another node where pod-1 is not running, but it should go another pod where redis is already running
+
+--------------------
+10th July Session 63
+
+Ingress Controller
+--------
+ALB -- rules, listeners, TGs..
+Classic --> Old generation, AWS recommends to use ALB not classic LB.
+
+
+ALB
+--------
+Intelligent load balancer
+Create multiple listeners, create multiple rules
+
+backend.alb-url--> backend target groups
+user.alb-url --> user target group
+m.facebook.com --> this is redirecting to mobile based website.
+facebook.com--> redirected to desktop based site.
+
+host based routing and
+context based routing
+
+sudheer459.online
+
+hostbased
+-----------
+backend.sudheer459.online
+user.sudheer459.online
+
+context based r path based
+---------
+sudheer459.online/backend - Backend TG
+sudheer459.online/user - user TG
+
+https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.8/deploy/installation/
+
+1. Create OIDC(OpenID Connect)
+https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.8.
+eksctl utils associate-iam-oidc-provider \
+    --region <region-code> \
+    --cluster <your-cluster-name> \
+    --approve
+
+2. curl -o iam-policy.json
+
+aws iam create-policy \
+    --policy-name AWSLoadBalancerControllerIAMPolicy \
+    --policy-document file://iam-policy.json
+
+eksctl create iamserviceaccount \
+--cluster=<cluster-name> \
+--namespace=kube-system \
+--name=aws-load-balancer-controller \
+--attach-policy-arn=arn:aws:iam::<AWS_ACCOUNT_ID>:policy/AWSLoadBalancerControllerIAMPolicy \
+--override-existing-serviceaccounts \
+--region <region-code> \
+--approve
+
+
+Helm advactage
+-----
+1. Templatize the manifest files
+2. package manager
+
+yum --> install packages in rhel os
+
+entire containeraization 2 approaches
+building image and running image
+
+Opensource images are always available in internet.
+	jenkins is statfull
+	
+	statefulset(jenkins need to install in K8s)
+	Service LB(jenkins need to expose in K8s)
+	Configmap(jenkins config to need to provide Dynamic)
+	Secret(Jenkins passowrd)
+	pv
+	pvc
+	sc
+
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=expense-1 
+--set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-wildcard-host
+spec:
+  rules:
+  - host: "backend.daws78s.online"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: backend
+            port:
+              number: 80
+
+
+ALB --> Listener --> rule --> TG
+
+ALB/Ingress Controller --> Ingress --> Service --> Pod
+
+
+2 Applications -> appl1 and app2
+
+app1.sudheer459.online --> response should come from APP1
+app2.sudheer459.online --> response should come from APP2
+
+app1.sudheer459.online --> route53-- that should point to ALB
+
+HDFC -- ingresscontroller
+IDFC --
+
+---------------------------
+11th July Session 64
+
+Init Containers
+ephemeral Volumes
+	emptyDir
+	hostpath
+Liveness probe
+readiness probe
+
+Init Containers
+---------------
+
+
+
+
+
+
+
