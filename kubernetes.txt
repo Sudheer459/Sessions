@@ -859,10 +859,44 @@ docker run -d -v /:/spam nginx
 
 Daemon set
 ------------------
-daemonset will make sure a pod runs in every node. why this is useful?
+Daemonset will make sure a pod runs in every node. why this is useful?
 
 we have to access underlying node logs and push them to elastic search for log monitoring. if we run deamonset in kubernetes, it make sure a pod is automatically created when new node is added.
 
 zeal vora --> AWS security specialist
+
+-----------------
+12th July Session 65
+
+Cluster creation and upgrade
+-------------
+Admin Activity
+
+aws eks update-kubeconfig --region region-code(us-east-1) --name my-cluster(expense-dev)
+
+Cluster is running, few application are running inside
+
+Cluster upgrade is planned
+----------------------
+No downtime to the existing applications but no new release and no new deployments in the upgrade time.
+
+Communications sent about cluster upgrade activity is started.
+
+1. First we need to get another node group called green.
+2. Taint the green nodes, so that they should not get any pods scheduled.
+
+3. Now upgrade your control plane
+
+If any issues in control plane/EKS then u r able to access your application r not?
+There is no relation application and EKS if any issue also we can access 
+BCZ LB always connected to nodegroup
+Unless nodes are down no issue for application
+
+4. upgrade green node group also to 1.30
+5. Shift workloads from 1.29 node group to 1.30 node group
+6. Taint blue nodes(cordon blue nodes)
+7. Untaint green nodes
+8. Drain blue nodes
+
 
 
