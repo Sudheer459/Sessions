@@ -897,6 +897,120 @@ Unless nodes are down no issue for application
 6. Taint blue nodes(cordon blue nodes)
 7. Untaint green nodes
 8. Drain blue nodes
+Inform all stake holders, applications teams. Perform sanity checks/testing
+close the acivity.
+
+--------------------------------
+15th July Session 66
+
+INFRAAAAA
+
+1. Existing ALB attach to EKS(suggest)
+2. Ingress creating ALB
+
+ALB is never part of EKS cluster, easy to create r part of infra if created outside of EKS.
+YOu can create listerners, attach SSL certificates, create rules, target groups et.,
+
+You can easily attach pods directly to ALB TG using TG binding resource.
+
+
+//////After getting Docker/Kubernetes we forget VM deployments so Ansible got fade out.///////////
+
+But Ansible will use in EKS nodes to develop AMIs... like linux admin, EKS nodes to customize
+
+aws eks update-kubeconfig --region us-east-1 --name expense-dev
+
+EKS nodes should accept traffic from nodes with in our VPC CIDR range
+
+Let
+node-1 : 10.0.11.23
+node-2: 10.0.22.29
+
+Database
+------------
+Created DB and schema.. DB admins should create necessary tables and users for applications..
+
+Now if u want to connect DB then we need access from bastion to RDS.
+for that we need to give SGs port 3306
+
+
+mysql -h db-dev.sudheer459.online -u root -pExpenseApp1
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 8.0.35 Source distribution
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE transactions;
+Database changed
+mysql> CREATE TABLE IF NOT EXISTS transactions (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     amount INT,
+    ->     description VARCHAR(255)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE USER IF NOT EXISTS 'expense'@'%' IDENTIFIED BY 'ExpenseApp@1';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> GRANT ALL ON transactions.* TO 'expense'@'%';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> exit
+
+If any application is in K8s we have togo through ingress controller only.
+
+The main difference is ingresses are native objects inside the cluster that can route to multiple services, 
+while load balancers are external to the cluster and only route to a single service
+
+
+
+One more application want togo internet
+--------------------
+1. Create TG
+2. Create rule
+3. Check route53
+
+One EKS cluster can host multiple applications
+R53Roboshop.sudheer459.online ---> pointing to our ingress ALB
+rule roboshop.sudheer459.online ---> pointing to roboshop TG
+
+
+EKS Ingress Setup
+--------------------
+eksctl utils associate-iam-oidc-provider \
+    --region us-east-1 \
+    --cluster expense-dev \
+    --approve
+	
+curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.1.2/docs/install/iam_policy.json
+
+aws iam create-policy \
+    --policy-name AWSLoadBalancerControllerIAMPolicy \
+    --policy-document file://iam-policy.json
+
+
+eksctl create iamserviceaccount \
+--cluster=expense-dev \
+--namespace=kube-system \
+--name=aws-load-balancer-controller \
+--attach-policy-arn=arn:aws:iam::851725359401:policy/AWSLoadBalancerControllerIAMPolicy \
+--override-existing-serviceaccounts \
+--approve
+
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system
+--set clustername=<cluster-name>
+
 
 
 
