@@ -1086,10 +1086,16 @@ docker build -t 851725359401.dkr.ecr.us-east-1.amazonaws.com/expense-backend:lat
 
 docker push 851725359401.dkr.ecr.us-east-1.amazonaws.com/expense-backend:latest
 
-imagePullBackOff --> your k8 node is unable to pull the image
-crashLoopBackoff --> pod is not able to run... if Backend is not able to connect DB
-pending --> PV and PVC setup and config are not proper. pod is not able to mount the volume.
+Below Errors..
 
+imagePullBackOff --> your k8 node is unable to pull the image
+(Version is wrong,repository name r address,Connection cut issue/network. We have to check image address)
+
+crashLoopBackoff --> pod is not able to run... if Backend is not able to connect DB
+(crash... we need to check logs)
+
+pending --> PV and PVC setup and config are not proper. pod is not able to mount the volume.
+(We have to describe and check logs)
 
 ////////////
 In VMs deployment is huge process. While in Docker/Kubernetes its simple process.
@@ -1126,6 +1132,34 @@ If there is a change you need to update in everything jenkinsfile pratically ver
 Different persons can write different pipelines, you cant enforce best standards.
 
 Jenkins shared library --- sharing pipelines as a library
+
+We are using jenkins shared libraries and inform all teams so that they will call r...
+---------------
+
+Developer..
+
+fetch DB records asap
+	transaction management
+	
+	use less memory
+	increase the speed
+
+Devops
+-----------
+Automate manual tasks
+
+
+
+Conflict with Devops and Developeer 
+
+Config miss(credentials)
+Devops responsibility--- Connections are working properly r not. Request went to frontend r not
+
+Configuration issue Devops problem
+Code issue Developer problem
+-----------------------------
+17th July Session 68
+
 
 
 
