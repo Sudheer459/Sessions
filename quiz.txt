@@ -388,3 +388,54 @@ kubectl rollout undo
 13. What is static provisioning in Kubernetes?
 Manually creating persistent volumes
 -----------------------------
+1. What does a NodePort service do in kubernetes?
+Exposes a service on a ephemeral port on each nodes IP
+
+2. Which component of the K8s architecture manages the actual state of the cluster?
+etcd
+
+3.What is the function of the kube-proxy component in K8s?
+Manages network rules on nodes
+
+4. What is a key use case for using Daemonsets in K8s?
+Running copy of a pod on all nodes
+
+5. Which type of volume you should mount to pod to collect container logs?
+emptyDir
+
+6. How can you achieve high avaibility for you application in K8s?
+Use multiple replicas and spread them across nodes
+
+7. Which K8s feature allows you to specify the conditions under which a pod can be scheduled on a node?
+Taints and tolerations
+
+8. What does a K8s readiness probe check?
+If a container is ready to start accepting traffic
+
+9. What is the function of a K8s Ingress source?
+Manage external access to services in a cluster
+
+10. Which K8s resource is used to manage a group of identiacl pods?
+Replicaset
+
+11. What command would you use to delete namespace and all its resources?
+kubectl delete namespace <name>
+
+12. Which command rolls back a deployemtn to a previous revision?
+kubectl rollout undo
+
+13. Which type of volume you should mount to pod to collect server logs?
+hostpath
+----------------
+
+
+
+
+
+
+
+
+
+
+
+
