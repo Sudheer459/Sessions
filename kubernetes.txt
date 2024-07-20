@@ -1011,6 +1011,125 @@ eksctl create iamserviceaccount \
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system
 --set clustername=<cluster-name>
 
+------------------------
+16th July Session 67
+
+K8s Architecture
+
+Master
+Node
+
+API Server -- It is the main component responding to all user requests. It runs on port 443
+
+Scheduler --> responsible to schedule the pods on to nodes. it checks multiple things while scheduling.
+ taints and tolerations, node selectors, affinity, underlying server memory, their cpu consumption etc.
+
+
+
+Controll manager
+--------------
+replica controller component --> replicaset --> if you delete the pods, it will automatically create new pod
+
+node controller --> checks the nodes all the time, whether they are ready, able to schedule r not.
+ if a node is down it will make sure another node is created and shift the pods to diff nodes
+
+ServiceAccount controller --> creates service account for every namespace created. basically under internal authentication
+
+etcd
+-----------
+entire k8 cluster data is in etcd. it is very important to take frequent backup. if cloud, they are responsible for this
+
+
+
+
+Node components
+-----------------
+kube-proxy --> on behalf of someone. it intercepts every incoming and outgoing request of node.
+ kube-proxy maintains network rules on nodes. these network rules allow network communication to your Pods
+
+kubelet --> it connects nodes to control plane. An agent that runs on each node in the cluster.
+ it pulls the information from control plane and runs the pods.
+
+container run time --> it is on every node, it basically runs the images into containers. containerd is the runtime usually.
+
+Add-ons
+-----------
+kube-dns --> provides DNS to the pods. http://backend:8080. 
+kubedns provides IP address to the service when one pod wants to connect with other pod.
+
+networking plugins --> VPC CNI, default network inside EKS.
+
+
+aws eks update-kubeconfig --region us-east-1 --name expense-dev
+
+DB
+------
+check the schema created or not
+check the tables created or not to store the data
+check the users created or not
+
+create namespace
+
+kubectl create namespace expense
+
+configure EKS ingress controller
+
+Dockerfile --> build and push the images
+manifest --> how to run the image
+
+
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 851725359401.dkr.ecr.us-east-1.amazonaws.com
+
+
+docker build -t 851725359401.dkr.ecr.us-east-1.amazonaws.com/expense-backend:latest .
+
+
+docker push 851725359401.dkr.ecr.us-east-1.amazonaws.com/expense-backend:latest
+
+imagePullBackOff --> your k8 node is unable to pull the image
+crashLoopBackoff --> pod is not able to run... if Backend is not able to connect DB
+pending --> PV and PVC setup and config are not proper. pod is not able to mount the volume.
+
+
+////////////
+In VMs deployment is huge process. While in Docker/Kubernetes its simple process.
+Only Image build and manifest push.
+//////////////
+
+Shared levels
+
+HDFC Bank
+-----------
+10 accounts
+	Credit card
+	savings account
+	stocks
+	insurance
+	home loans
+	personal loans
+	business loans
+	
+	
+200 components
+
+Backend --- java, python...
+frontend-- angular, react
+
+
+DRY -- Dont repeat yourself, reuse. Centralise everything
+Ansible Roles
+Terraform module
+
+If you dont centralise/reuse your pipeline, you need to manage them manually each and everyone.
+If there is a change you need to update in everything jenkinsfile pratically very tough.
+
+Different persons can write different pipelines, you cant enforce best standards.
+
+Jenkins shared library --- sharing pipelines as a library
+
+
+
+
 
 
 
