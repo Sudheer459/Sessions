@@ -56,6 +56,32 @@ Flipkart will send the order details to one queue --> ekart would be listening t
 
 Queue --> point to point = One system sends messages only one system can get the message
 
+topic and subscribe --> Like youtube notifications
 
+When I upload a video, youtube have a topic to my channel. All subscriber device are subscribed to that channel,
+then everyone will get the message
+
+Application tier
+------------------
+catalogue --> an application maintaining the product catalogue
+cart --> adding products to cart, connecting to redis and mongodb
+user --> user info like name,email, username and password. details are in nosql and cached
+shipping --> countries and cities info is processed through shippping, data is in mysql
+payments --> collecting the payments, rabbitmq
+dispatch --> based on again MQ, roboshop send a message to the queue, dispatch will receive the message
+ratings --> product ratings stored in mysql
+
+
+Web tier
+-------------------
+Nginx based static application and reverse proxy to application tier.
+
+
+
+MongoDB
+----------
+port = 27017
+127.0.0.1 == localhost
+0.0.0.0/0
 
 
