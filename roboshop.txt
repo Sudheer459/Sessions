@@ -1,0 +1,59 @@
+22nd July Session 70
+
+Roboshop
+----------------
+MongoDB --> NoSQL
+MySQL --> tables and rows
+NoSQL --> collections and documents
+
+Product information --> product catalogue
+
+Redis --> cache
+
+backend --> MySQL
+1. Get the connection from MySQL
+2. Run the DB query --> this should be efficient
+3. Get the results
+4. Close the connection
+
+
+backend --> MySQL --> Cache
+
+backend --> Cache --> MySQL --> Cache
+
+key -> value
+
+MySQL --> RDS DB, Countries, cities, pincodes, etc.
+
+RabbitMQ --> Messaging Queue
+----------------------------
+HTTP --> you will hit some website,
+HTTP can wait for 30sec or 1min, if no response it will throw error.
+Synchronus communication
+1. both systems should be up and running
+2. if 2nd system is down you loose the transaction
+
+Whatsapp
+----------------
+Ramesh --> Suresh
+
+Message will be sent to suresh immediately
+
+If suresh is offline, 
+
+async
+------
+1. systems no need to be online continously.
+2. messages are waiting in queue
+3. once system is online messages would be delivered, so no data loss.	
+4. systems are loosely coupled
+
+flipakart --> ekart
+
+flipakart will send the order details to one queue --> ekart would be listening to the queue
+
+queue --> point to point = One system sends messages only one system can get the message
+
+
+
+
