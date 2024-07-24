@@ -29,7 +29,9 @@ RabbitMQ --> Messaging Queue
 ----------------------------
 HTTP --> you will hit some website,
 HTTP can wait for 30sec or 1min, if no response it will throw error.
+
 Synchronus communication
+--------------
 1. both systems should be up and running
 2. if 2nd system is down you loose the transaction
 
@@ -41,18 +43,18 @@ Message will be sent to suresh immediately
 
 If suresh is offline, 
 
-async
+Async
 ------
-1. systems no need to be online continously.
-2. messages are waiting in queue
-3. once system is online messages would be delivered, so no data loss.	
-4. systems are loosely coupled
+1. Systems no need to be online continously.
+2. Messages are waiting in queue
+3. Once system is online messages would be delivered, so no data loss.	
+4. Systems are loosely coupled
 
-flipakart --> ekart
+Flipkart --> ekart
 
-flipakart will send the order details to one queue --> ekart would be listening to the queue
+Flipkart will send the order details to one queue --> ekart would be listening to the queue
 
-queue --> point to point = One system sends messages only one system can get the message
+Queue --> point to point = One system sends messages only one system can get the message
 
 
 
