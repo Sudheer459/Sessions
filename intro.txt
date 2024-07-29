@@ -35,7 +35,8 @@ AWS --> R53 records, VPC if new project, IAM roles and permissions, ECR repos, S
 EKS --> create namespace in all environments, RBAC, etc. We already implemented ingress controller, static and dynamic provisioning, etc.
 Terraform --> create S3 and dynamodb. automate infra creation through modules
 
-We can explain about process, pipelines. We are using shared pipelines powered jenkins shared library. These are centralised managed by us. We have different combinatins based on programming language and deployment platform.
+We can explain about process, pipelines. We are using shared pipelines powered jenkins shared library. 
+These are centralised managed by us. We have different combinations based on programming language and deployment platform.
 
 1. NodeJSVM, NodeJSEKS
 2. JavaVM, JavaEKS
