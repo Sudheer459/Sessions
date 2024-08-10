@@ -25,7 +25,7 @@ cat <filename> we can see what is in that file
 -----------
 Delete
 
-rm 
+rm wget
 rm <file-name>
 mkdir   make directory
 rmdir  deletes only empty directory,fails when it has files inside
@@ -2324,7 +2324,7 @@ Jenkins
 ----------------
 CI - Continious integration (Build, clone, scan, Compile, test)
 
-It is a process of integrating the application with different stages like from the cloing, compiling, scaning... 
+It is a process of integrating the application with different stages like from the cloning, compiling, scaning... 
 Once this process already done we will get entire application as one single artifact. This process is called CI.
 
 It is just simple web application
@@ -3020,5 +3020,120 @@ What is docker layers?
 Dockes stores the images as layers. 
 First instruction will be layer1 on top of layer1 it will run layer2 and it will store layer2
 and on top of layer2 it will run layer3 it will store layer3 as seperate.
+
+---------------------------------
+26th June Session 55
+
+1. Build the image
+2. Run the image
+
+Problems(in docker)
+---------------
+1 pg --- 10 rooms
+
+If power cut, water cut
+
+10PGs -- 1pg water cut
+He will shift persons to other PG temporary..
+
+
+1 Host --- 3 containers if host crash..
+
+
+Scalability
+----------------
+Normal servers with route53
+Traffic increases, multiple servers and keep load balanccers and update R53 as LB URL.
+If container crash, docker is not able to replace automatically. --> not reliable --> self healing
+No proper volume management.
+NO strong network connectivity.
+No auto scaling 
+No secrets and config management
+
+3 Hosts -- 1 pod is  host-1 another pod is in host-2
+
+
+////////////Benefits of using kubernetes and docker///
+Scalability, High avaibility, portability, security, ease of use, reduce costs, improve agility, increase innovation
+------------------------------------
+
+Docker Architecture?
+client = docker command
+
+docker daemon = docker engine.... systemctl start docker..
+
+daemon/server responds to client
+
+docker run nginx --> checks image available in local r not, if not available pull it and keep it in local.
+Run a container and send output to client.
+
+Docker Architecture::How your system is getting request, how is it processing inside and 
+how you r sending request back to the client.
+
+
+Docker Architecture consists of docker client which is docker command line tool and
+docker engine is nothing but docker host and the local registry and central registry.
+Whenever you run a command in docker host it will connect to the daemon, it will check for the image local 
+if it is not available it will pull from the central repository and keep it in local create a container of it and send 
+a response to the client.
+
+Docker = suit = image build + image pull through its hub + running the image as containers.
+Docker is providing run time environmnent to run docker images.
+
+Kubernates is a container orchestrator....
+
+If you want to run 100 pg, we will take help of manager.. he needs some software.. 
+
+
+Amazon master under this we have ec2s(nodes).
+Request come to master.
+Master will decide where to go
+
+Nodes should run containers.
+containers run time environment.
+
+Here VS code will develop docker files and push to github.
+
+kubectl - to connect kubernetes
+
+docker run we have to give inputs --- image, ports, versions, volumes, name, environment variables.
+
+
+
+eksctl --> create and manage EKS cluster
+kubectl --> to manage containers in kubernetes cluster
+
+
+kubectl get nodes --> display nodes in k8 cluster
+
+command eksctl create cluster --config-file=<filename>
+
+K8 resources
+---------
+Namespace --> Isolated project where you can create resources related to your project.
+
+Basic syntax
+
+kind:
+apiVersion:
+metadata:
+
+spec:
+
+
+kubectl apply -f <filename.yaml>
+kubectl delete -f <filename.yaml>
+
+pod is smallest deployable(runnable) unit in kubernetes
+
+
+
+pod(EKS) vs container(Docker)
+------------
+Pod contains multiple containers. Container inside pod share same n/w and storage.
+-------------------------------------
+27th June Session 56
+
+
 
 
