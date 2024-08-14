@@ -2350,7 +2350,7 @@ freestyle Disadvantages
 
 scripted way
 --------------
-1. Review csn be done before do something.
+1. Review can be done before do something.
 2. Easy to restore 
 3. track the changes 
 4. maintain the history
@@ -2363,7 +2363,7 @@ distrubuiting the work to different resources....
 
 Jenkins is a master node.
 
-Instal agents and distrubute the pipelines to the agents..
+Install agents and distrubute the pipelines to the agents..
 
 Agent-1 -- Windows environment
 Agent-2 -- Mac environment
@@ -2387,7 +2387,7 @@ System-1 something happend, we need to  inform system-2
 When events happends those can be notified.
 When Developer pushed code to github, we need to trigger to pipeline.
 
-Pipeline Synatx
+Pipeline Syntax
 
 Pipeline{
 	agent{
@@ -2550,6 +2550,95 @@ protocol: ssh
 
 SOP:;;; standard operating procedure
 
+------------------
+Session 47
+
+without CI
+-------------
+there will be one linux server
+
+build and release team
+----------------------
+clone the code
+install node js
+run npm install
+create a zip file
+upload the zip file to nexus through nexus API
+
+1week after, once development completed then they will inform
+
+many issues, inform developers, again they will work....
+
+
+again QA, UAT and
+PROD
+------------
+12hr deployment window
+24hr monitoring
+1week monitoring for other defects
+
+no testing, unit testing
+unit testing is about testing the functions, which are basic blocks of programming. Only developers has to do unit testing...
+
+coding standars --> dev, qa, uat
+Static source code analysis --> scan the code, give some recommendations
+you must apply the recommendations to pass the build
+
+SAST --> security related things, analysis will be given to developers they have to fix
+
+DAST --> dynamic security
+
+Open source libraries scan --> libraries scan.. frequently upgrade the libraries
+
+docker image scan --> 
+
+now deploy the code to development
+
+then perform functional testing, developers can take care...
+
+integration testing --> test the entire functionality. this will be performed by QA
+
+sonar scanner
+sonar cli
+sonar agent
+
+curl
+
+----------------------
+Session 48 
+
+Shift left
+-------------
+unit tests
+scans
+	static source code analysis --> simple code scan
+	SAST --> static application security testing --> security scan in the code
+	open source library scan --> scan the dependencies
+	DAST --> real time attack on the application
+	image scan
+Deploy to DEV
+functional tests --> usually by developers, because it is a microservice
+
+sqa_d1fc0e16ffa676cd707acf283c41e0b02ca0d1fb
+
+overall code, new code
+
+1 year code = overall code
+5.3.0
+
+5.4.0
+
+5.4.0-5.3.0 = new code
+
+unit test --> functions
+
+10 functions --> 100% coverage --> unit tests for 10 functions
+
+80% code should be covered through unit testing
+
+DAST --> 
+DAST --> 
+
 
 -------------------------
 18th June Session 49
@@ -2601,7 +2690,7 @@ Monolethic Services
 ------------------------------------------------
 Enterprise applications
 -------------
-Frotend and Backend are together. --- Jboss, Weblogic, Websphere
+Frontend and Backend are together. --- Jboss, Weblogic, Websphere
 
 A Small change in any component should go for full release cycle.
 .ear---- Enterprise archive files(small change but more efforts)
@@ -2674,7 +2763,7 @@ usermod -aG docker <user-name>  ==== To add for secondary group
 
 docker images -- list down the images
 docker pull nginx
-group id, artifacr id and version
+group id, artifact id and version
 
 Docker -- username, image name and version
 
@@ -3133,7 +3222,3 @@ pod(EKS) vs container(Docker)
 Pod contains multiple containers. Container inside pod share same n/w and storage.
 -------------------------------------
 27th June Session 56
-
-
-
-
