@@ -1,0 +1,320 @@
+
+Jenkins
+----------------
+CI - Continious integration (Build, clone, scan, Compile, test)
+
+It is a process of integrating the application with different stages like from the cloning, compiling, scaning... 
+Once this process already done we will get entire application as one single artifact. This process is called CI.
+
+It is just simple web application
+
+sudo wget -O /etc/yum.repos.d/jenkins.repohttps://pkg.jenkins.io/redhat-stable/jenkins.repo
+--------------------
+7th June Session 43
+
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+
+trigger the job, Prebuild, build, post build
+
+
+freestyle Disadvantages
+----------------
+1. Anyone can login and do the changes, difficult to track what went wrong.
+2. difficult to restore 
+3. i cannot see the history, no versions
+
+scripted way
+--------------
+1. Review can be done before do something.
+2. Easy to restore 
+3. track the changes 
+4. maintain the history
+
+
+1 acre -- 1 person can Do
+100 acres -- he employes resources
+
+distrubuiting the work to different resources....
+
+Jenkins is a master node.
+
+Install agents and distrubute the pipelines to the agents..
+
+Agent-1 -- Windows environment
+Agent-2 -- Mac environment
+Agent-3 -- Chrome environment
+
+
+master and slave
+master and node Architecture
+
+1. When work is there, master calls agent and ask them todo Work
+2. Daily agent comes to master and ask if there is any work.
+
+
+15mins to create application artifact zip/jar
+
+1hr 15mins -- application success(not safe)
+
+When one person is performing something on the application, others should stop
+
+System-1 something happend, we need to  inform system-2
+When events happends those can be notified.
+When Developer pushed code to github, we need to trigger to pipeline.
+
+Pipeline Syntax
+
+Pipeline{
+	agent{
+		label 'java-agent'
+	}
+	options{
+		timeout(time:30, unit: 'MINUTES')
+	}
+	Environment{
+		Greeting = 'Hello World'
+	}
+	stages{
+		stage('Build'){
+			steps{
+				sh 'echo this is build'
+			}
+		
+		}
+		post{
+		 always{
+		 }
+		 success{
+		 }
+		 failure{
+		 }
+	}
+}
+
+Parameters and stages
+
+--------------------------------
+10th June Session 44
+
+init plan apply
+
+Builds -deleteDir()
+
+CICD
+-------------------
+CI - Continious Integration
+	Install dependencies
+	artifact --
+	java -- jar file
+	dotNet, python, Nodejs --- Zip
+	upload artifact to some location
+	
+Build file
+----------------
+Java --- Maven(build file) -- pom.XML
+Python -- pip(build file) -- requirements.txt
+Nodejs --npm(build file) -- package.JSON
+Dotnet -- Nuget(build file) -- project.JSON
+
+Our Project details like name, version, description
+dependencies and its versions 
+
+
+nodejs
+------------
+*. js files
+package.JSON
+
+NodeJs build file -- node js code and node modules
+Every version should have a seperate artifact/zi[ file/build file.
+
+backend-1.0.0.Zip
+backend-1.1.0.zip
+
+-rw-r--r--  1 ec2-user ec2-user  1882 Jun 14 07:50 TransactionService.js
+-rw-r--r--  1 ec2-user ec2-user  1120 Jun 14 07:50 Jenkinsfile
+-rw-r--r--  1 ec2-user ec2-user   142 Jun 14 07:50 DbConfig.js
+drwxr-xr-x  2 ec2-user ec2-user    25 Jun 14 07:50 schema
+-rw-r--r--  1 ec2-user ec2-user   411 Jun 14 07:50 package.json
+-rw-r--r--  1 ec2-user ec2-user  3553 Jun 14 07:50 index.js
+-rw-r--r--  1 ec2-user ec2-user 31913 Jun 14 07:50 package-lock.json
+drwxr-xr-x 82 ec2-user ec2-user  4096 Jun 14 07:50 node_modules
+
+
+zip -r <file-name.zip> <what-files-to-zip>
+
+zip -r backend-${appVersion}.zip */
+
+Git -- Store the code, not for packages or artifacts
+Nexus -- Store the artifacts, not for code
+
+8081 -- nexus
+8080 -- jenkins
+
+SRE - to check particular tool to not down
+----
+Installation
+RBAC - Role based accessed control
+upgradeNo downtime
+monitor
+backup
+--------------------
+11th June Session 45
+
+1. Infra should be ready to deploy application
+
+Ubuntu OS user name is Ubuntu
+We must give a key for This
+Public -ip: 8081(nexus port) --- 5mins
+
+
+Maven type artifacts
+-------------
+First name
+last name
+Pan/Aadhar Number
+
+We have different projects in the world, projects have components/modules inside.
+Components/modules/applications have different version inside.
+
+group id, artifact id, version
+
+com.expense -- group ID
+bakend -- artifact ID
+1.0.0 -- version
+
+
+http://52.72.196.246:8081/repository/backend/ 
+
+nexus artifact uploader
+
+backend-1.1.0.Zip
+
+${artifactid}-${appVersion}.zip
+
+
+CD 
+-------------------
+backend - CI --> up stream
+CI should pass artifact as input, nothing but version
+backend-deploy --> CD --> down stream
+
+
+Jenkins have the application version, it should pass version to terraform.
+Terraform should create EC2 instance and pass app version to ansible.
+
+Ansible should download that Package from nexus, configure the EC2 
+-------------------------
+12th June Session 46
+
+http://{{ nexus_url}}:8081/repository/{{ component }}/com/expense/{{ component }}/
+{{ appVersion }}/{{ component }}-{{ appVersoin }}.zip
+
+
+From Jenkins agent to backend instance will establish then..
+
+tools team/SRE team
+DevOps team
+networking team
+
+Raise a request to accept connections from tools.
+destination: backend
+source: Jenkins
+port:22
+protocol: ssh
+
+SOP:;;; standard operating procedure
+
+------------------
+Session 47
+
+without CI
+-------------
+there will be one linux server
+
+build and release team
+----------------------
+clone the code
+install node js
+run npm install
+create a zip file
+upload the zip file to nexus through nexus API
+
+1week after, once development completed then they will inform
+
+many issues, inform developers, again they will work....
+
+
+again QA, UAT and
+PROD
+------------
+12hr deployment window
+24hr monitoring
+1week monitoring for other defects
+
+no testing, unit testing
+unit testing is about testing the functions, which are basic blocks of programming. Only developers has to do unit testing...
+
+coding standars --> dev, qa, uat
+Static source code analysis --> scan the code, give some recommendations
+you must apply the recommendations to pass the build
+
+SAST --> security related things, analysis will be given to developers they have to fix
+
+DAST --> dynamic security
+
+Open source libraries scan --> libraries scan.. frequently upgrade the libraries
+
+docker image scan --> 
+
+now deploy the code to development
+
+then perform functional testing, developers can take care...
+
+integration testing --> test the entire functionality. this will be performed by QA
+
+sonar scanner
+sonar cli
+sonar agent
+
+curl
+
+----------------------
+Session 48 
+
+Shift left
+-------------
+unit tests
+scans
+	static source code analysis --> simple code scan
+	SAST --> static application security testing --> security scan in the code
+	open source library scan --> scan the dependencies
+	DAST --> real time attack on the application
+	image scan
+Deploy to DEV
+functional tests --> usually by developers, because it is a microservice
+
+sqa_d1fc0e16ffa676cd707acf283c41e0b02ca0d1fb
+
+overall code, new code
+
+1 year code = overall code
+5.3.0
+
+5.4.0
+
+5.4.0-5.3.0 = new code
+
+unit test --> functions
+
+10 functions --> 100% coverage --> unit tests for 10 functions
+
+80% code should be covered through unit testing
+
+DAST --> 
+DAST --> 
+
