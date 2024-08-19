@@ -504,7 +504,7 @@ Environment = dev/prod
 2. Create IGW
 3. Attach IGW to VPC
 4. Create subnets (public/private/db)
-	We decided every projecr insode joindevops.com should have HA 
+	We decided every project inside joindevops.com should have HA 
 	so we should force to create 2 public/private/db subnets
 	expense-public-us-east-1a
 	expense-public-us-east-1b
