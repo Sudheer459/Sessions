@@ -1,0 +1,1051 @@
+
+Session 21
+
+Infra as a code
+Infra is very important to create business.
+--------
+Disadvantages
+Manually created
+tasks time
+Follow sequence
+	create sg
+	create ec2
+	create route53 record
+We need to check each and every resource and note down manually
+Cost analysis.
+-----------------
+Infra as a code
+1. Version COntrol: We can maintain different versions of infra.
+Multiple persons can collaborate to create infra.
+
+2. Same infra across environments: Dev, QA, Prod, etc.,
+Working in Dev, failed in Prod run the same code in all environments
+that create same infra everywhere
+
+3. CRUD - create read update delete
+4. Inventory - list of resources for the project in terms of infra.
+5. dependency - dependencies would be automatically resolved while CRUD.
+6. Cost - creation and deletion takes less time, so cost can be reduced.
+7. code reuse - modules, you can reuse the infra code created 
+multiple times for different projects.
+8. State Management: implicit feature.
+
+Hybrid Cloud - 
+1. Download terraform
+2. provide the path in environment variables
+3. Download AWS CLI
+
+Terraform - HCL(Hashicorp configuration language)
+
+Variables
+data types
+conditions
+funtions
+loops
+terraform related concepts
+	outputs
+	locals
+	data sources
+	count
+	dynamic blocks
+---------------
+EC2 Creation
+
+1. Security group
+2. ec2 instance creation
+
+Terraform works with providers. We are using AWS here. 
+So we should inform that we are using AWS.
+
+Provider Configuration
+
+IAM user, access key and secret key
+AWS Configure - AWS CLI installed. SO we can run aws configure in windows
+
+Security group::
+
+1. Inbound: Allow everything, or only port no 22
+2. Outbound: Allow everything
+
+Initialize terraform::
+Terraform init - terraform will check for providers. It will download AWS providers and keep them.
+Terraform plan - terraform will show what are the resources it is going to create.
+
+Validate syntax, if correct then it will show the resources, it will create
+
+
+.gitignore file = do not push to git repository
+
+--------------
+Session -22
+Variables
+Conditions
+loops
+functions
+
+Variable:::
+variable "<var-name>" {
+	type
+	default = "<default-value>"
+
+-----------
+Tagging Strategy
+
+Name of the resource
+which project
+which module
+which environment
+who created
+which date
+
+------------------
+Terraform.tfvars
+
+In variable declaration we can give default values.
+
+terraform.tfvars will override default values in variables.
+
+TF_VRA_<var-name>=value
+----------
+Conditions
+
+if (expression) {
+		these will run if expression is true
+}
+else{
+		these will run if expression is false
+}
+
+expression ? "this will run if expression is true " : "run if false"
+------------------
+
+Expense project...
+
+If DB, instance type should be t3.small
+
+3 instances - db,backend,frontend
+if DB t2.micro
+and route53 records
+
+few tags are common, project, environment,terraform
+
+
+-------
+loops
+
+count based loop
+for loop
+dynamic block loop
+
+count.index - 0,1,2,3...
+-----------
+Functions
+
+length(<list>)
+
+------------------
+outputs
+----------------
+May 8th session 23
+
+create 3 instances
+create 3 records
+if db instance should be t3.small
+if frontend sudheer459.online -- public ip
+otherwise db/backend.sudheer459.online - private ip
+
+aws_instance.expense - instance information
+
+If frontend name is sudheer459.online: db/backend.sudheer459.online
+----------------
+Interpolation
+
+variable "greeting" {
+	default = "morning"
+}
+
+"Hello{{greeting}}" - to mix text and variable is called interpolation
+
+"Hello ${var.greeting}"
+
+. means variable/text . Its text
+---------
+locals
+Locals and variables are same referring key value pairs.
+
+locals can hold expression and use it whereever you want
+variables inside locals, but you cant use other variables/locals
+inside the variables.
+-------------
+Data Sources
+
+Going to console, searching it and then using it..
+Quering AWS 
+
+Terraform have AWS credentials
+
+terraform can query and fetch the AMI_ID automatically
+
+few things are created infra manually, Our team is using terraform.
+
+I want existing default VPC_id
+
+state and remote state
+for loop
+dynamic block
+-------------------
+9th May Session 24
+
+state and remote state
+
+terraform - IaaC, declarative
+whatever we write we will get
+Shell in imperative(strict)
+terraform is idempotent also
+
+there is something called state..
+whatever we declared terraform should create
+
+declared state[terraform files]  == actual state[resources inside providers]
+i.e., AWS/ created infra
+
+I ran, terraform created infrastructure.
+I run once again, How terraform will understand what infra it is already
+created?
+
+terraform.tfstate is the file that terraform tracks the actual infra 
+
+I deleted manually inside AWS, but it exists in terraform.tfstate
+------------------
+Refreshing state
+It will check terraform.tfstate against AWS...
+
+terraform files[declated state] = AWS infra[actual state] -- false ->
+
+terraform responsibility is to create the infra equivalent to terraform
+files..
+
+terraform.tfstate: It can track what happend in the infrastructure.
+declared state: Terraform file user created
+actual state: what is the actual infrastructure exist inside the provide(aws)
+refresh: Whenever you run terraform command, terraform will make sure the
+terraform.tfstate is equal to the actual state.
+
+incollaboration environment?
+-------------
+Remote state... 
+
+duplicate resources or errors, locking
+
+one person is creating infra through terraform,can we ask
+other person also do samething?
+
+There should be some locking mechanism, when once person is creating
+infra. it should be locked until it is completed.
+
+.lock file -- means someone opened, others are not allowed to edit
+-------------------
+
+local state vs remote state
+1. There is a chance to delete the file r edit the file.
+2. It will not work in collaboration environment.
+3. There is a chance multiple persons apply/edit the infra.
+
+
+Centralise repo -- github
+
+
+----------------
+
+S3 remote state
+
+S3 bucket can be locked with DynamoDB table..
+---------------
+For loop
+
+count uses for list
+for uses for maps
+dynamic
+
+---------------------------------------
+10th may session 25
+
+How to create multiple environments with terraform?
+
+Using tfvars
+Code is same - resource definitions
+-------------------
+Dev and Prod
+
+Dev, QA, Prod, UAT etc..,
+
+tfvars - Default variable values to override.
+-------
+S3 Backend
+Different buckets for diff environment
+
+-----------
+Variables
+default values
+
+db-dev, backend-dev, frontend-dev
+db-prod, backend-prod, frontend-prod
+
+db-dev.sudheer459.online
+backend-dev.sudheer459.online
+frontend-dev.sudheer459.online
+
+db-prod.sudheer459.online
+backend-prod.sudheer459.online
+frontend-prod.sudheer459.online
+
+sudheer459.online
+
+Project=Expense, Module=DB/frontend-dev/backend-dev
+Environment=dev/prod
+Terraform=true
+
+---------------------------
+frontend-dev/frontend-prod
+
+if key starts with frontend 
+
+terraform init
+terraform init --help
+
+terraform init -backend-config=dev/backend.tf
+
+terraform plan/apply -var-file=prod/prod.tfvars
+---------------
+
+workspace
+
+dev, qa, prod
+
+if dev t3.micro
+if prod t3.small
+
+terraform.workspace = dev, prod
+
+Variables and their values we should be very careful
+
+seperate repo for dev, seperate repo for production
+
+---------------------
+Workspace, tfvars
+
+Advantage - less code
+disadv	- should be more careful while dealing variables and tfvars. Chance of doing 
+something wrong in production.
+---------------
+Seperate repos
+
+Advantage - clear seperation of environments
+disadv	- duplication of code
+
+---------------------
+
+Provisioners
+Terraform we are creating instances..
+1. local-exec -- where you are running terraform command i.e., local
+2. remote-exec -- inside remote machine 
+
+IP Address into a file
+
+ansible-playbook -i private_ips.txt web.yaml
+
+----------------
+Linux server
+
+Terraform and ansible install
+Clone this code and run there
+
+create db, install ansible, pull db playbook configure itself
+------------------
+
+14th May Session 26
+
+Module Development...
+
+DRY - Dont repeat yourself
+
+minimum code
+Code reuse
+
+Variables
+Functions
+
+Write resource definition
+Left side options are from documentation, you cant change option name servers.
+Right side are values, we can give as per project requirement.
+Keep variables and their default values.
+Override if required.
+
+Function: block of code
+Call the function when require - Provide inputs if require
+----
+Advantages:
+code reuse 
+best practices can be implemented and forced to use
+easy to maintain/update
+we can keep few restrictions based on company guidelines
+
+
+Module developers - they create tf code with best practices 
+Module users - they use the module code
+
+1. custom module development
+2. open source modules
+
+--------------------
+VPC(Virtual private cloud)
+They have to buy the servers.
+Deploy the code in servers.
+
+Development - Only Dev server
+Testing team - Only QA server
+production support - limited access to prod servers
+call center - just internal apps
+Devops - full access to all servers
+Linux - all servers access
+----------------------
+
+Data center
+
+Space
+watchman
+network
+resources
+maintenance
+logical seperation of servers
+power
+------------
+
+VPC is like a mini data center for project. Resources created inside VPC are isolated and private to ourself.
+
+
+VPC Name - village name
+VPC CIDR - Village pincode
+
+Subnets - streets
+arch - internet gateway
+
+routes = roads
+--------------
+Public and private subnets
+
+Subnets which are connected to IGW are called public subnets.
+Subnets which are not connected to IGW are called private subnets.
+
+Route tables and routes
+
+Created VPC
+Created IGW
+Attached IGW to VPC
+
+Created public subnet
+Created private subnet
+
+Frontend - public
+Backend - private
+DB - private. We create in bd subnet
+
+2 public subnets - 1a and 1b
+2 private subnets - 1a and 1b
+2 db subnets - 1a and 1b
+
+
+1-10 public
+11-20 private
+21 DB
+---------------
+15th May Session 27
+
+Module development
+
+NAT Gateway
+Private servers cannot connect to internet or cant accept connections from internet.
+
+
+Traffic originating from servers - Outbound traffic
+Traffic to the servers is called inbound traffic
+
+NAT gateway - public subnet
+This is to enable outbound internet traffic to the private servers.
+General use cases fetching the updates, downloading packages from internet.
+
+IP Keeps on changing, IP sgould not be changed. We need static IP.
+
+Elastic IP = Static IP
+
+create VPC
+Create IGW
+Attach IGW to VPC_id
+
+
+resource names, variable names, output names these names are related to terraform.
+
+
+Name tags are related to user
+
+Terraform names can have _ to seperate words
+User names can have - to seperate words
+main or this if only one resource..
+
+Tagging strategy..
+expense-dev
+
+<project-name>-<environment>
+Terraform = true
+Project = mention project name
+Environment = dev/prod
+
+1. Create VPC
+2. Create IGW
+3. Attach IGW to VPC
+4. Create subnets (public/private/db)
+	We decided every projecr insode joindevops.com should have HA 
+	so we should force to create 2 public/private/db subnets
+	expense-public-us-east-1a
+	expense-public-us-east-1b
+	
+1. Create repo in github
+2. Clone in local laptop
+----------------------------
+16th May Session 28
+
+
+"t2.micro" : "t2.small" r "t3.micro" : "t3.small"
+--------------------
+21st May Session 30
+
+VPC Peering..
+Peering is optional - Make the peering optional. default is false. if true then peering should be created.
+We should get which vpc he wants peering
+
+is peering required - true
+target_vpc_id - empty
+In this case lets take default VPC
+
+Auto accept can work if in the same account.
+Acceptor_vpc is empty then auto accept true, otherwise false.
+
+Expense VPC public route table
+Destination - default VPC CIDR
+
+If count is set, it is list.
+
+------------------
+Database subnet group..
+We create a group of data base subnets that is called DB subnet group.
+
+----------------
+Outputs
+
+Outputs of one resource may become input for another resource.
+
+sg - vpc id
+
+How to push existing repos to github?
+git init - to initialise a folder as git repo
+git branch -M main - to create a new name
+create repo in github
+create remote and origin<https-URL>
+git push -u origin main
+--------------------------
+22nd May Session 31
+
+Expense-dev-db
+
+project-name-environment-sg-name
+db 10.0.21.238
+backend 10.0.11.215
+---------
+Database security group Rule
+Allow traffic from 3306 from the instances which are attached to expense-dev-backend SG
+
+----------------
+Stateful Vs Stateless
+
+State == Storage
+
+MySQL = date is stored == Stateful application
+Backend = no storage for backend == Stateless
+Frontend = no storage for frontend = Stateless
+
+Very difficult to retrieve data from statefull application
+Easy to restore backend application, because of no state
+
+------------------
+DB Admin teams
+
+Everyday backup, ebery 3hr/6hr backup
+test the backup/restore
+High avaibality(atleast 2servers) and data replication(duplicate into another server for safety)
+load balancing
+major upgrade = 5.2 --> 5.4
+minor upgrade = 5.3.1 --> 5.3.2
+---------------
+Database services
+RDS - upgrades are cloud responsibility, HA is cloud responsibility, load balancing, snapshot/backup is easy to configure.
+-------------------------------
+23rd May Session 32
+ 
+How to develop modules?
+How to use modules in open sources?
+
+Bastion Host(Jump Host)..
+We will create one EC2 instance in public subnet
+
+Allow backend servers and DB servers to connect from bastion host
+user -> bastion host --> RDS, backend servers
+
+Public -> PR officer -->> PMO office
+ 
+-------------
+SNapshot - While you delete RDS, it will automatically snapshot for safety before delete.
+Snapshot is attached to VPC.
+
+Yoc cant delete VPC, because it has the dependency resource of snapshot.
+
+------------------------------
+24th May session 33
+
+Route53 records
+
+backend.sudheer459.online - private IP
+frontend.sudheer459.online - private IP
+sudheer459.online - public IP - private IP CHANGED
+
+
+[frontend]
+sudheer459.online
+
+[backend]
+backend.sudheer459.online
+
+
+dn.sudheer459.online = RDS end point 
+
+frontend_public
+frontend_ansible
+frontend_bastion
+
+----------------
+frontend SG
+
+port 22 expense-dev-ansible
+
+
+CNAME Vs A
+
+A -- IP address
+CNAME - another domain
+expense-dev.crqugaegowsn.us-east-1.rds.amazonaws.com
+
+Load Balancers
+
+-----------------------
+27th May session 34
+Load Balancing if there are multiple servers..
+Autoscaling based on traffic
+deployment
+-----------
+Process 1
+
+Stop the server
+remove old code
+download new code
+restart the server
+
+there is downtime, if 1 server easy todo..
+
+Get all the server IP address
+give it to ansible
+Ansible can connect to all the servers one by one and complete the deployment process...
+
+Process 2
+-----------
+Business going on
+
+Create one new instance'
+Use ansible to configure
+Stop the server
+Take AMI of the server
+Remove old servers one by one and create new servers one by one
+Total 3 srvers
+1. Create one new server, delete old servers
+2. create 2nd new server, delete 2nd old server.
+3. create 3rd new server, delete 3rd old server.
+
+Load balancer
+Target group
+listener
+listener rules
+
+user, cart, catalogue, shipping, payment services
+
+sudheer459.online - home page
+sudheer459.online/api/cart - if path is /api/cart - cart target group
+sudheer459.online/api/payment - if path /api/payment - paymnt group
+m.facebook.com - mobile code
+facebook.com - website code
+
+cart.sudheer459.online - host path
+sudheer459.online/cart - context path
+
+10 rules - final default rule
+
+Autoscaling
+--------------
+Average work per day = 5hr
+50 hrs work daily in a team
+
+100hr daily - more load - recruit new persons
+JD, roles and responsibilities are provided by leads and managers
+
+20hrs daily - fire some resources
+
+Launch template
+
+image = photo, person should stop
+Stop the server, take ami
+
+Nginx will not run even we create instance out of AMI, if not enabled.
+
+HR = ASG
+JD = launch template
+Work Policy - Autoscaling policy(Average CPU Utilisation)
+
+Create one instance, take AMI, create launch template, create ASG
+then start the project
+
+VPN::
+
+hotstar - VPN - US Content
+clients are aware of VPN this is forward proxy.
+
+-----------------
+28th May session 35
+
+Project Architecture
+Application Architecture
+
+
+project architecture - rarely change
+Applicaton architecture: Subjected to frequent change
+
+SG - rare
+SG Rule - frequent
+
+EC2, AMI, Launch template - Application architecture
+
+Expense - project
+Frontend, backend, database - components
+
+Expense-infra-dev
+	db-dev.sudheer459.online
+	frontend-dev.sudheer459.online
+	backend-dev.sudheer459.online
+
+Expense-infra-prod
+
+Ansible server = nodes
+Pull based architecture no need of ansible server, we will pull ansible playbooks directly from github.
+
+Open VPN
+-----------
+ubuntu
+openvpnas - username
+key based AMI
+
+Public/private key pair generate
+imported public key into AWS
+then we connect using private key
+
+admin username: openvpn
+password: Abcd@1234
+*.app-dev.sudheer459.online
+
+cart.app-dev.sudheer459.online
+catalogue.app-dev.sudheer459.online
+
+
+Application infra
+------------
+Backend..
+Create instance
+configure it using ansible
+stop the server
+take AMI
+delete instance
+target group
+backend launch template
+autoscaling
+autoscaling policy
+Listener rule - Port 80
+any request comes like this backend.app-dev.sudheer459.online -- backend target group
+
+----------------------------------------
+29th May Session 36
+
+Backend creation..
+1.Create EC2 instance
+2. Connect to the server using null resource and remote exec.
+3. Copy the script into instance.
+4. run ansible configuration
+7. delete the server
+5. Stop the server
+6. take AMI 
+	AWS configure
+	AWS
+8. target group creation
+9. launch template
+10. autoscaling and policy
+11. listener rule 
+	
+Match the declared configuration with actual configuration
+
+actual configuration of server
+server state -- terminated
+declared state -- create the server
+
+
+Userdata
+----------
+Once EC2 instance created aws will run userdata scripts.
+
+Disadvantage
+1. We have to login inside instance and check logs
+2. Once userdata is changed, AWS will not update EC2
+	Delete EC2 manually and run terraform again.
+
+Remote provisioner
+-----
+Execute the scripts in remote server.
+ansible-playbook -i <inventory> <yaml-name> -e var=value --- ansible server 
+
+ansible pull
+-------
+Install ansible in remote node
+ansible-pull -i <inventory> <ansible-playbook-git-url> <yaml-name> -e var=value -- remote node
+--------------------------
+30th May Session 37
+
+*.app-dev.sudheer459.online --  APP ALB
+
+backend.app-dev.sudheer459.online -- backend
+user.app-dev.sudheer459.online -- user
+
+Backend
+-------------
+instance creation
+configure using ansible, terraform null resource
+stop instance
+take ami
+delete the instance
+create launch template
+create ASG
+create ASG policy
+Add rule to the listener
+
+Hostpath backend.sudheer459.online
+contextpath sudheer459.online/backend
+
+-----------------------------------
+31st May Session 38
+
+1. VPC - project
+	vpc
+	subnets - public, private, database
+	IGW - attach to VPC
+	Route tables -public, private, database and associatinos
+	EIP
+	NAT
+	Routes
+	Peering
+	Peering routes
+	
+2. 	SG	 - Project infra, SG rules - application infra
+3. VPN
+4. DB
+5. App ALB
+	listener - should be listening on particular port to accept connections
+	Rules- based on rule, it can redirect traffic to different target groups.
+	Target groups - Group of instances belong to particular component/module
+	*.app-dev.sudheer459.online - APP ALB
+		backend.app-dev.sudheer459.onlinr - backend target group
+		user.app-dev.sudheer459.online - user target group 
+		
+6. ACM Certificates
+7. Web ALB
+
+8. Backend
+	create instance
+	configure using null resource, ansible 
+		install nodejs
+		create user and directory
+		download and unzip code
+		create systemctl service
+		install mysql client
+		load scheme
+		start the service, must enabled
+	Stop the instance 
+	Take AMI
+	Delete the instance
+	
+	Create target group
+	Create launch template
+	Create ASG
+	Create ASG policy
+	Create listener rule
+9. Frontend same as backend
+
+10. Cloudfront
+ISP - Download movies with high speed
+
+Home - ISP servers
+Small website to download movies
+Download movies from internet and store them in their servers
+
+Users open this website - click download 
+
+High Speed Download
+
+ISP Serverss - Cache servers
+
+Cache
+Netflix - Servers are in US
+Content Servers - Accross the globe
+
+Mummy -  Download movie from US servers - Indian cache servers
+
+CDN - Content delivery network
+Edge locations
+
+US-east-1 - CDN - Edge location are provided by AWS
+
+Images, videos are static content and high memory
+Code - Dynamic content 
+
+HTTP Methods
+----------
+GET - requesting for information, read only request (READ)
+POST - Creating information. Calling multiple times is unsafe, not idempotent (Create)
+PUT -  Update, resource update, safe 
+DELETE - Deleting the resources, safe
+
+files are in some source
+
+CDN - Connects to source and fetch the data.
+
+/images - enable caching
+/static - enable caching
+/* - web-alb
+
+When you did changes to website, create invalidation - CDN will delete data from edge locations.
+
+
+CICD
+---------------
+Developers doing changes
+build everything again
+compile
+dependencies install
+scan
+unit tests
+zip and push to S3/nexus
+
+
+3rd June Session 39
+-------------------
+
+Infra is good now
+
+Developer -- commit to git - compile
+
+Entire code -- zip file  (integration of code) -- Continious Integration
+
+
+Build and release engineers
+---------
+Clone Manually
+npm install
+npm build
+
+
+Push commit to Github
+------------
+Shift Left
+-------------------------
+Clone the code
+Compile the code 
+Unit testing
+Scan the code -- DevSecOps
+	Static source code analysis --Sonarqube(scan and give recommendations for any changes)
+	SAST - Security point of view
+	DAST - Dynamic application security testing
+	Open source scanning -- 
+Deploy to DEV environment
+functional testing
+
+
+Old Days
+---------------
+Deploy in Dev
+Deploy in QA --- Run test cases
+Deploy in prod
+	Sanity testing
+	regression testing
+	security testing
+	vulnerabilities testing
+
+Function --  testing a function is called unit testing
+
+Git
+----------------------
+GitOps - Everything should be inside the git, no manual process
+
+Git -- Single source of truth, version control 
+
+
+Git
+----------
+Created repo on console
+Clone the repo
+Add authentication
+Do changes
+git add . -- add code to temp area
+git commit -m "abc"  -- commit the code to local repo
+git push -- Push the code to central/remote repo
+
+existing folder
+-----
+To create repo in central
+git init -- .git directory
+git remote add origin <git-url>
+git add git commit git push
+
+generate public/private key pair
+Keep public key in server
+keep private key with us-east-1
+Pass private key at the time of authentication
+
+ssh config
+.ssh -- create file config without any extension
+
+
+Host github.com
+	Hostname github.com
+	user git
+	IdentityFile ~/.ssh/id_rsa
+
+branches
+merge
+rebase
+conflicts
+branching strategy
+
+rm -rf .git
+git init
+gi remote add origin <url>

@@ -1,0 +1,3224 @@
+ls -l  long format
+ls -lr reverse alphabtcl order
+ls -lt  latest files
+ls -ltr  starts from old files
+ls -la  all files and directory including hidden
+
+
+CRUD  create read update delete
+
+
+ls read
+
+
+create file
+---------
+touch <file name> this will create a file
+vi <file name> this will create information file
+update enter info into file
+cat >> sample...enter the text you want
+once over  click  and ctrl+d
+cat <filename> we can see what is in that file
+
+> --> replace old content
+>> --> append/add to the old content
+-----------
+Delete
+
+rm wget
+rm <file-name>
+mkdir   make directory
+rmdir  deletes only empty directory,fails when it has files inside
+rm -r <file-name>
+ls -l
+
+%d   delete everything
+------------
+Copy
+
+cp <source-file> <destination-file>
+
+------------
+cut
+
+mv <source-file> <destination-file>
+---------------
+grep
+used to search for a word in file
+ grep <word to find><which file>
+------------
+curl and wget
+
+wget <file-name>
+wget suppose to download any softwares
+curl is used to get the text directly on to the terminal
+used for scripts
+-----
+cut and awk
+
+cut command is used to get the fragments of a text using delimeter
+
+cut -d / -f1
+
+Ex: echo https://mail.google.com/mail/u/1/#inbox | cut -d / -f1
+
+AWK command is used for text processing. Generally used to divide the text in column format
+
+awk -F "/" '{print $1F}'
+Ex: echo https://mail.google.com/mail/u/1/#inbox | awk -F "/" '{print $1F}'
+
+--------------
+head and tail
+
+head  gives first 10lines of the file
+tail  gives last 10lines of the file
+
+tail -n 2 
+first -n 2
+
+tail grep <filename>
+head grep <filename>
+--------------
+Editor
+
+Vi and vim
+vim is advanced version of vi
+
+vim <file-name>
+:q   Quit, to come out of the file
+:q!  force quit, dont save the changes, quit the file
+:wq   write and quit
+:set nu
+:/  <word to find> search the word from top
+:?  <word to find> search the word from bottom
+:noh  remove focus i.e., nohighlight
+:4 search in 4th line
+
+:s/bin/BIN replace in the line where your cursor is
+:%s/bin/BIN replace in every line but only in first occurence
+:<line-no>s/<word-to-find>/<replace-word>  first occurence in that line 
+:%s/ <wordtofind>/<replaceword>/gi all occurences in the file
+
+
+---------------------
+ESC Mode
+shift+g    got to bottom
+gg    goto top
+u  undo
+yy copy
+p  paste
+10p  10times copy
+-----------------
+
+Permissions
+
+R - 4
+W - 2
+E - 1
+
+chmod   change permissions
+
+chmod o+x <file-name>
+chmod ugo+rwx all access
+
+user  full access
+group
+RW
+others X
+--------------------------
+/root   landing location of root user
+sudo su-
+id<username> userid, user-name
+
+In Linux when you create user, by default a group will be created with same username
+/etc/passwd   will have userinfo
+getent   group will have group info
+
+key based authentication pub and private key
+
+/etc/ssh/sshd_config   SSH Configuration
+
+
+groupadd aws
+I want to add sudheer to aws group
+
+usermod -g
+
+Linux should have only 1 primary group, can have multiple secondary group
+
+groupadd testing...
+
+usermod  -aG testting aws
+gpasswd -d aws testing   deleting aws user from group
+
+you cant remove primary group of linux user you can onyl change/modify
+
+create user   useradd
+read user id or cat /etc/passwd
+modify user  usermod -g or -aG<groupname><username>
+delete user
+---------------
+When emp leaving organisation
+delete user
+
+
+remove user from group
+delete user
+
+
+aws testing
+userdel aws  aws will be removed? what about aws group created by default
+
+1. remove all his secondary group
+2. change primary group to his own group
+3. then delete user
+-----------
+If a new user have to login with his private key
+robert user with key based authentication
+
+
+
+--------------------
+chown <user>:<group> to change  ownership
+
+SSO Centralized login
+Q:how u give sudo access to user
+ 
+to login:::: sudo useradd <name>
+password stores in etcshadow
+---------
+Package management --- to install packages
+
+In linux one package may be dependt on another package
+
+yum --- automatic dependent management
+
+yum install git -y
+/etc/yum.repos.d ----- location of package URLs
+
+yum remove git -y
+yum list installed | wc -1---- total packages installed list
+
+yum list all  all packages for this linux server
+available =all installed
+
+yum update  ----to check updates
+
+cat /proc/cpuinfo
+cat /proc/meminfo
+cat /etc/os-release ---cat /etc/*release
+yum update
+----------------
+service management
+ports 65536
+SSH 22
+ssh -i <perivatekey> user@ip
+
+IP address, server will cehck is there anyservice running on port 22, then it will frwd reqst to ssh
+
+
+ssh service wil check credentials, if success login
+
+systemctl start nginx
+systemctl start nginx
+systemctl stop nginx
+systemctl restart nginx
+systemctl enable nginx
+
+-------------
+Process management
+
+
+A sequence of steps to follow to complete a task.
+
+Ticketing system... Every order will get one orderid/ticketid.
+
+In Linux/windows everything is process
+
+Linux creates process ID for everything.
+
+PID... Process instance ID
+
+If task is big do u think one process is enough?
+
+We create subtasks
+
+Acc Manager, team manager, lead, senior, junior, trainee
+
+Trainee report to junior, junior to senior, senior to lead....
+Traine is child,,, his parent is junior
+
+PID, PPID
+ec2-user@ip-172-31-21-237 ~]$ ps
+    PID TTY          TIME CMD
+   2693 pts/0    00:00:00 bash
+   2716 pts/0    00:00:00 ps
+   
+ ps -ef....to check all process in linux
+ 
+ foreground  and background
+ 
+ foreground	process blocks the terminal until it completes
+ and it eill taje the process into background
+ 
+ ps -ef | grep nginx
+ when a service is stuck u need to restart
+ Kill the existing process and restart  the service.
+ 
+ Kill Vs Kill -9
+ 
+ Kill.. request to end.. gracefull termination
+ Kill -9... order to end...forcefull termination
+ top.. all running process with CPU and RAM
+ 
+--------------
+Network Management
+ 
+ How to check port is opened r not?
+ netstat -lntp.... listdown the tcp opened ports and their PID
+ ----------------
+ Expenses project
+ 
+ When app is getting started
+ 1. DB should be ready
+ 2. Chef should be ready
+ 3. Waiter
+ 
+ Termination of applicaton
+ Loadbalancer
+ Frontebd
+ backend
+ DB
+ 
+-------------
+Username and password based
+
+mobaxterm.... alternative to putty and super putty
+
+----------------
+Forward proxy.. are used n companies
+Clients are aware of VPN, but servers are not aware.
+Mobile ia aware of VPN
+
+Reverse Proxy...
+Clients are not aware of VPN/proxy, only servers are aware.
+
+SSL termination
+Some secure features
+
+Company VPN..
+restrict the websites.
+monitor the user requests
+
+-------------------------
+DNS..
+
+A record.. IP address of the domain.
+NS... authoritive nameservers.
+SOA... Ownership record.
+CNAME(canonical name)... another domain.
+MX records... mail servers.
+
+----------------
+soft link vs hard link
+
+inode = indexnode
+inode stores the file metadata actually(storage location,ownership,permissions,etc.,)
+shortcut...points to the real location.
+hardlink..another copy
+
+If i delete main file, can soft link work? no it will not work
+If i delete main file, can hard link work? yes it will
+
+softlink/symlink is the shorcut to the file, if u remove actually symlink will not work..
+
+hardlink is another copy of file, if u remove main file, hard link will work?
+
+Does inode of softlink is same as main file? inode is same
+
+
+inode is different
+
+Does inode of hardlink is same as main file? yes inode is same
+
+when someone deletes the main file, do you think file storage is deleted?
+No..because other hard links are pointing to this.
+
+ln == link
+
+------------------
+Linux folder structure
+
+/root... directory for root user
+/bin... binaries, while system is starting these binaries will load
+/boot... when linux system starts, linux start boot loading  from here
+/dev = devices ..harddisk keyboard devices.
+/etc = extra configuration  = /etc/nginx
+/home = linux stores all users in home location
+/lib = operating system libraries
+/media = cd or dvd drives
+/mnt = you can mount other disks
+/opt = optional = if u r installing any package manually, prefer opt location
+/proc = pid info and processor info
+/sbin = admin comands
+/tmp = it is temporary not an important
+/usr = user commands, libraries,docs
+/var = variables..mainly log files
+------------------
+Session 9
+Linux
+Expenses project
+Shell Script
+3 servers... •
+configuring the server?
+installed application runtime -→> nodejs 
+downloaded code 
+created a directory
+created a user for our application
+ unzip the code.
+ installed node js dependencies
+ created systemctl service
+ configured mysql details 
+ start the server 
+ --------------
+15min
+20 servers --> 30min
+
+10-15min
+-----------------
+Deployment
+releasing new version
+download andriod latest version
+ switch off phone
+ install latest version
+ start the phone
+ --------------------
+upgrade/releasing/deploying the new application
+download the new code.
+ stop the server.
+ remove old code
+ copy the new code
+ start the server
+ 
+ -----------------
+logs in field
+
+carry one log at a time manually to home...
+ hire a tractor, keep all logs at a time...
+ 
+run commands one by one --> manual
+keep all commands in a file and run that file -→› shell script
+
+shell runs these commands in sequence...
+----------------------------
+errors may defnitely come?
+
+If error u ignore? u clear error and go forward
+
+We need to chck if the present command got success or not.
+If success go forward
+If failure exit the program
+
+-----------------
+Programming/developing/scripting
+
+Coding... Programming/developing... reactjs, nodejs, java, .net, python....
+		  scripting = automating manul tasks other than development.
+		  server configuration
+		  installations
+		  deployment process
+
+Perfect code execution time should be less
+Memory consumption should be less
+data structions
+algorithms
+design patterns
+
+Connect to DB
+fetch the data asap..
+transaction management
+
+------------------
+Coding Concepts
+
+Variables
+data types.... less priority in scripting.
+functions
+loops
+conditions
+
+-----------------
+Algorithm
+
+1. fast releases
+2. reduce the defects
+
+Write down the steps in general way..
+I will install a package through script
+
+1. check the package is already installed r not.
+	If installed ok
+2. If not installed then we need to install
+3. Just verify is it done properly r not.
+	if good thats ok.
+	otherwise check and clear the error.
+	
+===============================
+What is shell
+ls -l======getting result
+lss -l=== who is cehcking that it is wrong?
+
+
+Shell Script---Keeping all the commands you need in a file with variables, conditions,loops, functions,
+etc is called shell script.
+
+shell interprets and executes shell script.
+-----------------
+Where to store scripts???
+Can you store in your laptop..
+security and backup ==== if laptop crashes
+versions-- you must keep the versions
+Collobaration--
+
+To store our shell scripts in github.
+
+Repository---Stores something...
+github --- only store code
+
+Git Vs Github Vs Gitlab
+
+github gitlab gitbucket --- Implementations of git from different vendores
+
+To store code publicly we can use github....
+
+One repo one specifi code...
+-----------------
+Steps
+1. Create repo in github
+2. Clone in your local laptop
+------------
+Where to develop the code.
+Can i develop code using VIM editor
+
+IDE--- Integrated development environment/editor.
+
+VS Code --- Its light weighted and perfect for scripting.
+--------------
+Session 10
+
+shell script
+1st line will be like #!/bin/bas(shebang)
+
+SHEBANG is the location interpreter, commands written inside shell script is
+interpreted and executed by this shebang
+
+zshell
+kshell
+cshell
+fish
+
+Bash shell ==shell
+----------------
+how to execute shell script
+sh<script>
+bash<script>
+X - running the command/script
+
+1. repeated words
+2. If u want ot change you have to change it every where.
+3. While changing accidently you may change actual code.
+--------------
+Variables
+
+int i=4, m=6
+i and m are variables
+x=0, y=4
+Derive the formula, submit variables at last
+
+Variables hold some value
+
+4.If u change variable value it will  ee automatically reflected everywhere.
+-------------------
+Arguments/Parameters
+
+sh variables.sh sudheer kumar
+
+sudheer = 1st variable
+kumar= 2nd variable
+
+-----------------
+Confidental information
+We want user to enter manually befre execution
+--------
+Data types>>>>>>>>>
+
+Integer
+float
+decimal
+string
+boolean - true/false..1 true 0-false
+array - list of values
+arraylist
+set, map
+
+
+array - list of values
+If u define a variable as array it can hold list of values.
+
+----------------------------
+Special variables
+to know script name - $0
+current working directory - PWD
+home directory of current user -$HOME 
+Which user is running this script - $USER
+All Variables $@
+Number of variables passed $#
+Hostname - $HOSTNAME
+Process ID of the current shell script - $$
+Process ID of last background command - $!
+
+Sleep 60 & not understand//////////////
+-------------------
+Conditions
+When you want to take a decision
+
+I want to check whether a number is greater than 20 r not
+first get the number
+check if it is greater than 10 r not
+If greater print greaterif lesser print lower
+-----------------
+Installation
+
+If you want to install you should have super user access
+so check user
+If super user, proceed 
+if not super user, i should throw proper error 
+
+How you run a command inside shell script and take the output.
+
+If ID is 0 then super user, if not 0 then normal user
+If error comes, can we proceed? No
+------------
+Disadvantages of shell script..
+Shell script will not stop even it faces the error, it is user
+responsibility to check the previuos command is success r not.
+----------
+Exit status..
+What is exit status
+$? - to check exit status of previous command
+0 - success
+Other than 0 its failure
+1-127
+How do you check command is success or not in shell script?
+dnf installation command are 20...
+140 lines of validation
+
+----------------------------
+Session 11
+
+Functions.
+It is block of code that can do some work.
+
+Variable: Any value repeated inside the code can be declared as variable.
+declaring variables is a best practice even it is repeating only 1 time.
+
+Similarly if a block code is repeating, consider using functions.
+------------------
+logs
+
+We should persist/store the logs of any coding, this is the best practice
+--------------
+Redirections
+> by default only success output will be redirected.
+1 - success
+2 - error
+& - Both success and error
+>> append/add
+there should be no space b/w & and >
+&>>
+ 
+ cat > file-name 
+ cat>>
+------------
+Colors
+31 red
+32 green
+33 yellow
+
+\e[31m - red color
+---------------
+Loops
+for(int i=0; i<20; i++){
+	print $i;
+}
+--------
+Install packages
+
+mysql
+gcc
+chrony
+fail2ban
+postgis2_94
+
+--------
+steps
+
+log redirection
+colors are mandatory
+
+1. User have root access or not
+2. send packages to install as parameters
+sudo sh install-packages mysql gcc 
+
+USERID is here variable
+
+-------------
+Session 12
+
+Idempotency
+It is a nature of program irrespective of how many times you run 
+it should not change the result.
+
+Shell script is not 
+-----------
+Session 13
+How do you call other scripts from your shell script?
+
+2ways
+1st way is 
+./<script-name>.sh
+
+1. Changes happend in other script will not affect current script
+2. PID of 2scripts are different
+
+Variable values will not change after calling other script
+PID of two scripts are different
+-------------------
+2nd way
+source ./<script-name>.sh
+Vairable values changes after calling other script
+PID of 2 scripts are same
+
+1. Changes happened in other script will be reflected in current script.
+2. PID of 2 scripts are same
+
+
+Disadvantage: Script will not exit even error comes.
+
+set -e --- script starting
+
+some cases - even error comes it should move forward -- error handling
+-----------
+Delete old logs
+
+cd /app/logs - Folder
+Daily logs
+Delete old log files morethan 2 weeks old
+
+1. Decide which folder.
+2. .Java, .sh, .py... log files are there in folder
+3. Find only .log files
+4. Find only morethan 2 weeks old
+
+While read line; do
+ ARRAY[$c]="$line"
+ c=$((c+1))
+ done < <(tcpdump -n -r "$pcap")
+
+while IFS = read -r line
+do
+statements to execute 
+
+
+done <<< input
+done >>> output
+-----------------
+Session 14
+
+1.Deleting old log files?
+2. monitor memory of the server
+3. given a doc file count the number of each word?
+
+
+logs..
+
+Everyday a new logfile will be created with that date.
+
+rotate the logs
+2. Zip them and transfer to other servers
+crontab -- a scheduler for linux server 
+crontab -e -- edit crontab
+
+ 5 4 * * *
+ 
+ 1-Monday
+ 2-Tues
+ 3-we
+ .
+ .
+ .
+ 0--Sunday
+
+Zip the files and move another location in linux server
+
+1.write a script to monitor something
+2. send alert email if something is morethan threshold
+3. write a script to monitor RAM, Memory and send alert email?
+
+-------------
+Disadvantage..
+1. no idempotency
+2. hard to understand the script
+3. Single script may not work for all distors
+4. No error handling
+5. Shell scripting is tough if you have more servers
+6. Homogeneous - means only work for distro
+7. Imperative type of program
+-------------------
+Ansible: Configuration Management
+chef, rundeck,saltsack
+
+-------------------
+Session 15
+
+Configuration management: Server should be ready with application.
+
+install application runtime
+install system packages
+
+
+
+
+
+
+---------------------------------
+Session 2nd may
+
+Ansible roles?
+
+DRY  Principal
+	variable
+	functoins
+	
+What is ansible role?
+Role is a proper structure of riable tasks, templates,handlers etc.,
+Using roles we can reuse code.
+Install application dependencies
+download the code
+create users, premissions,directories
+creare systemctl services
+
+
+CM tools --- puppet, chef -its old. Ansible is new
+---------
+
+Push Vs Pull
+
+Delhi -- Hyd
+1. Asking DTDC office everyday --- Pull
+2. Dont do anything, when latter coems DTDC deliver to you -- Push
+
+-------
+Pull
+1. Internet traffic icreases
+2. Unnecessary bandwidth consumption
+3. Power and system resource
+4. cost
+-----------
+Push
+1. Active notifications
+
+--------
+Adhoc commands..
+SSH protocols
+ansible -i <inventory> -e ansible_user=ec2-user -e
+ansible_password
+
+ansible -i IPaddress, all -e ansible_user=ec2-user -e ansible_passowrd=abc123
+
+
+
+Linux - commands
+Ansibles - modules/collections
+
+ansible -i 172.31.16.150, all -e ansible_user=ec2-user -e
+ansible_passowrd=abc123 -m ping
+
+ansible -i 172.31.16.150, all -e ansible_user=ec2-user -e
+ansible_passowrd=abc123 -m dnf -a "name=nginx state=installed"
+	
+-b --- become root
+
+Manually configured servers - through commands
+Shell script - all commands in a file, run that file one time.
+
+
+Adhoc commands - manual way
+Playbook - Keep all your modules in a single file with YAML syntax.
+Run that file. It is done.
+
+
+YAML - Yet another markup language
+------------
+
+DTO - Data transfer objects
+
+HTML - Hyper text markup language
+XML - extensive markup language
+
+<User>
+	 <username>sudheer</username>
+	 <password>abc123<password>
+</user>
+-------------
+
+XML
+	<student>
+		<name>sudheer</name>
+		<dob>1990-01-01<dob>
+		<address>krpuram, bangalore<address>
+		
+<student>
+		<name>sudheer</name>
+		<dob>1990-01-01<dob>
+		<addresses>
+			<Permaddress>
+				<addressline1>krpuram<addressline1>
+				<addressline2>bangalore<addressline2>
+			</permaddress>
+			<curraddress>
+				<addressline1>krpuram<addressline1>
+				<addressline2>bangalore<addressline2>
+			</curraddress>
+		</address>
+</student>
+			
+-----------------
+			
+[] list
+{} map/dictonary
+
+JSON - Java script object notation
+
+{
+	"username": "name",
+	"password": "admin123",
+	"DoorNo": 123
+}
+
+{
+	"name": "sudheer",
+	"dob": "1990-01-01",
+	"address": "D-123, KR puram, Bangalore"
+}
+---------
+YAML - Yet another markup language
+Based on indentation - space (two spaces per level)
+
+- = List
+
+name: sudheer
+dob: 2021-10-10
+
+name: sudheer
+dob: 2021-10-10
+address: kr puram, bangalore
+
+name: sudheer
+dob: 2021-10-10
+address:
+- addressline-1:kr puram
+  addressline-2: name
+  city: bangalore
+
+-----------------
+Inventory
+
+List of hosts
+
+---------------------------
+
+Session 16
+what is adhoc command in ansible?
+It is ansible command line to run modules against nodes directly,
+instead of playbooks. some urgency purposes
+
+
+Variables
+data types
+functions
+loops
+conditions
+
+DRY - dont repeat yourself
+define/declare the variable assign value to it
+
+
+Variables are args
+Variables from user prompt
+
+------------------
+
+Inheritance and overriding
+
+
+echo "Please enter password"
+read -s Password
+
+-----------------
+Session 17
+
+Ansible we cant create functions. We ca use existing filters.
+
+filter = data transformation/manipulation
+
+if a number is less than 10, print less than 10
+otherwise print greaterthan r equal to 10
+
+number < 10
+
+npm install = install nodejs dependency
+pip = this is for installing python dependencies
+
+----------------
+Ansible Shell Vs Ansible Command Module
+
+Shell Module
+Command Module
+
+Shell Module: It will use shell environment, means we can use 
+redirections >, pipes | and other shell variables.
+
+Command Module: It will just run the commands, but cant use the shellenvironment like > , pipe | or variables.
+
+If a simple plain command without variables, redirections, pipes etc
+We can use command module..
+
+If you want to run shell script inside ansible or complex commands with
+redirections then we can use shell module.
+
+ansible.builtin.user = works for all distros
+
+useradd/adduser = 
+
+If we use ansible modules we can automatically get idempotency nature.
+
+src: # by default ansible checks in ansible server
+dest: 
+
+make the connection
+import the data
+---------------
+
+Session 21
+
+Infra as a code
+Infra is very important to create business.
+--------
+Disadvantages
+Manually created
+tasks time
+Follow sequence
+	create sg
+	create ec2
+	create route53 record
+We need to check each and every resource and note down manually
+Cost analysis.
+-----------------
+Infra as a code
+1. Version COntrol: We can maintain different versions of infra.
+Multiple persons can collaborate to create infra.
+
+2. Same infra across environments: Dev, QA, Prod, etc.,
+Working in Dev, failed in Prod run the same code in all environments
+that create same infra everywhere
+
+3. CRUD - create read update delete
+4. Inventory - list of resources for the project in terms of infra.
+5. dependency - dependencies would be automatically resolved while CRUD.
+6. Cost - creation and deletion takes less time, so cost can be reduced.
+7. code reuse - modules, you can reuse the infra code created 
+multiple times for different projects.
+8. State Management: implicit feature.
+
+Hybrid Cloud - 
+1. Download terraform
+2. provide the path in environment variables
+3. Download AWS CLI
+
+Terraform - HCL(Hashicorp configuration language)
+
+Variables
+data types
+conditions
+funtions
+loops
+terraform related concepts
+	outputs
+	locals
+	data sources
+	count
+	dynamic blocks
+---------------
+EC2 Creation
+
+1. Security group
+2. ec2 instance creation
+
+Terraform works with providers. We are using AWS here. 
+So we should inform that we are using AWS.
+
+Provider Configuration
+
+IAM user, access key and secret key
+AWS Configure - AWS CLI installed. SO we can run aws configure in windows
+
+Security group::
+
+1. Inbound: Allow everything, or only port no 22
+2. Outbound: Allow everything
+
+Initialize terraform::
+Terraform init - terraform will check for providers. It will download AWS providers and keep them.
+Terraform plan - terraform will show what are the resources it is going to create.
+
+Validate syntax, if correct then it will show the resources, it will create
+
+
+.gitignore file = do not push to git repository
+
+--------------
+Session -22
+Variables
+Conditions
+loops
+functions
+
+Variable:::
+variable "<var-name>" {
+	type
+	default = "<default-value>"
+
+-----------
+Tagging Strategy
+
+Name of the resource
+which project
+which module
+which environment
+who created
+which date
+
+------------------
+Terraform.tfvars
+
+In variable declaration we can give default values.
+
+terraform.tfvars will override default values in variables.
+
+TF_VRA_<var-name>=value
+----------
+Conditions
+
+if (expression) {
+		these will run if expression is true
+}
+else{
+		these will run if expression is false
+}
+
+expression ? "this will run if expression is true " : "run if false"
+------------------
+
+Expense project...
+
+If DB, instance type should be t3.small
+
+3 instances - db,backend,frontend
+if DB t2.micro
+and route53 records
+
+few tags are common, project, environment,terraform
+
+
+-------
+loops
+
+count based loop
+for loop
+dynamic block loop
+
+count.index - 0,1,2,3...
+-----------
+Functions
+
+length(<list>)
+
+------------------
+outputs
+----------------
+May 8th session 23
+
+create 3 instances
+create 3 records
+if db instance should be t3.small
+if frontend daws.online -- public ip
+otherwise db/backend.daws78s.online - private ip
+
+aws_instance.expense - instance information
+
+If frontend name is daws78s.online: db/backend.daws78s.online
+----------------
+Interpolation
+
+variable "greeting" {
+	default = "morning"
+}
+
+"Hello{{greeting}}" - to mix text and variable is called interpolation
+
+"Hello ${var.greeting}"
+
+. means variable/text . Its text
+---------
+locals
+Locals and variables are same referring key value pairs.
+
+locals can hold expression and use it whereever you want
+variables inside locals, but you cant use other variables/locals
+inside the variables.
+-------------
+Data Sources
+
+Going to console, searching it and then using it..
+Quering AWS 
+
+Terraform have AWS credentials
+
+terraform can query and fetch the AMI_ID automatically
+
+few things are created infra manually, Our team is using terraform.
+
+I want existing default VPC_id
+
+state and remote state
+for loop
+dynamic block
+-------------------
+9th May Session 24
+
+state and remote state
+
+terraform - IaaC, declarative
+whatever we write we will get
+Shell in imperative(strict)
+terraform is idempotent also
+
+there is something called state..
+whatever we declared terraform should create
+
+declared state[terraform files]  == actual state[resources inside providers]
+i.e., AWS/ created infra
+
+I ran, terraform created infrastructure.
+I run once again, How terraform will understand what infra it is already
+created?
+
+terraform.tfstate is the file that terraform tracks the actual infra 
+
+I deleted manually inside AWS, but it exists in terraform.tfstate
+------------------
+Refreshing state
+It will check terraform.tfstate against AWS...
+
+terraform files[declated state] = AWS infra[actual state] -- false ->
+
+terraform responsibility is to create the infra equivalent to terraform
+files..
+
+terraform.tfstate: It can track what happend in the infrastructure.
+declared state: Terraform file user created
+actual state: what is the actual infrastructure exist inside the provide(aws)
+refresh: Whenever you run terraform command, terraform will make sure the
+terraform.tfstate is equal to the actual state.
+
+incollaboration environment?
+-------------
+Remote state... 
+
+duplicate resources or errors, locking
+
+one person is creating infra through terraform,can we ask
+other person also do samething?
+
+There should be some locking mechanism, when once person is creating
+infra. it should be locked until it is completed.
+
+.lock file -- means someone opened, others are not allowed to edit
+-------------------
+
+local state vs remote state
+1. There is a chance to delete the file r edit the file.
+2. It will not work in collaboration environment.
+3. There is a chance multiple persons apply/edit the infra.
+
+
+Centralise repo -- github
+
+
+----------------
+
+S3 remote state
+
+S3 bucket can be locked with DynamoDB table..
+---------------
+For loop
+
+count uses for list
+for uses for maps
+dynamic
+
+---------------------------------------
+10th may session 25
+
+How to create multiple environments with terraform?
+
+Using tfvars
+Code is same - resource definitions
+-------------------
+Dev and Prod
+
+Dev, QA, Prod, UAT etc..,
+
+tfvars - Default variable values to override.
+-------
+S3 Backend
+Different buckets for diff environment
+
+-----------
+Variables
+default values
+
+db-dev, backend-dev, frontend-dev
+db-prod, backend-prod, frontend-prod
+
+db-dev.daws78s.online
+backend-dev.daws78s.online
+frontend-dev.daws78s.online
+
+db-prod.daws78s.online
+backend-prod.daws78s.online
+frontend-prod.daws78s.online
+
+daws78s.online
+
+Project=Expense, Module=DB/frontend-dev/backend-dev
+Environment=dev/prod
+Terraform=true
+
+---------------------------
+frontend-dev/frontend-prod
+
+if key starts with frontend 
+
+terraform init
+terraform init --help
+
+terraform init -backend-config=dev/backend.tf
+
+terraform plan/apply -var-file=prod/prod.tfvars
+---------------
+
+workspace
+
+dev, qa, prod
+
+if dev t3.micro
+if prod t3.small
+
+terraform.workspace = dev, prod
+
+Variables and their values we should be very careful
+
+seperate repo for dev, seperate repo for production
+
+---------------------
+Workspace, tfvars
+
+Advantage - less code
+disadv	- should be more careful while dealing variables and tfvars. Chance of doing 
+something wrong in production.
+---------------
+Seperate repos
+
+Advantage - clear seperation of environments
+disadv	- duplication of code
+
+---------------------
+
+Provisioners
+Terraform we are creating instances..
+1. local-exec -- where you are running terraform command i.e., local
+2. remote-exec -- inside remote machine 
+
+IP Address into a file
+
+ansible-playbook -i private_ips.txt web.yaml
+
+----------------
+Linux server
+
+Terraform and ansible install
+Clone this code and run there
+
+create db, install ansible, pull db playbook configure itself
+------------------
+
+14th May Session 26
+
+Module Development...
+
+DRY - Dont repeat yourself
+
+minimum code
+Code reuse
+
+Variables
+Functions
+
+Write resource definition
+Left side options are from documentation, you cant change option name servers.
+Right side are values, we can give as per project requirement.
+Keep variables and their default values.
+Override if required.
+
+Function: block of code
+Call the function when require - Provide inputs if require
+----
+Advantages:
+code reuse 
+best practices can be implemented and forced to use
+easy to maintain/update
+we can keep few restrictions based on company guidelines
+
+
+Module developers - they create tf code with best practices 
+Module users - they use the module code
+
+1. custom module development
+2. open source modules
+
+--------------------
+VPC(Virtual private cloud)
+They have to buy the servers.
+Deploy the code in servers.
+
+Development - Only Dev server
+Testing team - Only QA server
+production support - limited access to prod servers
+call center - just internal apps
+Devops - full access to all servers
+Linux - all servers access
+----------------------
+
+Data center
+
+Space
+watchman
+network
+resources
+maintenance
+logical seperation of servers
+power
+------------
+
+VPC is like a mini data center for project. Resources created inside VPC are isolated and private to ourself.
+
+
+VPC Name - village name
+VPC CIDR - Village pincode
+
+Subnets - streets
+arch - internet gateway
+
+routes = roads
+--------------
+Public and private subnets
+
+Subnets which are connected to IGW are called public subnets.
+Subnected which are not connected to IGW are called private subnets.
+
+Route tables and routes
+
+Created VPC
+Created IGW
+Attached IGW to VPC
+
+Created public subnet
+Created private subnet
+
+Frontend - public
+Backend - private
+DB - private. We create in bd subnet
+
+2 public subnets - 1a and 1b
+2 private subnets - 1a and 1b
+2 db subnets - 1a and 1b
+
+
+1-10 public
+11-20 private
+21 DB
+---------------
+15th May Session 27
+
+Module development
+
+NAT Gateway
+Private servers cannot connect to internet or cant accept connections from internet.
+
+
+Traffic originating from servers - Outbound traffic
+Traffic to the servers is called inbound traffic
+
+NAT gateway - public subnet
+This is to enable outbound internet traffic to the private servers.
+General use cases fetching the updates, downloading packages from internet.
+
+IP Keeps on changing, IP sgould not be changed. We need static IP.
+
+Elastic IP = Static IP
+
+create VPC
+Create IGW
+Attach IGW to VPC_id
+
+
+resource names, variable names, output names these names are related to terraform.
+
+
+Name tags are related to user
+
+Terraform names can have _ to seperate words
+User names can have - to seperate words
+main or this if only one resource..
+
+Tagging strategy..
+expense-dev
+
+<project-name>-<environment>
+Terraform = true
+Project = mention project name
+Environment = dev/prod
+
+1. Create VPC
+2. Create IGW
+3. Attach IGW to VPC
+4. Create subnets (public/private/db)
+	We decided every projecr insode joindevops.com should have HA 
+	so we should force to create 2 public/private/db subnets
+	expense-public-us-east-1a
+	expense-public-us-east-1b
+	
+1. Create repo in github
+2. Clone in local laptop
+----------------------------
+16th May Session 28
+
+
+"t2.micro" : "t2.small" r "t3.micro" : "t3.small"
+--------------------
+21st May Session 30
+
+VPC Peering..
+Peering is optional - Make the peering optional. default is false. if true then peering should be created.
+We should get which vpc he wants peering
+
+is peering required - true
+target_vpc_id - empty
+In this case lets take default VPC
+
+Auto accept can work if in the same account.
+Acceptor_vpc is empty then auto accept true, otherwise false.
+
+Expense VPC public route table
+Destination - default VPC CIDR
+
+If count is set, it is list.
+
+------------------
+Database subnet group..
+We create a group of data base subnets that is called DB subnet group.
+
+----------------
+Outputs
+
+Outputs of one resource may become input for another resource.
+
+sg - vpc id
+
+How to push existing repos to github?
+git init - to initialise a folder as git repo
+git branch -M main - to create a new name
+create repo in github
+create remote and origin<https-URL>
+git push -u origin main
+--------------------------
+22nd May Session 31
+
+Expense-dev-db
+
+project-name-environment-sg-name
+db 10.0.21.238
+backend 10.0.11.215
+---------
+Database security group Rule
+Allow traffic from 3306 from the instances which are attached to expense-dev-backend SG
+
+----------------
+Stateful Vs Stateless
+
+State == Storage
+
+MySQL = date is stored == Stateful application
+Backend = no storage for backend == Stateless
+Frontend = no storage for frontend = Stateless
+
+Very difficult to retrieve data from statefull application
+Easy to restore backend application, because of no state
+
+------------------
+DB Admin teams
+
+Everyday backup, ebery 3hr/6hr backup
+test the backup/restore
+High avaibality(atleast 2servers) and data replication(duplicate into another server for safety)
+load balancing
+major upgrade = 5.2 --> 5.4
+minor upgrade = 5.3.1 --> 5.3.2
+---------------
+Database services
+RDS - upgrades are cloud responsibility, HA is cloud responsibility, load balancing, snapshot/backup is easy to configure.
+-------------------------------
+23rd May Session 32
+ 
+How to develop modules?
+How to use modules in open sources?
+
+Bastion Host(Jump Host)..
+We will create one EC2 instance in public subnet
+
+Allow backend servers and DB servers to connect from bastion host
+user -> bastion host --> RDS, backend servers
+
+Public -> PR officer -->> PMO office
+ 
+-------------
+SNapshot - While you delete RDS, it will automatically snapshot for safety before delete.
+Snapshot is attached to VPC.
+
+Yoc cant delete VPC, because it has the dependency resource of snapshot.
+
+------------------------------
+24th May session 33
+
+Route53 records
+
+backend.sudheer459.online - private IP
+frontend.sudheer459.online - private IP
+sudheer459.online - public IP - private IP CHANGED
+
+
+[frontend]
+sudheer459.online
+
+[backend]
+backend.sudheer459.online
+
+
+dn.sudheer459.online = RDS end point 
+
+frontend_public
+frontend_ansible
+frontend_bastion
+
+----------------
+frontend SG
+
+port 22 expense-dev-ansible
+
+
+CNAME Vs A
+
+A -- IP address
+CNAME - another domain
+expense-dev.crqugaegowsn.us-east-1.rds.amazonaws.com
+
+Load Balancers
+
+-----------------------
+27th May session 34
+Load Balancing if there are multiple servers..
+Autoscaling based on traffic
+deployment
+-----------
+Process 1
+
+Stop the server
+remove old code
+download new code
+restart the server
+
+there is downtime, if 1 server easy todo..
+
+Get all the server IP address
+give it to ansible
+Ansible can connect to all the servers one by one and complete the deployment process...
+
+Process 2
+-----------
+Business going on
+
+Create one new instance'
+Use ansible to configure
+Stop the server
+Take AMI of the server
+Remove old servers one by one and create new servers one by one
+Total 3 srvers
+1. Create one new server, delete old servers
+2. create 2nd new server, delete 2nd old server.
+3. create 3rd new server, delete 3rd old server.
+
+Load balancer
+Target group
+listener
+listener rules
+
+user, cart, catalogue, shipping, payment services
+
+sudheer459.online - home page
+sudheer459.online/api/cart - if path is /api/cart - cart target group
+sudheer459.online/api/payment - if path /api/payment - paymnt group
+m.facebook.com - mobile code
+facebook.com - website code
+
+cart.sudheer459.online - host path
+sudheer459.online/cart - context path
+
+10 rules - final default rule
+
+Autoscaling
+--------------
+Average work per day = 5hr
+50 hrs work daily in a team
+
+100hr daily - more load - recruit new persons
+JD, roles and responsibilities are provided by leads and managers
+
+20hrs daily - fire some resources
+
+Launch template
+
+image = photo, person should stop
+Stop the server, take ami
+
+Nginx will not run even we create instance out of AMI, if not enabled.
+
+HR = ASG
+JD = launch template
+Work Policy - Autoscaling policy(Average CPU Utilisation)
+
+Create one instance, take AMI, create launch template, create ASG
+then start the project
+
+VPN::
+
+hotstar - VPN - US Content
+clients are aware of VPN this is forward proxy.
+
+-----------------
+28th May session 35
+
+Project Architecture
+Application Architecture
+
+
+project architecture - rarely change
+Applicaton architecture: Subjected to frequent change
+
+SG - rare
+SG Rule - frequent
+
+EC2, AMI, Launch template - Application architecture
+
+Expense - project
+Frontend, backend, database - components
+
+Expense-infra-dev
+	db-dev.sudheer459.online
+	frontend-dev.sudheer459.online
+	backend-dev.sudheer459.online
+
+Expense-infra-prod
+
+Ansible server = nodes
+Pull based architecture no need of ansible server, we will pull ansible playbooks directly from github.
+
+Open VPN
+-----------
+ubuntu
+openvpnas - username
+key based AMI
+
+Public/private key pair generate
+imported public key into AWS
+then we connect using private key
+
+admin username: openvpn
+password: Abcd@1234
+*.app-dev.sudheer459.online
+
+cart.app-dev.sudheer459.online
+catalogue.app-dev.sudheer459.online
+
+
+Application infra
+------------
+Backend..
+Create instance
+configure it using ansible
+stop the server
+take AMI
+delete instance
+target group
+backend launch template
+autoscaling
+autoscaling policy
+Listener rule - Port 80
+any request comes like this backend.app-dev.sudheer459.online -- backend target group
+
+----------------------------------------
+29th May Session 36
+
+Backend creation..
+1.Create EC2 instance
+2. Connect to the server using null resource and remote exec.
+3. Copy the script into instance.
+4. run ansible configuration
+7. delete the server
+5. Stop the server
+6. take AMI 
+	AWS configure
+	AWS
+8. target group creation
+9. launch template
+10. autoscaling and policy
+11. listener rule 
+	
+Match the declared configuration with actual configuration
+
+actual configuration of server
+server state -- terminated
+declared state -- create the server
+
+
+Userdata
+----------
+Once EC2 instance created aws will run userdata scripts.
+
+Disadvantage
+1. We have to login inside instance and check logs
+2. Once userdata is changed, AWS will not update EC2
+	Delete EC2 manually and run terraform again.
+
+Remote provisioner
+-----
+Execute the scripts in remote server.
+ansible-playbook -i <inventory> <yaml-name> -e var=value --- ansible server 
+
+ansible pull
+-------
+Install ansible in remote node
+ansible-pull -i <inventory> <ansible-playbook-git-url> <yaml-name> -e var=value -- remote node
+--------------------------
+30th May Session 37
+
+*.app-dev.sudheer459.online --  APP ALB
+
+backend.app-dev.sudheer459.online -- backend
+user.app-dev.sudheer459.online -- user
+
+Backend
+-------------
+instance creation
+configure using ansible, terraform null resource
+stop instance
+take ami
+delete the instance
+create launch template
+create ASG
+create ASG policy
+Add rule to the listener
+
+Hostpath backend.sudheer459.online
+contextpath sudheer459.online/backend
+
+-----------------------------------
+31st May Session 38
+
+1. VPC - project
+	vpc
+	subnets - public, private, database
+	IGW - attach to VPC
+	Route tables -public, private, database and associatinos
+	EIP
+	NAT
+	Routes
+	Peering
+	Peering routes
+	
+2. 	SG	 - Project infra, SG rules - application infra
+3. VPN
+4. DB
+5. App ALB
+	listener - should be listening on particular port to accept connections
+	Rules- based on rule, it can redirect traffic to different target groups.
+	Target groups - Group of instances belong to particular component/module
+	*.app-dev.sudheer459.online - APP ALB
+		backend.app-dev.sudheer459.onlinr - backend target group
+		user.app-dev.sudheer459.online - user target group 
+		
+6. ACM Certificates
+7. Web ALB
+
+8. Backend
+	create instance
+	configure using null resource, ansible 
+		install nodejs
+		create user and directory
+		download and unzip code
+		create systemctl service
+		install mysql client
+		load scheme
+		start the service, must enabled
+	Stop the instance 
+	Take AMI
+	Delete the instance
+	
+	Create target group
+	Create launch template
+	Create ASG
+	Create ASG policy
+	Create listener rule
+9. Frontend same as backend
+
+10. Cloudfront
+ISP - Download movies with high speed
+
+Home - ISP servers
+Small website to download movies
+Download movies from internet and store them in their servers
+
+Users open this website - click download 
+
+High Speed Download
+
+ISP Serverss - Cache servers
+
+Cache
+Netflix - Servers are in US
+Content Servers - Accross the globe
+
+Mummy -  Download movie from US servers - Indian cache servers
+
+CDN - Content delivery network
+Edge locations
+
+US-east-1 - CDN - Edge location are provided by AWS
+
+Images, videos are static content and high memory
+Code - Dynamic content 
+
+HTTP Methods
+----------
+GET - requesting for information, read only request (READ)
+POST - Creating information. Calling multiple times is unsafe, not idempotent (Create)
+PUT -  Update, resource update, safe 
+DELETE - Deleting the resources, safe
+
+files are in some source
+
+CDN - Connects to source and fetch the data.
+
+/images - enable caching
+/static - enable caching
+/* - web-alb
+
+When you did changes to website, create invalidation - CDN will delete data from edge locations.
+
+
+CICD
+---------------
+Developers doing changes
+build everything again
+compile
+dependencies install
+scan
+unit tests
+zip and push to S3/nexus
+
+
+3rd June Session 39
+-------------------
+
+Infra is good now
+
+Developer -- commit to git - compile
+
+Entire code -- zip file  (integration of code) -- Continious Integration
+
+
+Build and release engineers
+---------
+Clone Manually
+npm install
+npm build
+
+
+Push commit to Github
+------------
+Shift Left
+-------------------------
+Clone the code
+Compile the code 
+Unit testing
+Scan the code -- DevSecOps
+	Static source code analysis --Sonarqube(scan and give recommendations for any changes)
+	SAST - Security point of view
+	DAST - Dynamic application security testing
+	Open source scanning -- 
+Deploy to DEV environment
+functional testing
+
+
+Old Days
+---------------
+Deploy in Dev
+Deploy in QA --- Run test cases
+Deploy in prod
+	Sanity testing
+	regression testing
+	security testing
+	vulnerabilities testing
+
+Function --  testing a function is called unit testing
+
+Git
+----------------------
+GitOps - Everything should be inside the git, no manual process
+
+Git -- Single source of truth, version control 
+
+
+Git
+----------
+Created repo on console
+Clone the repo
+Add authentication
+Do changes
+git add . -- add code to temp area
+git commit -m "abc"  -- commit the code to local repo
+git push -- Push the code to central/remote repo
+
+existing folder
+-----
+To create repo in central
+git init -- .git directory
+git remote add origin <git-url>
+git add git commit git push
+
+generate public/private key pair
+Keep public key in server
+keep private key with us-east-1
+Pass private key at the time of authentication
+
+ssh config
+.ssh -- create file config without any extension
+
+
+Host github.com
+	Hostname github.com
+	user git
+	IdentityFile ~/.ssh/id_rsa
+
+branches
+merge
+rebase
+conflicts
+branching strategy
+
+rm -rf .git
+git init
+gi remote add origin <url>
+
+--------------------
+4th June Session 40
+
+Imp file -- duplicate the file
+Do the changes
+review the changes
+test the file
+if good, then change in main file
+
+Git -- Single source of truth.
+
+CICD
+-------
+Single paper -- write everything in single paper from all
+Multiple paper -- finally colloborate imp points into one paper
+
+Colloboration
+
+Branching
+---------------
+Main -- Points to production, direct changes are not allowed.
+through some review process.
+
+
+main -- feature branch
+Do changes in feature branch -- get reviews -- run some tests -- scan the code
+feature -- main
+everyone should create one branch for any change.
+
+
+e35e6b54fabaa2915520ccefaee6ff61fdcae90e -- SHA Code - 40 characters code 
+
+Key -- Value
+
+e35e6b54fabaa2915520ccefaee6ff61fdcae90e --> current code in the workspace 
+
+echo "Hello World" | git hash-object --stdin --> prints sha code on the screen
+git cat-file <commit id> -p --> print the info about the sha code
+ 
+ 
+git checkout -b  -->> create new branch and change the workspace into new branch
+
+
+Merge
+-------
+Merge
+rebase
+
+Merging
+---------
+create another branch
+do the changes in that branch
+raise PR
+get the approval
+then merge it
+
+merge gives us a new merge which has 2 parents, we can clearly see the history
+
+Rebase
+---------
+rebase --> change the base
+no extra commit
+commit id are changed
+no history is preserved, it is rewritten as if it is done in main branch
+looks clean, linear history
+
+single branch --> multiple persons are working --> prefer merge
+if you want to keep the history --> prefer merge
+blindly go for merge, if you are not sure
+
+single branch --> single person --> prefer rebase
+if you dont want history --> prefer rebase
+if you want clean structure --> prefer rebase
+
+conflicts
+----------------
+if git findsout 2 different content in the same line, it cant take decission. 
+people who wrote the code should sit together and resolve conflict
+
+if main branch is moved forward
+another branch is trying to merge the changes, then conflict will come
+
+------------------------------
+5th June Session 41
+
+Branching Strategy
+---------------------
+developers writing the code in non main/master branches. How it gets upto main/master branch. How the deployment happens in diff environments like DEV, SIT, UAT, PERF, PRE-PROD, PROD, SEC
+
+Waterfall Model
+----------------------
+
+Desktop applications --> Have to support multiple versions
+	windows 11, 10, 11.3
+	Ms Office 2021, 2019, 2016, 2013
+		MS Office 2013 --> huge bug
+		get the code released for 2013 latest version
+		resolve the bug
+		release the patch
+	MS Office 2024
+
+atleast 3 months to release the change
+		
+Web applications --> there is no point of versions
+
+hotfix
+----------------
+main --> PROD
+emergency bug --> 2000 2/-, redbus completely down
+P0 --> SLA --> 30min
+P1 --> ticket --> SLA --> Service level agreement --> 1hr
+P4
+hotfixes branches are directly merged to main branch and deployed to PROD
+
+a small code change can fix the issue
+
+DEV --> DEV Test --> QA --> QA testing --> UAT --> UAT testing --> PRE-PROD --> regeression testing, sanity testing --> PROD
+1 week
+
+hotfix/2024-06-05
+
+
+main(long lived) branches --> main, development
+source: main
+destination:  main, development
+
+development
+----------------
+development --> current development going on, it represents current state of the project development
+
+source: main
+destination: nothing
+
+feature branches
+-----------------
+feature/ai-image-generator --> one team --> 10-JUN-2024
+feature/call-recording --> another team --> 10-AUG-2024
+
+source: development
+destination: development
+
+feature/ai-image-generator
+--------------------
+multiple persons --> should use merge
+
+feature/ai-image-generator --> PR --> development
+
+deploy to DEV environment --> developers will perform the testing from development side..
+
+dev team lead confirms features are tested properly....
+
+Build and Release team --> present they are called devops engineers
+
+create one branch from development --> release branch
+
+Release branch
+------------------
+source: development
+destination: main, development
+whatsapp: 5.3.1
+upcoming release: 5.4.0 -> 10-JUN-2024
+upcoming release: 5.5.0 -> 10-AUG-2024 --> call-recording and caller ID
+
+release/5.4.0 --> deploy into QA --> QA team tests the code
+from now on every body should work in this release branch only since it is fixed already.
+
+lot of defects
+
+QA team sign off --> clients will directly QA lead. first responsible person QA
+
+
+Feature branching model/GitHub Flow
+--------------------------
+2 weeks/ 4 weeks
+
+modules are independent projects...
+web versions
+
+one branch/feature --> one person -> rebase/ merge
+
+price, description, date
+
+include-date --> do the changes --> 
+
+we have one release for every 2 weeks, we follow feature branching
+main --> Production
+feature branch from main branch
+they do the development and deploy to DEV environment
+if that is success, they will raise PR, if the PR is approve they merge changes to main branch.
+then we perform QA and UAT deployment.
+once we get QA and UAT sign off, we will deploy to PROD through CR process.
+
+CR --> change request process
+
+what are the changes in the release
+what is the date and time of release
+if failure, how can we rollback? what is the plan?
+any downtime? --> yes/no
+QA testing
+UAT testing
+Scans
+Delivery manager from TCS
+QA manager
+Client approval
+
+deployment window --> 10-JUN-2024 03:00-04:00 AM
+
+deployment failed, CR failed
+
+why it is failed, stop the next sprint
+
+RCA --> Root cause analysis
+
+1. you are working on latest modern things from the beginning
+2. you worked on legacy things, you were part of migrating from legacy to modern
+------------- 
+
+6th June Session 42
+
+git reset vs git revert -- undo the changes done.
+
+Before you raise PR, check main branch moved forward r not?
+git checkout main
+git pull origin main 
+
+pull before push
+
+Reset
+-----
+Reset will undo the changes, it is destructive operation. It will change the history and commit id.
+
+git reset
+
+1. soft - reset the commit, but keep the changes in staging area.
+2. mixed - rest the commit, but will not keep the changes in staging area.
+3. hard - reset the commit, changes will be reset from workspace, staging area and commit.
+
+index/staging/temp area - git add
+
+soft reset -- it will remove the commits, but keep the changes in staging area.
+git add . ; git commit -m ""
+
+git reset -- soft HEAD~1
+
+git reset HEAD~1 -- Changes will reset from local commit and staging area.
+
+git reset --hard HEAD~1 --- remove the changes from commit, staging and workspace.
+
+
+Revert
+---------------
+Changes are pushed to remote, others pulled your changes already.
+reset is not recommended if changes are already pushed to remote.
+
+Revert is safe if changes are pushed to remote already. revert will not change the history 
+
+Mistakes should not removed from history, it should only be corrected.
+
+
+Jenkins
+----------------
+CI - Continious integration (Build, clone, scan, Compile, test)
+
+It is a process of integrating the application with different stages like from the cloning, compiling, scaning... 
+Once this process already done we will get entire application as one single artifact. This process is called CI.
+
+It is just simple web application
+
+sudo wget -O /etc/yum.repos.d/jenkins.repohttps://pkg.jenkins.io/redhat-stable/jenkins.repo
+--------------------
+7th June Session 43
+
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+
+trigger the job, Prebuild, build, post build
+
+
+freestyle Disadvantages
+----------------
+1. Anyone can login and do the changes, difficult to track what went wrong.
+2. difficult to restore 
+3. i cannot see the history, no versions
+
+scripted way
+--------------
+1. Review can be done before do something.
+2. Easy to restore 
+3. track the changes 
+4. maintain the history
+
+
+1 acre -- 1 person can Do
+100 acres -- he employes resources
+
+distrubuiting the work to different resources....
+
+Jenkins is a master node.
+
+Install agents and distrubute the pipelines to the agents..
+
+Agent-1 -- Windows environment
+Agent-2 -- Mac environment
+Agent-3 -- Chrome environment
+
+
+master and slave
+master and node Architecture
+
+1. When work is there, master calls agent and ask them todo Work
+2. Daily agent comes to master and ask if there is any work.
+
+
+15mins to create application artifact zip/jar
+
+1hr 15mins -- application success(not safe)
+
+When one person is performing something on the application, others should stop
+
+System-1 something happend, we need to  inform system-2
+When events happends those can be notified.
+When Developer pushed code to github, we need to trigger to pipeline.
+
+Pipeline Syntax
+
+Pipeline{
+	agent{
+		label 'java-agent'
+	}
+	options{
+		timeout(time:30, unit: 'MINUTES')
+	}
+	Environment{
+		Greeting = 'Hello World'
+	}
+	stages{
+		stage('Build'){
+			steps{
+				sh 'echo this is build'
+			}
+		
+		}
+		post{
+		 always{
+		 }
+		 success{
+		 }
+		 failure{
+		 }
+	}
+}
+
+Parameters and stages
+
+--------------------------------
+10th June Session 44
+
+init plan apply
+
+Builds -deleteDir()
+
+CICD
+-------------------
+CI - Continious Integration
+	Install dependencies
+	artifact --
+	java -- jar file
+	dotNet, python, Nodejs --- Zip
+	upload artifact to some location
+	
+Build file
+----------------
+Java --- Maven(build file) -- pom.XML
+Python -- pip(build file) -- requirements.txt
+Nodejs --npm(build file) -- package.JSON
+Dotnet -- Nuget(build file) -- project.JSON
+
+Our Project details like name, version, description
+dependencies and its versions 
+
+
+nodejs
+------------
+*. js files
+package.JSON
+
+NodeJs build file -- node js code and node modules
+Every version should have a seperate artifact/zi[ file/build file.
+
+backend-1.0.0.Zip
+backend-1.1.0.zip
+
+-rw-r--r--  1 ec2-user ec2-user  1882 Jun 14 07:50 TransactionService.js
+-rw-r--r--  1 ec2-user ec2-user  1120 Jun 14 07:50 Jenkinsfile
+-rw-r--r--  1 ec2-user ec2-user   142 Jun 14 07:50 DbConfig.js
+drwxr-xr-x  2 ec2-user ec2-user    25 Jun 14 07:50 schema
+-rw-r--r--  1 ec2-user ec2-user   411 Jun 14 07:50 package.json
+-rw-r--r--  1 ec2-user ec2-user  3553 Jun 14 07:50 index.js
+-rw-r--r--  1 ec2-user ec2-user 31913 Jun 14 07:50 package-lock.json
+drwxr-xr-x 82 ec2-user ec2-user  4096 Jun 14 07:50 node_modules
+
+
+zip -r <file-name.zip> <what-files-to-zip>
+
+zip -r backend-${appVersion}.zip */
+
+Git -- Store the code, not for packages or artifacts
+Nexus -- Store the artifacts, not for code
+
+8081 -- nexus
+8080 -- jenkins
+
+SRE - to check particular tool to not down
+----
+Installation
+RBAC - Role based accessed control
+upgradeNo downtime
+monitor
+backup
+--------------------
+11th June Session 45
+
+1. Infra should be ready to deploy application
+
+Ubuntu OS user name is Ubuntu
+We must give a key for This
+Public -ip: 8081(nexus port) --- 5mins
+
+
+Maven type artifacts
+-------------
+First name
+last name
+Pan/Aadhar Number
+
+We have different projects in the world, projects have components/modules inside.
+Components/modules/applications have different version inside.
+
+group id, artifact id, version
+
+com.expense -- group ID
+bakend -- artifact ID
+1.0.0 -- version
+
+
+http://52.72.196.246:8081/repository/backend/ 
+
+nexus artifact uploader
+
+backend-1.1.0.Zip
+
+${artifactid}-${appVersion}.zip
+
+
+CD 
+-------------------
+backend - CI --> up stream
+CI should pass artifact as input, nothing but version
+backend-deploy --> CD --> down stream
+
+
+Jenkins have the application version, it should pass version to terraform.
+Terraform should create EC2 instance and pass app version to ansible.
+
+Ansible should download that Package from nexus, configure the EC2 
+-------------------------
+12th June Session 46
+
+http://{{ nexus_url}}:8081/repository/{{ component }}/com/expense/{{ component }}/
+{{ appVersion }}/{{ component }}-{{ appVersoin }}.zip
+
+
+From Jenkins agent to backend instance will establish then..
+
+tools team/SRE team
+DevOps team
+networking team
+
+Raise a request to accept connections from tools.
+destination: backend
+source: Jenkins
+port:22
+protocol: ssh
+
+SOP:;;; standard operating procedure
+
+------------------
+Session 47
+
+without CI
+-------------
+there will be one linux server
+
+build and release team
+----------------------
+clone the code
+install node js
+run npm install
+create a zip file
+upload the zip file to nexus through nexus API
+
+1week after, once development completed then they will inform
+
+many issues, inform developers, again they will work....
+
+
+again QA, UAT and
+PROD
+------------
+12hr deployment window
+24hr monitoring
+1week monitoring for other defects
+
+no testing, unit testing
+unit testing is about testing the functions, which are basic blocks of programming. Only developers has to do unit testing...
+
+coding standars --> dev, qa, uat
+Static source code analysis --> scan the code, give some recommendations
+you must apply the recommendations to pass the build
+
+SAST --> security related things, analysis will be given to developers they have to fix
+
+DAST --> dynamic security
+
+Open source libraries scan --> libraries scan.. frequently upgrade the libraries
+
+docker image scan --> 
+
+now deploy the code to development
+
+then perform functional testing, developers can take care...
+
+integration testing --> test the entire functionality. this will be performed by QA
+
+sonar scanner
+sonar cli
+sonar agent
+
+curl
+
+----------------------
+Session 48 
+
+Shift left
+-------------
+unit tests
+scans
+	static source code analysis --> simple code scan
+	SAST --> static application security testing --> security scan in the code
+	open source library scan --> scan the dependencies
+	DAST --> real time attack on the application
+	image scan
+Deploy to DEV
+functional tests --> usually by developers, because it is a microservice
+
+sqa_d1fc0e16ffa676cd707acf283c41e0b02ca0d1fb
+
+overall code, new code
+
+1 year code = overall code
+5.3.0
+
+5.4.0
+
+5.4.0-5.3.0 = new code
+
+unit test --> functions
+
+10 functions --> 100% coverage --> unit tests for 10 functions
+
+80% code should be covered through unit testing
+
+DAST --> 
+DAST --> 
+
+
+-------------------------
+18th June Session 49
+
+Linux admin -- intermediate level
+Project -- Manual installation
+Shell Scripting
+Ansible
+Terraform
+Jenkins Terraform Ansible Shell --- Sonar, Nexus, SAST, DAST, Vulnerability scan --- Dev Secops
+unit testing and functional testing.
+
+Containerisation
+--------------
+Independent Houses Vs Apartment
+
+Independent House
+-----------
+Advantage: Privacy/security,more space
+
+dis advantage
+------
+Expensive, maintenance(electriccity,water,internet,gas), construction time is more(6months to 1year)
+
+
+Flat in Apartment
+----
+Advantage ---less maintenance(power,water), less cost, construction time is less.
+Swimming pool, garden, play area ...
+
+Disadvantage -- less privacy,
+
+
+Nest away PG, A room inside flat will be given for rent.
+------------------------
+PG
+
+Advantage::: no maintenance(power,water..) fastest way to occupy/vacate, no agreements, cost is less
+Disadvantage: Very less privacy/security
+
+2Members family -Flat
+8 Mem family -- Independent House
+
+
+Applications: Frontend, Backend and Database.
+
+
+Monolethic Services
+------------------------------------------------
+Enterprise applications
+-------------
+Frontend and Backend are together. --- Jboss, Weblogic, Websphere
+
+A Small change in any component should go for full release cycle.
+.ear---- Enterprise archive files(small change but more efforts)
+
+Angular JS, React JS(Frontend technologies) - Nginx install
+
+Java, .NET, Python(Backend technologies) - Tomcat
+.war --- Web archive files
+
+API Calls --- GET, POST, PUT, DELETE
+
+
+Microservices
+--------------------------
+User, cart, catalogue, Shipping, Payment etc..,
+
+
+Independent House --- Physical server(one OS) == Enterprise applications
+1 physical server host only one application.
+
+Virtualisation === Monolithic applications
+--------------
+A big Server can be logically divided into multiple server.
+Hypervisor -- It can host multiple guest servers.
+
+Booting time -- less time
+Cost - less
+15 servers -- 1RHEl, 1Windows, 1Ubuntu....
+
+RAM, HD allocate to VMs
+2GB RAM, 100GB HD --- 0.5GB RAM, 1GB HD
+
+Security -- VMs are isolated from one to another.
+A Clear isolation is there between servers, but it should be configured properly.
+
+
+Microservices == Containersation
+-----------------------
+You install containersation in VM, Container dont block the resources..
+
+Containers can get the resources dynamically. They dont block resources.
+
+Resource utilisation is very high
+Booting time is very less -- May be in secs
+
+Portability..
+AMI--- take OS, Create VM, install application runtime(Java, NodeJs, python, .Net)
+configuration(creation of users, folders, permissions etc.,) download code, run the service
+
+take AMI out of this
+
+Docker Image == Bare minimum OS + App run time + system packages and dependencies + App code = Image
+
+Bare minimum OS == no unnecessary packages -- no cat command also.
+
+Container..
+
+AMI -- Static files
+EC2 instance -- if you run AMI, it can create instance -- Running version of AMI is called instance.
+
+
+Docker Image -- Static file
+Docker Container -- running instance of image is called container.
+
+Install Docker -- It will create a group called Docker.
+
+Users who are in docker group or root user can only run docker commands.
+
+usermod -aG docker <user-name>  ==== To add for secondary group
+
+docker images -- list down the images
+docker pull nginx
+group id, artifact id and version
+
+Docker -- username, image name and version
+
+joindevops/catalogue:1.0.0
+
+rameshdevops/catalogue:1.0.0
+
+nginx:latest
+nginx:1.13
+nginx:alpine
+
+
+nginx -- Bare minimum OS (Ubuntu/Centos/debian/rhel)+nginx
+
+nginx:perl
+
+nginx:alpine -- Alpine is OS which is max 10MB
+docker create <image>:tag -- this will create container
+
+docker ps - it will show running contents
+docker ps -a = all containers with any status.
+docker start <CID>== container will start running
+
+docker run == docker pull + docker create + docker Run
+
+docker rmi `docker images -a -q`
+docker rm `docker ps -a -q`
+
+How can you access docker container from internet?
+Answer:::: By enabling the port we need to open host port that can redirect traffic to container.
+
+Docker run -d -p <host-port>:<container-port> nginx
+
+--------------------------------------------
+19th June Session 50
+
+How will you get the access of the running container?
+Ans: docker exec -it <container ID> bash
+
+it::interactive terminal
+
+docker exec -it 447f63303109 bash
+------------
+docker inspect container-id/image-id
+docker logs (docker logs -f imageID/containerID)
+
+Docker file === It is the declarative way of creating custom images.
+
+Shell == Keep all the commands in a file and run it..
+
+Dockerfile == Keep all the instructions in a file i.e., Docker file and build the image.
+
+Docker Image = Base OS + App run time + System packages and application dependencies and application code.
+
+docker build -t url/username/image-name:tag .----- will check for dockerfile.
+
+How do you build docker image?
+Ans: We will build docker build -t from:1.0 .
+
+FROM
+-------
+From should be the first instruction to represent base OS
+From image-name:tag
+
+docker build -t from:1.0 .
+
+RUN
+---------
+We will use RUN instruction to install packages and configure them.
+RUN instruction will execute at the time of image creation.
+
+docker build -t run:1.0 .
+
+CMD
+----------------
+This instruction will run at the time of container creation.
+
+systmectl start backend --> then only you can access backend application.
+
+Whatever the instruction you give in image to run as container, should run for infinite time.
+CMD ["executable","param1","param2"]
+
+systemctl will not work in containers and images.
+
+docker run -it ---> create container and login inside...
+(To goto running container)docker exec -it
+
+docker build -t cmd:1.0 .
+
+CMD 
+
+RUN vs CMD
+-------------------
+RUN --> Executes at build time means image creation time i.e., docker build
+CMD --> Only executes at time of container creation i.e., docker run
+
+
+LABEL
+------------
+1000 white covers, label the covers
+
+EXPOSE
+---------
+Expose instruction will let the users know what are the ports used by image or container.
+
+No functionality its just for information purpose.
+
+How can you push the image to docker-hub
+-------------------
+url/username/image-name:tag
+
+you can push images to docker hub, nexus, ECR, jfrog, etc..,
+
+url=docker.io
+
+sudheer459/expose:1.0  for docker hub
+
+docker push sudheer459/expose:1.0
+docker login
+
+sudheer/label:1.2
+
+docker tag sudheer/label:1.2 label.nexus.sudheer459.com/sudheer/label:1.2
+
+
+ENV
+------
+FROM
+ENV trainer="sudheer" \
+	course="DevOps" \
+	duration="100hr"
+
+COPY vs ADD
+------------
+COPY and ADD both are to copy the files from workspace to docker image, but ADD have 2 extra advantages.
+
+1. It can directly download the content from internet into the image. 
+2. It can directly untart the files into the image.
+
+--------------------------
+20th June Session 51
+
+ENTRYPOINT
+
+CMD instruction can be overriden
+
+same instruction trying to override with entrypoint is not working
+
+ping -c5 google.com ping -c5 yahoo.com
+
+you cant override ENRTYPOINT, if you try to do it will go append
+
+CMD vs ENTRYPOINT
+-----------------------
+You can mix CMD and entrypoint for better results.
+
+pin -c5
+
+CMD is used to supply default arguments to ENTRYPOINT, we can always override default args from runtime.
+
+USER
+---------
+What are the best practices of docker?
+Ans: You should not let docker/container to run with root access
+------
+
+WORKDIR --- iF you want to goto one directory and do operations then we use WORKDIR
+
+ARG
+------
+1.ARG can be first instruction only one case.It can be used to supply the version for FROM instruction.
+2. You can have args in Dockerfile, you can supply the values through command line --build-args
+3. You can always have defaultvalues to arg and override if required
+
+ARG can be used in execptional case you can keep it before from instruction to supply the arg to the instruction.
+
+How do you know the OS of the system?
+Ans: cat etc/*release
+
+ENV vs ARG
+----------------------
+1. ENV variables cab be accessed both at the time build or image and containers.
+2. ARG instruction can only be accessed at the time of build or image
+
+How can i access arg inside container?
+Ans is No
+
+http://sudheer459.online default port no 80
+default file in index.html ---> nginx welcome page
+ 
+ONBUILD
+---------------------
+THis is useful as a trigger, if someone is trying to use your image. You can force them to keep 
+somefiles in their workspace or some configuration.
+
+
+MYSQL:8
+--------
+MySQL developers would have choosen some OS, ubuntu , debian, centos, rhel,etc..,
+
+When any project is creating...Database is created first. We should load default data.
+
+--------------------
+21st June Session 52
+
+Docker home
+/var/lib/docker
+
+CIS hardening the server..... Center for internet security
+
+
+Docker0: Docker default network(Docker0 is not userful to create n/w between the computers)
+
+Using Default docker network, you cannot communicate between containers.
+
+Docker uses bridge network....
+172.18.0.1
+
+
+backend:: IPAddress": "172.18.0.3",
+mysql:: IPAddress": "172.18.0.2",
+
+Hostport 8080
+
+NGINX home directory is cd /etc/nginx/
+
+#COPYFROM nginx
+# RUN rm -rf /usr/share/nginx/html/index.html
+# RUN rm -rf /etc/nginx/nginx.conf
+# RUN rm -rf /etc/nginx/conf.d/default.conf
+----------------------------------
+24th June Session 53
+
+Docker Compose
+
+Linux/Shell commands ---> one by one 
+Ansible adhoc commands
+ansible -m yum "name=nginx state=installed". Solution is playbook
+Security group is dependency for EC2
+
+depends on 
+
+Expense ---> 3 Modules 
+1. I have to run docker containerse manually..
+2. Components are dependent on each other.
+
+Docker create network expense
+
+docker run -d backend -p 8080:8080 --name backend --network expense backend
+
+Docker Compose::: It contains a set of services dependent on eachother.
+
+
+Docker run == Creating the container
+Container == The running instances of images nothing but container
+If we run image then will get container.
+
+mysql
+backend
+frontend
+
+network: expense 
+
+- name:
+  vars:
+	course: devops
+  tasks:
+  - name:
+    course: dcoker
+  
+  - name:
+
+mysql --> schema creation, user creation
+
+backend
+
+frontend
+
+
+What is docker compose? 
+Docker compose is a tool where you can define all the services that can be up and down at a time we can create the
+dependencies between the services and declare the networks and volumes.
+
+Volumes(Storage)
+------------------------
+Container are ephemeral(temporary) by default, once you remove the container, it will remove the data also..
+But you can maintain the data by using docker volumes
+
+1. unnamed volumes(need to managed by us)  --->> Create a directoy in linux and mount to container using -v host-path:container-path
+2. named volumes -->(no need to managed by us will be managed by docker)
+
+
+
+VM			Containers
+legacy		Microservices
+----------------------------
+June 25th Session 54
+
+docker run -d -p 80:80 -v /home/ec2-user/nginx-data:/usr/share/nginx/html nginx
+
+alpine is the smallest image
+
+1GB application 
+
+Single flat 2400sqft -- only one room -- one family 
+
+6GB apps are also running in containers
+
+Multi stage bills --> java apps
+
+JDK --> Java development kit
+JRE --> Java runtime environment
+
+Always JDK > JRE
+JDK = JRE + development tools
+
+Developers develop Java apps in JDK environment, once you get build package, no need to dev environment
+
+App Code --> compile --> java bytecode(build file) .jar, .war [JDK]
+
+run bytecode --> app is up [JRE]
+
+
+Multistage bills: Using multistage bills you can reduce the image size. you can run one docker file as a build get the 
+output from it copy it into the second image and create the lightweight image.
+
+
+Layer1 --> FROM Nginx
+Layer2 --> from nginx+RUN rm -rf /usr/share/nginx/html/index.html -->> create image
+
+Create layer2 container Layer2 image
+
+Layer3 image = layer2+RUN rm -rf /etc/nginx/nginx.conf
+
+create layer3 container from layer3 image
+
+layer4 image = layer3+RUN rm -rf /etc/nginx/conf.d/default.conf
+
+
+Pull layer4 image and run layer5 instruction on top of it.
+
+What is docker layers?
+Dockes stores the images as layers. 
+First instruction will be layer1 on top of layer1 it will run layer2 and it will store layer2
+and on top of layer2 it will run layer3 it will store layer3 as seperate.
+
+---------------------------------
+26th June Session 55
+
+1. Build the image
+2. Run the image
+
+Problems(in docker)
+---------------
+1 pg --- 10 rooms
+
+If power cut, water cut
+
+10PGs -- 1pg water cut
+He will shift persons to other PG temporary..
+
+
+1 Host --- 3 containers if host crash..
+
+
+Scalability
+----------------
+Normal servers with route53
+Traffic increases, multiple servers and keep load balanccers and update R53 as LB URL.
+If container crash, docker is not able to replace automatically. --> not reliable --> self healing
+No proper volume management.
+NO strong network connectivity.
+No auto scaling 
+No secrets and config management
+
+3 Hosts -- 1 pod is  host-1 another pod is in host-2
+
+
+////////////Benefits of using kubernetes and docker///
+Scalability, High avaibility, portability, security, ease of use, reduce costs, improve agility, increase innovation
+------------------------------------
+
+Docker Architecture?
+client = docker command
+
+docker daemon = docker engine.... systemctl start docker..
+
+daemon/server responds to client
+
+docker run nginx --> checks image available in local r not, if not available pull it and keep it in local.
+Run a container and send output to client.
+
+Docker Architecture::How your system is getting request, how is it processing inside and 
+how you r sending request back to the client.
+
+
+Docker Architecture consists of docker client which is docker command line tool and
+docker engine is nothing but docker host and the local registry and central registry.
+Whenever you run a command in docker host it will connect to the daemon, it will check for the image local 
+if it is not available it will pull from the central repository and keep it in local create a container of it and send 
+a response to the client.
+
+Docker = suit = image build + image pull through its hub + running the image as containers.
+Docker is providing run time environmnent to run docker images.
+
+Kubernates is a container orchestrator....
+
+If you want to run 100 pg, we will take help of manager.. he needs some software.. 
+
+
+Amazon master under this we have ec2s(nodes).
+Request come to master.
+Master will decide where to go
+
+Nodes should run containers.
+containers run time environment.
+
+Here VS code will develop docker files and push to github.
+
+kubectl - to connect kubernetes
+
+docker run we have to give inputs --- image, ports, versions, volumes, name, environment variables.
+
+
+
+eksctl --> create and manage EKS cluster
+kubectl --> to manage containers in kubernetes cluster
+
+
+kubectl get nodes --> display nodes in k8 cluster
+
+command eksctl create cluster --config-file=<filename>
+
+K8 resources
+---------
+Namespace --> Isolated project where you can create resources related to your project.
+
+Basic syntax
+
+kind:
+apiVersion:
+metadata:
+
+spec:
+
+
+kubectl apply -f <filename.yaml>
+kubectl delete -f <filename.yaml>
+
+pod is smallest deployable(runnable) unit in kubernetes
+
+
+
+pod(EKS) vs container(Docker)
+------------
+Pod contains multiple containers. Container inside pod share same n/w and storage.
+-------------------------------------
+27th June Session 56

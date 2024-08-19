@@ -1,0 +1,196 @@
+Scenario: Developing a new login feature for an application.
+1. Create a Feature Branch:
+Developer creates a new branch for the login feature.
+git checkout develop
+git checkout -b feature/login
+Work on the Feature:
+2. Developer works on the login feature, making several commits.
+git add .
+git commit -m "Add login form"
+git add .
+git commit -m "Implement authentication"
+Push the Branch and Open a Pull Request:
+3. Developer pushes his branch to GitHub and opens a pull request.
+git push origin feature/login
+he then opens a pull request on GitHub from feature/login to develop.
+4. Review and Merge the Pull Request:
+Team members review the pull request, suggest changes, and approve it.
+The pull request is merged into the develop branch on GitHub.
+5. Create a Release Branch:
+When the develop branch is ready for release, a release branch is created.
+git checkout develop
+git checkout -b release/1.0.0
+6. Prepare for Release:
+The team tests the release branch, fixes bugs, and makes final adjustments.
+git add .
+git commit -m "Fix bugs for release"
+7. Merge Release Branch into Main and Develop:
+Once the release is stable, the release branch is merged into both main and develop.
+git checkout main
+git merge release/1.0.0
+git checkout develop
+git merge release/1.0.0
+-----
+
+1. if we have prometheus in one server and grafana in another one. 
+if we mention the prometheus IP in grafana UI to get the data.
+What if the grafana server is down, how to do we configure to auto fetch the IP address when its recreated.
+
+Ans::  I think creating r53 record of the server and providing it within the configuration,
+ will avoid the issue. Please let me know your thoughts on this..
+
+
+2. service-discovery will identify the new nodes every time and add them to prometheus to get monitored
+But how can we automate the installation of node_exporter agent in nodes when they created automatically 
+as part of auto-scaling or replication etc.
+
+Ans:: we can use ansible-playbook to automatically configure and deploy node_export on new nodes.
+ (or) you can attach user data script like install node_exporter, create systemd service,
+ reload and start node_exporter this script you can attach autoscalling group launch templates, 
+ whenever new instance created ensuring run the script on start up
+
+2. Where do you keep secrets in Jenkins?
+5. After Terraform apply you are experiencing slowness, how do you trobleshoot?
+11. If the deployment fails how do you rollback in Jenkins?
+
+-----------------
+1. How to backup Jenkins?
+From the main menu select Manage Jenkins, then go to Plugins>Available and search for backup
+
+2. Where do you keep secrets in Jenkins?
+In Jenkins, secrets are typically stored and managed in a secure way,
+Jenkins Credentials Store:
+Jenkins Credentials Plugin: Jenkins has a built-in credentials management
+ system where you can store secrets like passwords, SSH keys, API tokens, and more.
+ These credentials can be used in Jenkins pipelines or jobs without 
+ exposing them in the job configuration or pipeline scripts.
+Types of Credentials:
+Username with Password: Store username and password securely.
+SSH Username with Private Key: Store SSH keys securely.
+Secret Text: Store arbitrary secret text, such as API tokens.
+Secret File: Store secret files, such as service account keys.
+
+3. What is Terraform import?
+Terraform import is a Terraform CLI command used to read real-world infrastructure
+ and update its state so that future updates to the same set of infrastructure
+ can be applied via Infrastructure as Code (IaC)
+
+
+4. Distinguish between Terraform init, Terraform validate and Terraform apply?
+Initialize terraform::
+Terraform init - terraform will check for providers. It will download AWS providers and keep them.
+Terraform plan - terraform will show what are the resources it is going to create.
+
+Validate syntax, if correct then it will show the resources, it will create
+
+.gitignore file = do not push to git repository
+
+
+5. After Terraform apply you are experiencing slowness, how do you trobleshoot?
+Ans:
+Experiencing slowness after running a terraform apply could be related to various factors, including infrastructure, Terraform configuration, or the environment itself.
+1.Check Terraform Logs.
+2.Examine Infrastructure Resources.
+3.Evaluate Network Latency.
+4.Check for API Rate Limits.
+5.Inspect Resource Dependencies.
+6.Review Terraform Configuration.
+7.Analyze System Resources.
+8.Check for External Dependencies.
+9.Consult Cloud Provider Metrics.
+10.Rollback and Reapply Incrementally.
+
+
+6. I want to create static website in docker. Which instruction you use?
+	Install Docker on your local machine if you haven't already. 
+Navigate to your project's root directory in the terminal. 
+Run docker build -t my-static-website . to build the Docker image. 
+Run docker run -p 8080:80 my-static-website to start a local instance of your website on port 8080.
+
+7. configmap and secrets in Kubernetes?
+ConfigMaps are typically used for non-sensitive configuration data, 
+while Secrets are used for storing sensitive information. 
+ConfigMaps stores data as key-value pairs, 
+whereas Secrets stores data as base64-encoded data,
+ thereby ensuring an additional layer of security.
+ 
+ 
+8. Diff ALB and Network load balancer?
+
+9. How do you host one application in multiple servers using Jenkins?
+you will require a Product called Deployer installed on one of your instances and 
+define all possible target servers (and target groups) there. 
+After the servers are defined you can install the WmDeployerResource package from there to the targets.
+
+		rrrrr
+install ansible on the jenkins-agent. pip install ansible or apt install ansible.
+Load your ssh key into Jenkins credentials store.
+ I assume here that you use the credential store plugin 
+ (but you could also load it into an ssh-agent, or use some other method to expose the key on the jenkins-agents.)
+
+10. Statefulset and Daemonset?
+StatefulSet -->>> Used for stateful applications i.e., which should have some storage.
+
+Daemonset will make sure a pod runs in every node. why this is useful?
+we have to access underlying node logs and push them to elastic search for log monitoring. 
+if we run deamonset in kubernetes, it make sure a pod is automatically created when new node is added.
+
+
+11. If the deployment fails how do you rollback in Jenkins?
+Ans:
+Rolling back a deployment in Jenkins after a failure depends on the deployment strategy and the tools you use for deployment.
+1.Use a Version Control-Based Rollback.
+2.Use Built-In Rollback Mechanisms of Deployment Tools.
+3.Implement Blue-Green or Canary Deployments.
+4.Artifact-Based Rollback.
+5.Automated Rollback Script.
+6.Using Jenkins Pipeline for Rollback.
+7.Manual Intervention.
+8.Use of Feature Flags.
+9.Database Rollbacks.
+Jenkins pipeline has robust rollback mechanisms to quickly recover from deployment failures.
+
+12. If the pod crashes continuously how do you troubleshoot?
+If one of the containers in the Pod fails, then Kubernetes may try to restart that specific container. 
+
+Run the kubectl describe pod [name] command for the problematic pod. 
+The output of this command will indicate the root cause of the issue. 
+This can be one of the following: Wrong image name or tag—this typically 
+happens because the image name or tag was typed incorrectly in the pod manifest.
+
+
+
+13. If a container is consuming more memory in Kubernetes how will you trobleshoot?
+If a Container allocates more memory than its limit, the Container becomes a candidate for termination. 
+If the Container continues to consume memory beyond its limit, the Container is terminated.
+---------------------
+1) If Jenkins master got crashed, what will happened to nodes, whether the jobs run properly 
+ and how can we recover the master
+
+1.If a Jenkins master crashes, it will impact the Jenkins nodes (agents) in the following ways:
+1.Jobs Execution.
+2.communication.
+3.Build Artifacts and Logs.
+Recovering the Jenkins Master:
+1.Restore from Backup.
+2.Using High Availability (HA)
+3.Cloud-based Recovery.
+4.Manual Recovery.
+Preventive Measures:
+1.Regular Backups.
+2.HA Setup.
+3.Automated Backups.
+4.Monitoring.
+
+
+2) In AWS Account A how can he access the  S3 of the Account B
+To allow AWS Account A to access an S3 bucket in AWS Account B, 
+you need to set up a cross-account access policy using IAM roles and bucket policies.
+1.Account B creates an IAM role allowing Account A to assume it and grants the necessary S3 permissions.
+2.Account B updates the S3 bucket policy to allow the role from Account A to access the bucket.
+3.Account A assumes the role and uses the temporary credentials to access the S3 bucket in Account B.
+cross-account access policy:
+A cross-account policy in AWS allows one AWS account to access resources
+ (like S3 buckets, EC2 instances, etc.) in another AWS account.
+Cross-account policy means resource-based policy
+------------------------------------

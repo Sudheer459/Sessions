@@ -1,0 +1,139 @@
+22nd July Session 70
+
+Roboshop
+----------------
+MongoDB --> NoSQL
+MySQL --> tables and rows
+NoSQL --> collections and documents
+
+Product information --> product catalogue
+
+Redis --> cache
+
+backend --> MySQL
+1. Get the connection from MySQL
+2. Run the DB query --> this should be efficient
+3. Get the results
+4. Close the connection
+
+
+backend --> MySQL --> Cache
+
+backend --> Cache --> MySQL --> Cache
+
+key -> value
+
+MySQL --> RDS DB, Countries, cities, pincodes, etc.
+
+RabbitMQ --> Messaging Queue
+----------------------------
+HTTP --> you will hit some website,
+HTTP can wait for 30sec or 1min, if no response it will throw error.
+
+Synchronus communication
+--------------
+1. both systems should be up and running
+2. if 2nd system is down you loose the transaction
+
+Whatsapp
+----------------
+Ramesh --> Suresh
+
+Message will be sent to suresh immediately
+
+If suresh is offline, 
+
+Async
+------
+1. Systems no need to be online continously.
+2. Messages are waiting in queue
+3. Once system is online messages would be delivered, so no data loss.	
+4. Systems are loosely coupled
+
+Flipkart --> ekart
+
+Flipkart will send the order details to one queue --> ekart would be listening to the queue
+
+Queue --> point to point = One system sends messages only one system can get the message
+
+topic and subscribe --> Like youtube notifications
+
+When I upload a video, youtube have a topic to my channel. All subscriber device are subscribed to that channel,
+then everyone will get the message
+
+Application tier
+------------------
+catalogue --> an application maintaining the product catalogue
+cart --> adding products to cart, connecting to redis and mongodb
+user --> user info like name,email, username and password. details are in nosql and cached
+shipping --> countries and cities info is processed through shippping, data is in mysql
+payments --> collecting the payments, rabbitmq
+dispatch --> based on again MQ, roboshop send a message to the queue, dispatch will receive the message
+ratings --> product ratings stored in mysql
+
+
+Web tier
+-------------------
+Nginx based static application and reverse proxy to application tier.
+
+
+
+MongoDB
+----------
+port = 27017
+127.0.0.1 == localhost
+0.0.0.0/0
+
+------------------------------------
+23rd July Session 71
+
+proxy_http_version 1.1;
+location /images/ {
+  expires 5s;
+  root   /usr/share/nginx/html;
+  try_files $uri /images/placeholder.jpg;
+}
+location /api/catalogue/ { proxy_pass http://catalogue.sudheer459.online:8080/; }
+location /api/user/ { proxy_pass http://user.sudheer459.online:8080/; }
+location /api/cart/ { proxy_pass http://cart.sudheer459.online:8080/; }
+
+location /health {
+  stub_status on;
+  access_log off;
+}
+
+Java
+------
+Java source code -- compile -- bytecode == development environment = jdk
+
+We run bytcode in jre environment
+
+jre is subset of jdk
+
+jdk mremory is morethan jre
+
+.zip -- zipping the sources files(.js files) with node_modules(dependencies), npm(node package manager) package.json
+
+.jar -- java Archive file
+
+maven is here built tool
+----------------------
+pom.xml -- build file
+
+mvn package -- mvn compile, mvn test, mvn package
+
+.jar = bytecode + dependencies
+
+mvn package -- target directory -- our app.jar file is inside the target directory.
+
+mvn == java+Maven
+
+CREATE USER IF NOT EXISTS 'expense'@'%' IDENTIFIED BY 'ExpenseApp@1';
+GRANT ALL ON transactions.* TO 'expense'@'%';
+
+python
+-------------
+pip -- build tool
+requirements.txt -- dependencies
+
+
