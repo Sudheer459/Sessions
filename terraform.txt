@@ -579,7 +579,7 @@ Easy to restore backend application, because of no state
 ------------------
 DB Admin teams
 
-Everyday backup, ebery 3hr/6hr backup
+Everyday backup, every 3hr/6hr backup
 test the backup/restore
 High avaibality(atleast 2servers) and data replication(duplicate into another server for safety)
 load balancing
