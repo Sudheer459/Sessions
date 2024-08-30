@@ -26,7 +26,6 @@ Further from EIPs traffic will be redirected to NLB IPs and then the instances(W
 Eth2 is untrustable  due to public network //
 
  
-
 We also have a DR setup in Ohio region, where we have the setup of Production 
 Application Servers (WebServer, Publisher, Author, RDS, AD). 
 Everyday Production Application Servers Volumee snapshots are copied to Ohio Region as 
@@ -34,8 +33,17 @@ per the Backup Policy Scheduled. So when the main website is down, using the lat
 we create volumes and attach them to DR Application servers and bring 
 the application back with minimal downtime
 
-
 ---------------------DevOps--------
+
+Using Jenkins and its shared libraries you have ensured that your application code is bug-free and secure too.
+Later on you build the image and push the image to a private ECR using Docker.
+Then using terraform you have created the necessary infrastructure such as a VPC, SGs, EKS, ALB, RDS, ACM, 
+Workstation etc for your application deployment.
+At last you have deployed the application to the EKS cluster.
+Hope this gives you a better understanding of how to integrate all the tools together.
+//////////////////////////////////////////////////////////
+
+
 
 How do you configure DevOps to a project?
 
