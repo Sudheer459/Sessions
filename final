@@ -1,0 +1,56 @@
+Playbook - Keep all your modules in a single file with YAML syntax.
+
+A Terraform module is a collection of standard configuration files in a dedicated directory. 
+
+A Kubernetes manifest file is a YAML or JSON file that describes the desired state of a Kubernetes object in a cluster.
+
+
+Pipeline Syntax
+
+Pipeline{
+	agent{
+		label 'java-agent'
+	}
+	options{
+		timeout(time:30, unit: 'MINUTES')
+	}
+	Environment{
+		Greeting = 'Hello World'
+	}
+	stages{
+		stage('Build'){
+			steps{
+				sh 'echo this is build'
+			}
+		
+		}
+		post{
+		 always{
+		 }
+		 success{
+		 }
+		 failure{
+		 }
+	}
+}
+
+----------------
+kind: Pod
+apiVersion: v1
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:stable-otel
+-----------------------
+
+Using Jenkins and its shared libraries you have ensured that your application code is bug-free and secure too.
+Later on you build the image and push the image to a private ECR using Docker.
+Then using terraform you have created the necessary infrastructure such as a VPC, SGs, EKS, ALB, RDS, ACM, 
+Workstation etc for your application deployment.
+At last you have deployed the application to the EKS cluster.
+Hope this gives you a better understanding of how to integrate all the tools together.
+----------------
+
+	
