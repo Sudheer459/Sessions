@@ -194,3 +194,162 @@ A cross-account policy in AWS allows one AWS account to access resources
  (like S3 buckets, EC2 instances, etc.) in another AWS account.
 Cross-account policy means resource-based policy
 ------------------------------------
+
+How do `𝗴𝗶𝘁 𝗺𝗲𝗿𝗴𝗲` and `𝗴𝗶𝘁 𝗿𝗲𝗯𝗮𝘀𝗲` differ?
+
+Merging
+---------
+create another branch
+do the changes in that branch
+raise PR
+get the approval
+then merge it
+
+merge gives us a new merge which has 2 parents, we can clearly see the history
+
+Rebase
+---------
+rebase --> change the base
+no extra commit
+commit id are changed
+no history is preserved, it is rewritten as if it is done in main branch
+looks clean, linear history
+
+single branch --> multiple persons are working --> prefer merge
+if you want to keep the history --> prefer merge
+blindly go for merge, if you are not sure
+
+single branch --> single person --> prefer rebase
+if you dont want history --> prefer rebase
+if you want clean structure --> prefer rebase
+
+ What is the purpose of `.𝗴𝗶𝘁𝗶𝗴𝗻𝗼𝗿𝗲`?
+.gitignore file = do not push to git repository
+
+6. How do `𝗴𝗶𝘁 𝗿𝗲𝘀𝗲𝘁` and `𝗴𝗶𝘁 𝗿𝗲𝘃𝗲𝗿𝘁` differ?
+
+Reset will undo the changes, it is destructive operation. It will change the history and commit id.
+
+git reset
+
+1. soft - reset the commit, but keep the changes in staging area.
+2. mixed - reset the commit, but will not keep the changes in staging area.
+3. hard - reset the commit, changes will be reset from workspace, staging area and commit.
+
+
+Revert..
+Changes are pushed to remote, others pulled your changes already.
+reset is not recommended if changes are already pushed to remote.
+
+Revert is safe if changes are pushed to remote already. revert will not change the history 
+
+Mistakes should not removed from history, it should only be corrected.
+
+
+7. How do `𝗴𝗶𝘁 𝗳𝗲𝘁𝗰𝗵` and `𝗴𝗶𝘁 𝗽𝘂𝗹𝗹` differ?
+
+git pull" automatically merges the fetched changes into the current branch, while "git fetch" does not. 
+This makes "git pull" a more convenient command if you want to quickly update your local branch with changes from the remote repository.
+
+
+9. How do you check the 𝗱𝗶𝗳𝗳𝗲𝗿𝗲𝗻𝗰𝗲𝘀 between 𝘁𝘄𝗼 𝗰𝗼𝗺𝗺𝗶𝘁𝘀 in Git?
+ git diff $(git merge-base A HEAD) 
+
+10. How do you check the 𝘀𝘁𝗮𝘁𝘂𝘀 of the 𝘄𝗼𝗿𝗸𝗶𝗻𝗴 𝗱𝗶𝗿𝗲𝗰𝘁𝗼𝗿𝘆 in Git?
+
+How do you check the 𝘀𝘁𝗮𝘁𝘂𝘀 of the 𝘄𝗼𝗿𝗸𝗶𝗻𝗴 𝗱𝗶𝗿𝗲𝗰𝘁𝗼𝗿𝘆 in Git?
+Ans:
+To check the status of the working directory in Git, you can use the git status command. This command provides a summary of the current state of your working directory and the staging area, showing which files are modified, staged for commit, or untracked.
+
+How do you handle and resolve 𝗖𝗣𝗨-𝗿𝗲𝗹𝗮𝘁𝗲𝗱 tickets?
+Ans:
+Handling and resolving CPU-related tickets typically involves a series of steps to identify the root cause of high CPU usage and take appropriate actions to mitigate the issue. Here’s a structured approach to managing and resolving such tickets:
+1. Gather Information.
+2. Identify the Cause of High CPU Usage.
+3. Analyze and Diagnose the Problem.
+4. Take Corrective Actions.
+5. Implement Long-term Solutions.
+6. Document and Communicate.
+7. Follow Up and Prevent Recurrence
+
+
+Where do you configure 𝗗𝗼𝗰𝗸𝗲𝗿 𝗛𝘂𝗯 credentials and 𝗥𝗗𝗦 credentials?
+Ans:
+Configuring Docker Hub credentials and RDS (Relational Database Service) credentials securely is essential to ensure that your applications and infrastructure can access these services without exposing sensitive information. Below are the best practices for configuring these credentials:
+1. Docker Hub Credentials Configuration:
+a. Docker CLI Login.
+b. Docker Secret (For Swarm Mode).
+c. Environment Variables (CI/CD Pipelines).
+d. Credential Helper (Kubernetes with Kubernetes Secrets).
+2. RDS Credentials Configuration:
+a. Environment Variables.
+b. AWS Systems Manager Parameter Store or Secrets Manager.
+c. IAM Roles and RDS IAM Authentication.
+d. Kubernetes Secrets (If Using Kubernetes).
+
+
+As the role DevOps engineer working with a few developers, how do you 𝗰𝗼𝗹𝗹𝗮𝗯𝗼𝗿𝗮𝘁𝗲 and 𝗺𝗮𝗻𝗮𝗴𝗲 𝘁𝗮𝘀𝗸𝘀?
+Ans:
+As a DevOps engineer working with a few developers, effective collaboration and task management are key to ensuring smooth operations and project success. Here are strategies to help you collaborate and manage tasks effectively:
+1. Establish Clear Communication Channels.
+2. Define Clear Roles and Responsibilities.
+3. Implement Effective Task Management.
+4. Automate Where Possible.
+5. Use Version Control Best Practices.
+6. Foster a Collaborative Culture.
+7. Plan for Scalability and Flexibility.
+8. Maintain Transparency and Documentation.
+
+
+
+
+What are 𝗗𝗼𝗰𝗸𝗲𝗿𝗳𝗶𝗹𝗲𝘀 and 𝗽𝗶𝗽𝗲𝗹𝗶𝗻𝗲𝘀? How are they used in 𝗖𝗜/𝗖𝗗?
+Ans:
+Dockerfiles:
+Dockerfiles are text files that contain a series of instructions on how to build a Docker image. These instructions define the environment, the application code, and all dependencies required to run the application inside a Docker container. A Dockerfile allows you to automate the creation of Docker images, ensuring consistency across different environments.
+Usage in CI/CD:
+In CI/CD, Dockerfiles are used to build consistent and reproducible Docker images as part of the build process. Here’s how they are commonly used:
+1 Build Step.
+2. Testing.
+3. Deployment.
+Pipelines:
+Pipelines refer to automated workflows in CI/CD that define a series of stages or steps required to build, test, and deploy an application. Each stage in the pipeline is a sequence of tasks that need to be executed in a specific order. Pipelines enable continuous integration and continuous deployment, automating the process from code commit to production deployment.
+Usage in CI/CD:
+Continuous Integration (CI).
+Continuous Delivery (CD).
+Feedback Loop.
+
+
+Where should 𝗡𝗲𝘅𝘂𝘀 credentials be stored securely?
+Ans:
+Nexus credentials, like any sensitive information, should be stored securely to prevent unauthorized access. Here are some best practices for securely storing Nexus credentials:
+1. Environment Variables.
+2. Secrets Management Tools.
+3. CI/CD Tool Secrets.
+4. Configuration Management Tools.
+5. Kubernetes Secrets.
+6. Avoid Hardcoding Credentials.
+7. Access Controls and Audit Logging.
+
+
+
+What is 𝗠𝗮𝘃𝗲𝗻, and what are its primary uses?
+Ans:
+Maven is a powerful build automation and project management tool used primarily for Java projects. Developed by the Apache Software Foundation, Maven uses a declarative XML-based configuration called pom.xml (Project Object Model) to manage a project's build, dependencies, and overall project lifecycle.
+Primary Uses of Maven:
+Build Automation.
+Dependency Management.
+Project Management.
+Consistent Project Configuration.
+Plugin System.
+Build Lifecycle Management.
+Reproducible Builds.
+Site Generation and Reporting.
+Integration with CI/CD Pipelines.
+
+
+How do you 𝗶𝗴𝗻𝗼𝗿𝗲 certain 𝗳𝗶𝗹𝗲𝘀 while creating a 𝗗𝗼𝗰𝗸𝗲𝗿𝗳𝗶𝗹𝗲?
+Ans:
+To ignore certain files or directories while creating a Docker image using a Dockerfile, you can use a special file called .dockerignore. This file works similarly to a .gitignore file, specifying patterns that match files and directories that should be excluded from the Docker build context.
+
+-------------------------
