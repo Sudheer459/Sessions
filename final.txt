@@ -52,5 +52,27 @@ Workstation etc for your application deployment.
 At last you have deployed the application to the EKS cluster.
 Hope this gives you a better understanding of how to integrate all the tools together.
 ----------------
+Devops pipeline stages... PCBTRMO
+Plan, code, build, test, release, monitor, operate
+--------------------
+Devops pipeline process..
+SCM
+Build Automation
+Automated Testing
+Deployment Automation
+---------------------------
+Here are all the tools commonly used in DevOps across various industries:
 
-	
+1)Cloud Computing: AWS ☁️
+2)Version Control: Git 📁
+3)Pipelines: Jenkins 🚀
+4)Configuration Management: Ansible 🔩
+5)Containerization: Docker 🐳
+6)Container Orchestration: Kubernetes (K8S) ☸️
+7)Monitoring and Logging: Prometheus 📊
+8)Infrastructure as Code: Terraform 🌐
+
+These tools help streamline the DevOps process, making software development, deployment, and 
+management more efficient and effective.
+
+
