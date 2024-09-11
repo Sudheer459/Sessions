@@ -74,5 +74,28 @@ Here are all the tools commonly used in DevOps across various industries:
 
 These tools help streamline the DevOps process, making software development, deployment, and 
 management more efficient and effective.
+-------------
+Prometheus
+
+Cloud Environment: Prometheus should find the nodes automatically and add them to scrape list
+
+Service Discovery:
+---------------------
+ Underlying nodes should have node exporter installed and started
+
+Describe ec2 instances ---> listing ec2 instances---> get the IP address
+
+filter using tags, Monitoring -- true 
+
+if value < 1, then raise the alert
+
+1. raise the alert
+2. manage the alert
+
+
+
+
+
+
 
 
