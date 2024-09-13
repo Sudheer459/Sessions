@@ -92,10 +92,71 @@ if value < 1, then raise the alert
 1. raise the alert
 2. manage the alert
 
+2 types of metrics
+counter and Gauge
 
+Latency
+errors
+traffic
+saturation --> Prometheus
 
+ELK -- Elastic kibana logstash
+----------------
+Elasticsearch --> repository,which stores something.. logs storage..DB application
 
+KIbana ---> Visualisation/UI tool for elasticsearch 
 
+Logstash: Filtering the logs before storing to elasticsearch.
+
+Scheduler --- Scheduler schedules the pod
+
+Daemon set :: Daemonset will make sure a pod runs in every node.
+
+etcd: entire k8 cluster data is in etcd.
+
+kube-proxy --> on behalf of someone. it intercepts every incoming and outgoing request of node.
+ kube-proxy maintains network rules on nodes. these network rules allow network communication to your Pods
+
+kubelet --> it connects nodes to control plane. An agent that runs on each node in the cluster.
+ it pulls the information from control plane and runs the pods.
+ 
+ 
+
+Containers best practices
+---
+1. Without root user
+2. use volumes
+3. Use official images
+4. Use small images, dont keep unnecessary installations
+5. use multi stage builds
+6. use health checks
+7. use custom network
+8. reduce image layers
+
+----------------------
+Cluster upgrade is planned
+----------------------
+No downtime to the existing applications but no new release and no new deployments in the upgrade time.
+
+Communications sent about cluster upgrade activity is started.
+
+1. First we need to get another node group called green.
+2. Taint the green nodes, so that they should not get any pods scheduled.
+
+3. Now upgrade your control plane
+
+If any issues in control plane/EKS then you are able to access your application or not?
+There is no relation b/w application and EKS if any issue also we can access 
+because LB always connected to nodegroup. Unless nodes are down no issue for application
+
+4. upgrade green node group also to 1.30
+5. Shift workloads from 1.29 node group to 1.30 node group
+6. Taint blue nodes(cordon blue nodes)
+7. Untaint green nodes
+8. Drain blue nodes
+
+Inform all stake holders, applications teams. Perform sanity checks/testing(Application team will do)
+close the acivity.
 
 
 
