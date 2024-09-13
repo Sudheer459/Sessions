@@ -120,6 +120,19 @@ kube-proxy --> on behalf of someone. it intercepts every incoming and outgoing r
 kubelet --> it connects nodes to control plane. An agent that runs on each node in the cluster.
  it pulls the information from control plane and runs the pods.
  
+ -------------
+ Below Errors..
+
+imagePullBackOff --> your k8s node is unable to pull the image
+(Version is wrong,repository name r address,Connection cut issue/network. We have to check image address)
+
+crashLoopBackoff --> pod is not able to run... if Backend is not able to connect DB
+(crash... we need to check logs)
+
+pending --> PV and PVC setup and config are not proper. pod is not able to mount the volume.
+(We have to describe and check logs)
+ -----------------------------
+ 
  
 
 Containers best practices

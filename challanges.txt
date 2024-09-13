@@ -1,5 +1,4 @@
-Reduce build time duration from 5mins to 1min 30secs
-
+Reduce build time
 𝗜𝗻𝘀𝘁𝗲𝗮𝗱 𝗼𝗳 𝗱𝗼𝗶𝗻𝗴 𝘁𝗵𝗶𝘀:
 
 - Install build essentials
@@ -12,4 +11,15 @@ Reduce build time duration from 5mins to 1min 30secs
 - 𝘾𝙖𝙘𝙝𝙚 𝙙𝙚𝙥𝙚𝙣𝙙𝙚𝙣𝙘𝙞𝙚𝙨
 - Install dependencies
 - Run application script
--------------------
+------------------
+Below Errors..
+
+imagePullBackOff --> your k8s node is unable to pull the image
+(Version is wrong,repository name r address,Connection cut issue/network. We have to check image address)
+
+crashLoopBackoff --> pod is not able to run... if Backend is not able to connect DB
+(crash... we need to check logs)
+
+pending --> PV and PVC setup and config are not proper. pod is not able to mount the volume.
+(We have to describe and check logs)
+------------------
