@@ -353,3 +353,79 @@ Ans:
 To ignore certain files or directories while creating a Docker image using a Dockerfile, you can use a special file called .dockerignore. This file works similarly to a .gitignore file, specifying patterns that match files and directories that should be excluded from the Docker build context.
 
 -------------------------
+
+How you will change AWS certificate?
+Security group vs NACL?
+How many EC2 instances types?
+Which type of instance is using in your project?
+Which instance is more costly?
+S3 types?
+Diaster recovery process?
+For which purpose you will use AWS Lambda in your project?
+IAM roles and policies?
+What is high avaibility?
+What is CDN?
+What is ALB and NLB?
+How to give specific access to users?
+
+
+
+What is terraform?
+what is .tffile in terraform?
+what is .tfstate file in terraform?
+What is provisioners in terraform?
+what is provisioners in terraform?
+Which version using in terraform?
+If .tfstate file lost how to get recover?
+terraform commands?
+
+
+Jenkins stages?
+If Jenkins pipeline failed whats your action?
+Jenkins port number?
+SAST and DAST
+In Jenkins while doing build it will take 5mins how can we reduce?
+What is jenkins agent?
+What is shared libraries?
+Jenkins Pipeline syntax?
+
+
+What is docker file and docker image?
+What is bare minimum OS?
+What is RUN, CMD, COPY, ENTRYPOINT?
+What are the steps for docker image?
+Which docker commands using  in your project?
+Docker architecture?
+How can you access docker container from outside?
+If docker Image got failed what you will do?
+How docker images will scan automatically?
+How can you secure docker image?
+What you will do to reduce the image size?
+
+
+K8s architecture?
+what is etcd?
+How many pods we can run in each worker node?
+How to access database from K8s?
+What is imagePullBackOff error? What actions you will take for this case?
+What is 404 and 505 errors?
+What is replicaset in K8s?
+What is HPA and vertical autoscaling?
+what is PBD in K8s????
+In K8s one pod getting failed and not getting restart again? What actions will take?
+What is helm charts?
+
+What is promotheus and grafana?
+What is alert manager?
+What is ARGOCD?
+In grafana KPIs are not updating what you will do?
+How do you reduce cost in your project?
+what is ansible playbook vs Play
+What is nexus artifactory?
+Deployment process
+
+From below var1 and var2, write a program to get 'Monitor' in Var1 and 'CD' in var2
+var1='CD', 'FLOPPY", 'CPU' var2='Monitor','Mouse'
+
+
+g
