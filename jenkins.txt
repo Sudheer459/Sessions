@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> fcd74e9f2ea80cc3f9a4fb8e9dd10faa0d5dc470
 Jenkins
 ----------------
 CI - Continious integration (Build, clone, scan, Compile, test)
@@ -130,7 +134,11 @@ nodejs
 package.JSON
 
 NodeJs build file -- node js code and node modules
+<<<<<<< HEAD
 Every version should have a seperate artifact/Zip file/build file.
+=======
+Every version should have a seperate artifact/zi[ file/build file.
+>>>>>>> fcd74e9f2ea80cc3f9a4fb8e9dd10faa0d5dc470
 
 backend-1.0.0.Zip
 backend-1.1.0.zip

@@ -193,6 +193,7 @@ cross-account access policy:
 A cross-account policy in AWS allows one AWS account to access resources
  (like S3 buckets, EC2 instances, etc.) in another AWS account.
 Cross-account policy means resource-based policy
+<<<<<<< HEAD
 ------------------------------------
 
 How do `𝗴𝗶𝘁 𝗺𝗲𝗿𝗴𝗲` and `𝗴𝗶𝘁 𝗿𝗲𝗯𝗮𝘀𝗲` differ?
@@ -429,3 +430,6 @@ var1='CD', 'FLOPPY", 'CPU' var2='Monitor','Mouse'
 
 
 g
+=======
+------------------------------------
+>>>>>>> fcd74e9f2ea80cc3f9a4fb8e9dd10faa0d5dc470

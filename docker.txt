@@ -476,6 +476,7 @@ Dockes stores the images as layers.
 First instruction will be layer1 on top of layer1 it will run layer2 and it will store layer2
 and on top of layer2 it will run layer3 it will store layer3 as seperate.
 
+<<<<<<< HEAD
 --------------------
 📌 Docker Basics:
 - docker --version: Check Docker version.
@@ -519,3 +520,5 @@ and on top of layer2 it will run layer3 it will store layer3 as seperate.
 - docker inspect CONTAINER/IMAGE: Display detailed information.
 - docker logs CONTAINER: Fetch the logs of a container.
 - docker exec -it CONTAINER bash: Access a running container.
+=======
+>>>>>>> fcd74e9f2ea80cc3f9a4fb8e9dd10faa0d5dc470
