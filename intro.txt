@@ -35,11 +35,11 @@ we create volumes and attach them to DR Application servers and bring
 the application back with minimal downtime
 
 
-Using Jenkins and its shared libraries you have ensured that your application code is bug-free and secure too.
-Later on you build the image and push the image to a private ECR using Docker.
-Then using terraform you have created the necessary infrastructure such as a VPC, SGs, EKS, ALB, RDS, ACM, 
-Workstation etc for your application deployment.
-At last you have deployed the application to the EKS cluster.
+Using Jenkins and its shared libraries we have ensured that our application code is bug-free and secure too.
+Later on we build the image and push the image to a private ECR using Docker.
+Then using terraform we have created the necessary infrastructure such as a VPC, SGs, EKS, ALB, RDS, ACM, 
+Workstation etc for our application deployment.
+At last we have deployed the application to the EKS cluster.
 Hope this gives you a better understanding of how to integrate all the tools together.
 
 
