@@ -87,7 +87,7 @@ command eksctl create cluster --config-file=<filename>
 
 K8 resources
 ---------
-Namespace --> Isolated project where you can create resources related to your project.
+Namespace(Logical grouping) --> Isolated project where you can create resources related to your project.
 
 Basic syntax
 
@@ -96,6 +96,15 @@ apiVersion:
 metadata:
 
 spec:
+----------------
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: expense
+  labels: 
+    name: expense
+    environment: dev
+-------------------------------
 
 
 kubectl apply -f <filename.yaml>
@@ -240,7 +249,7 @@ Volumes in Kubernates
 	
 2. Google/microsoft drive
 
-EBS/EFS
+EBS/EFS	
 -------------
 1. HD should be as near as possible to the computer.
 2. Google drive, can be anywhere in the world. Network is used for file sharing. NFS(network file sharing)
@@ -889,17 +898,17 @@ Communications sent about cluster upgrade activity is started.
 
 3. Now upgrade your control plane
 
-If any issues in control plane/EKS then u r able to access your application r not?
-There is no relation application and EKS if any issue also we can access 
-BCZ LB always connected to nodegroup
-Unless nodes are down no issue for application
+If any issues in control plane/EKS then you are able to access your application or not?
+There is no relation b/w application and EKS if any issue also we can access 
+because LB always connected to nodegroup. Unless nodes are down no issue for application
 
 4. upgrade green node group also to 1.30
 5. Shift workloads from 1.29 node group to 1.30 node group
 6. Taint blue nodes(cordon blue nodes)
 7. Untaint green nodes
 8. Drain blue nodes
-Inform all stake holders, applications teams. Perform sanity checks/testing
+
+Inform all stake holders, applications teams. Perform sanity checks/testing(Application team will do)
 close the acivity.
 
 --------------------------------
